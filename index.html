@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AN PASS</title>
+
+  <!-- LECTOR QR -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
+
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f7f3ed; color: #292522; font-family: Arial, sans-serif; }
+    .app { width: 100%; max-width: 950px; margin: auto; padding: 28px 18px 60px; }
+    
+    header { text-align: center; margin-bottom: 28px; }
+    .logo { font-family: Georgia, serif; font-size: 44px; line-height: .8; letter-spacing: 3px; }
+    .logo span { font-size: 27px; letter-spacing: 6px; }
+    .subtitulo { margin-top: 18px; font-size: 10px; letter-spacing: 3px; color: #766b60; }
+
+    .resumen { display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin-bottom: 22px; }
+    .tarjeta { background: white; border: 1px solid #e7ded3; border-radius: 18px; padding: 22px 10px; text-align: center; box-shadow: 0 5px 18px rgba(70, 60, 50, .06); }
+    .tarjeta strong { display: block; font-family: Georgia, serif; font-size: 42px; margin-bottom: 8px; }
+    .tarjeta span { font-size: 10px; font-weight: bold; letter-spacing: 1px; }
+    .verde { background: #f0f4eb; }
+    .amarillo { background: #f8f0dc; }
+
+    .botonEscaner { width: 100%; border: 0; border-radius: 20px; padding: 28px; background: #292522; color: white; cursor: pointer; box-shadow: 0 8px 20px rgba(40, 35, 30, .12); }
+    .botonEscaner:hover { opacity: .92; }
+    .iconoCamara { font-size: 38px; margin-bottom: 8px; }
+    .botonEscaner strong { display: block; font-size: 18px; letter-spacing: 1px; }
+    .botonEscaner span { display: block; margin-top: 7px; color: #ddd5cd; font-size: 13px; }
+
+    #resultado { margin-top: 22px; }
+    .lector { background: white; border: 1px solid #e5ddd2; border-radius: 22px; padding: 22px; text-align: center; }
+    #lectorQR { width: 100%; max-width: 450px; margin: 20px auto; }
+
+    .pase { background: white; border: 1px solid #e5ddd2; border-radius: 22px; padding: 28px; text-align: center; }
+    .boleto { font-size: 48px; }
+    .pase h2 { font-family: Georgia, serif; font-size: 30px; margin: 10px 0; }
+    .estado { display: inline-block; padding: 9px 18px; border-radius: 20px; font-weight: bold; margin: 10px 0 20px; }
+    .valido { background: #dfe9d8; color: #52654b; }
+    .utilizado { background: #f4d9d5; color: #8b443b; }
+
+    .datosPase { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .dato { background: #f7f3ed; padding: 15px; border-radius: 14px; }
+    .dato strong { display: block; font-size: 28px; }
+    .dato small { font-size: 9px; font-weight: bold; }
+
+    .entrada { margin-top: 22px; background: #f7f3ed; padding: 20px; border-radius: 16px; }
+    .entrada input { width: 100%; padding: 15px; border: 1px solid #d8cec2; border-radius: 12px; font-size: 24px; text-align: center; background: white; }
+    .botonRegistro { width: 100%; margin-top: 12px; padding: 16px; border: 0; border-radius: 13px; background: #292522; color: white; font-size: 16px; font-weight: bold; cursor: pointer; }
+    .botonOtro { width: 100%; margin-top: 12px; padding: 14px; border: 1px solid #d8cec2; border-radius: 13px; background: white; font-size: 15px; cursor: pointer; }
+
+    h3.tituloLista { margin: 32px 0 12px; font-size: 13px; letter-spacing: 2px; }
+    .inputBuscador { width: 100%; padding: 14px 18px; border: 1px solid #e5ddd2; border-radius: 14px; font-size: 15px; background: white; outline: none; margin-bottom: 12px; }
+    .lista { background: white; border: 1px solid #e5ddd2; border-radius: 18px; overflow: hidden; }
+    .invitado { display: grid; grid-template-columns: 1.5fr 1fr 1fr 100px; gap: 10px; align-items: center; padding: 17px 20px; border-bottom: 1px solid #eee7df; cursor: pointer; }
+    .invitado b { font-size: 15px; }
+    .invitado span { font-size: 12px; color: #706860; }
+    .invitado em { font-style: normal; text-align: center; padding: 7px; border-radius: 20px; background: #dfe9d8; color: #52654b; font-size: 10px; font-weight: bold; }
+    .invitado em.parcial, .invitado em.pendiente { background: #f6e7c5; color: #8a6828; }
+    .invitado em.utilizado { background: #f4d9d5; color: #8b443b; }
+
+    .mensaje { background: white; border-radius: 20px; padding: 30px; text-align: center; }
+    .mensaje.exito { background: #dfe9d8; color: #52654b; }
+    .mensaje.error { background: #f4d9d5; color: #8b443b; }
+    .mensajeIcono { font-size: 50px; }
+    .botonMensaje { background: #292522; color: white; border: 0; border-radius: 12px; padding: 14px 24px; cursor: pointer; font-size: 15px; }
+
+    @media (max-width: 650px) {
+      .resumen { grid-template-columns: 1fr; }
+      .datosPase { grid-template-columns: repeat(3, 1fr); }
+      .invitado { grid-template-columns: 1fr 1fr; }
+      .invitado b, .invitado em { grid-column: 1 / -1; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app">
+  <header>
+    <div class="logo">AN<br><span>PASS</span></div>
+    <div class="subtitulo">CONTROL DE ACCESO</div>
+  </header>
+
+  <div class="resumen">
+    <div class="tarjeta"><strong id="autorizados">0</strong><span>PERSONAS AUTORIZADAS</span></div>
+    <div class="tarjeta verde"><strong id="ingresaron">0</strong><span>YA INGRESARON</span></div>
+    <div class="tarjeta amarillo"><strong id="faltan">0</strong><span>PERSONAS FALTANTES</span></div>
+  </div>
+
+  <button class="botonEscaner" id="botonEscanear">
+    <div class="iconoCamara">📷</div>
+    <strong>ESCANEAR PASE</strong>
+    <span>Toca para abrir el lector QR</span>
+  </button>
+
+  <div id="resultado">
+    <div class="mensaje">
+      <div class="mensajeIcono">🎟️</div>
+      <h2>AN PASS</h2>
+      <p>Listo para escanear un pase.</p>
+    </div>
+  </div>
+
+  <h3 class="tituloLista">INVITADOS</h3>
+  <input type="text" id="buscadorInvitados" class="inputBuscador" placeholder="🔍 Buscar invitado por nombre...">
+
+  <div class="lista" id="listaInvitados">
+    <div style="padding:25px; text-align:center;">Cargando invitados...</div>
+  </div>
+</div>
+
+<script>
+// URL de tu aplicación web conectada a Apps Script
+const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+
+let scanner = null;
+let todosLosInvitados = [];
+
+window.onload = function() {
+  cargarDatos();
+  document.getElementById('botonEscanear').addEventListener('click', iniciarEscaner);
+  document.getElementById('buscadorInvitados').addEventListener('input', filtrarYMostrarInvitados);
+};
+
+function solicitarAPI(accion, payload = {}) {
+  payload.accion = accion;
+  return fetch(URL_APPS_SCRIPT, {
+    method: 'POST',
+    mode: 'cors',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
+  }).then(res => res.json());
+}
+
+function cargarDatos() {
+  solicitarAPI('obtenerDatosPanel')
+    .then(mostrarDatos)
+    .catch(err => console.error(err));
+}
+
+function mostrarDatos(datos) {
+  if (!datos || !datos.ok) return;
+
+  const resumen = datos.resumen;
+  document.getElementById('autorizados').textContent = resumen.autorizadas;
+  document.getElementById('ingresaron').textContent = resumen.ingresaron;
+  document.getElementById('faltan').textContent = resumen.restantes;
+
+  todosLosInvitados = datos.invitados || [];
+  filtrarYMostrarInvitados();
+}
+
+function filtrarYMostrarInvitados() {
+  const termino = document.getElementById('buscadorInvitados').value.toLowerCase().trim();
+  const lista = document.getElementById('listaInvitados');
+  let html = '';
+
+  const invitadosFiltrados = todosLosInvitados.filter(inv => 
+    String(inv.invitado || '').toLowerCase().includes(termino)
+  );
+
+  invitadosFiltrados.forEach(inv => {
+    let estado = inv.estado;
+    let clase = '';
+    if (estado === 'PARCIAL') clase = 'parcial';
+    if (estado === 'PENDIENTE') clase = 'pendiente';
+    if (estado === 'UTILIZADO' || estado === 'COMPLETO') clase = 'utilizado';
+
+    html += `
+      <div class="invitado" onclick="consultarPase('${inv.codigo}')">
+        <b>${inv.invitado}</b>
+        <span>${inv.autorizadas} autorizadas</span>
+        <span>${inv.ingresaron} ingresaron</span>
+        <em class="${clase}">${estado}</em>
+      </div>
+    `;
+  });
+
+  lista.innerHTML = html || `<div style="padding:25px; text-align:center;">No se encontraron invitados.</div>`;
+}
+
+function iniciarEscaner() {
+  const resultado = document.getElementById('resultado');
+  resultado.innerHTML = `
+    <div class="lector">
+      <h2>ESCANEAR PASE</h2>
+      <p>Apunta la cámara al código QR.</p>
+      <div id="lectorQR"></div>
+    </div>
+  `;
+
+  if (scanner) {
+    try { scanner.clear(); } catch (e) {}
+    scanner = null;
+  }
+
+  scanner = new Html5QrcodeScanner('lectorQR', { fps: 10, qrbox: 250 });
+  scanner.render(codigoDetectado);
+}
+
+function codigoDetectado(codigo) {
+  if (scanner) {
+    try { scanner.clear(); } catch (e) {}
+    scanner = null;
+  }
+
+  let codigoPase = String(codigo).trim();
+  try {
+    const url = new URL(codigoPase);
+    const parametro = url.searchParams.get('codigo');
+    if (parametro) codigoPase = parametro.trim();
+  } catch (e) {}
+
+  consultarPase(codigoPase);
+}
+
+function consultarPase(codigo) {
+  const resultado = document.getElementById('resultado');
+  resultado.innerHTML = `
+    <div class="mensaje">
+      <div class="mensajeIcono">🔎</div>
+      <h2>CONSULTANDO...</h2>
+      <p>Código: <b>${codigo}</b></p>
+    </div>
+  `;
+
+  solicitarAPI('buscarPase', { codigo: codigo })
+    .then(res => {
+      if (res.ok) mostrarPase(res.pase);
+      else mostrarError(res.mensaje);
+    })
+    .catch(() => mostrarError('No se pudo consultar el pase.'));
+}
+
+function mostrarPase(pase) {
+  const resultado = document.getElementById('resultado');
+  if (!pase) { mostrarError('Pase no encontrado.'); return; }
+
+  const valido = Number(pase.restantes) > 0;
+
+  resultado.innerHTML = `
+    <div class="pase">
+      <div class="boleto">🎟️</div>
+      <h2>${pase.invitado}</h2>
+      <p>Código: <b>${pase.codigo}</b></p>
+      <div class="estado ${valido ? 'valido' : 'utilizado'}">
+        ${valido ? '🟢 PASE VÁLIDO' : '🔴 PASE UTILIZADO'}
+      </div>
+      <div class="datosPase">
+        <div class="dato"><strong>${pase.autorizadas}</strong><small>AUTORIZADAS</small></div>
+        <div class="dato"><strong>${pase.ingresaron}</strong><small>INGRESARON</small></div>
+        <div class="dato"><strong>${pase.restantes}</strong><small>RESTANTES</small></div>
+      </div>
+      ${valido ? `
+        <div class="entrada">
+          <h3>¿Cuántas personas están entrando?</h3>
+          <input id="cantidadEntrada" type="number" min="1" max="${pase.restantes}" value="1">
+          <button class="botonRegistro" id="botonRegistrar">✅ REGISTRAR ENTRADA</button>
+        </div>
+      ` : ''}
+      <button class="botonOtro" id="botonOtro">📷 ESCANEAR OTRO PASE</button>
+    </div>
+  `;
+
+  document.getElementById('botonOtro').addEventListener('click', iniciarEscaner);
+
+  if (valido) {
+    document.getElementById('botonRegistrar').addEventListener('click', function() {
+      const cantidad = Number(document.getElementById('cantidadEntrada').value);
+      registrarEntrada(pase.codigo, cantidad);
+    });
+  }
+}
+
+function registrarEntrada(codigo, cantidad) {
+  const resultado = document.getElementById('resultado');
+  resultado.innerHTML = `<div class="mensaje"><div class="mensajeIcono">⏳</div><h2>REGISTRANDO...</h2></div>`;
+
+  solicitarAPI('registrarEntrada', { codigo: codigo, cantidad: cantidad })
+    .then(respuesta => {
+      if (!respuesta || !respuesta.ok) {
+        mostrarError(respuesta?.mensaje || 'No se pudo registrar.');
+        return;
+      }
+      cargarDatos();
+      resultado.innerHTML = `
+        <div class="mensaje exito">
+          <div class="mensajeIcono">✅</div>
+          <h2>ENTRADA REGISTRADA</h2>
+          <p>${respuesta.mensaje}</p>
+          <button class="botonMensaje" id="nuevoPase">📷 ESCANEAR OTRO PASE</button>
+        </div>
+      `;
+      document.getElementById('nuevoPase').addEventListener('click', iniciarEscaner);
+    })
+    .catch(() => mostrarError('Error al registrar.'));
+}
+
+function mostrarError(mensaje) {
+  document.getElementById('resultado').innerHTML = `
+    <div class="mensaje error">
+      <div class="mensajeIcono">❌</div>
+      <h2>Ocurrió un problema</h2>
+      <p>${mensaje}</p>
+      <button class="botonMensaje" id="nuevoPase">📷 ESCANEAR OTRO PASE</button>
+    </div>
+  `;
+  document.getElementById('nuevoPase').addEventListener('click', iniciarEscaner);
+}
+</script>
+</body>
+</html>
