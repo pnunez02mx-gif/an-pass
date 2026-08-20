@@ -23,7 +23,7 @@ body{
 
   background:#f7f3ed;
 
-  color:#292522;
+  color:var(--color-evento);
 
   font-family:Arial,sans-serif;
 
@@ -94,9 +94,9 @@ header{
 
 .tarjeta{
 
-  background:white;
+  background:var(--color-fondo, white);
 
-  border:1px solid #e5ddd2;
+  border:1px solid var(--color-evento, #e5ddd2);
 
   border-radius:22px;
 
@@ -223,7 +223,7 @@ header{
 
   padding:16px;
 
-  background:#292522;
+  background:var(--color-boton);
 
   color:white;
 
@@ -309,7 +309,7 @@ header{
 
  padding:5px 0;
 
- border-bottom:1px solid #e5ddd2;
+ border-bottom:1px solid var(--color-evento, #e5ddd2);
 
  font-size:13px;
 
