@@ -12,10 +12,11 @@
 
 <title>AN PASS - Confirmación</title>
 
+
 <style>
 
 /* =====================================================
-   CONFIGURACIÓN GENERAL
+   GENERAL
    ===================================================== */
 
 *{
@@ -30,6 +31,8 @@ body{
 }
 
 body{
+
+  margin:0;
 
   background:#f7f3ed;
 
@@ -46,7 +49,7 @@ body{
 
 
 /* =====================================================
-   CONTENEDOR PRINCIPAL
+   CONTENEDOR
    ===================================================== */
 
 .app{
@@ -146,7 +149,7 @@ header{
 
 
 /* =====================================================
-   NOMBRE DE LA FAMILIA
+   NOMBRE
    ===================================================== */
 
 .nombreFamilia{
@@ -161,9 +164,7 @@ header{
   line-height:1.2;
 
   margin:
-    5px
-    0
-    10px;
+    5px 0 10px;
 
   color:#292522;
 
@@ -182,13 +183,11 @@ header{
 
   line-height:1.5;
 
-  margin-bottom:4px;
-
 }
 
 
 /* =====================================================
-   CANTIDAD DE PASES
+   PASES DISPONIBLES
    ===================================================== */
 
 .cantidad{
@@ -263,8 +262,6 @@ header{
 
   color:#292522;
 
-  letter-spacing:.2px;
-
 }
 
 .campo input{
@@ -273,7 +270,7 @@ header{
 
   width:100%;
 
-  min-height:46px;
+  height:46px;
 
   padding:
     12px
@@ -298,9 +295,9 @@ header{
 
   outline:none;
 
-  transition:
-    border-color .2s,
-    box-shadow .2s;
+  -webkit-appearance:none;
+
+  appearance:none;
 
 }
 
@@ -322,33 +319,59 @@ header{
 
 
 /* =====================================================
-   BOTÓN DE CONFIRMACIÓN
+   ZONA DEL BOTÓN
    ===================================================== */
 
-.boton{
+#zonaBoton{
 
   display:block;
 
   width:100%;
 
-  min-height:50px;
+  min-height:52px;
 
-  margin:
-    22px
-    0
-    2px;
+  margin-top:22px;
+
+}
+
+
+/* =====================================================
+   BOTÓN CONFIRMAR
+   ===================================================== */
+
+button.boton{
+
+  display:block !important;
+
+  visibility:visible !important;
+
+  opacity:1 !important;
+
+  position:relative;
+
+  z-index:20;
+
+  width:100% !important;
+
+  min-width:100%;
+
+  height:52px;
+
+  margin:0 !important;
 
   padding:
     15px
     18px;
 
-  border:none;
+  border:none !important;
+
+  outline:none;
 
   border-radius:13px;
 
-  background:#292522;
+  background:#292522 !important;
 
-  color:#ffffff;
+  color:#ffffff !important;
 
   font-family:
     Arial,
@@ -361,38 +384,35 @@ header{
 
   letter-spacing:.4px;
 
+  line-height:normal;
+
   text-align:center;
 
   cursor:pointer;
 
-  appearance:none;
+  box-shadow:none;
 
   -webkit-appearance:none;
 
-  box-shadow:none;
-
-  transition:
-    transform .15s,
-    background .15s,
-    opacity .15s;
+  appearance:none;
 
 }
 
-.boton:hover{
+button.boton:hover{
 
-  background:#3b3632;
+  background:#3a3531 !important;
 
 }
 
-.boton:active{
+button.boton:active{
 
   transform:scale(.98);
 
 }
 
-.boton:disabled{
+button.boton:disabled{
 
-  opacity:.6;
+  opacity:.6 !important;
 
   cursor:not-allowed;
 
@@ -433,8 +453,7 @@ header{
   color:#292522;
 
   margin:
-    10px
-    0;
+    10px 0;
 
 }
 
@@ -450,7 +469,7 @@ header{
 
 
 /* =====================================================
-   LISTA DE INVITADOS CONFIRMADOS
+   LISTA DE INVITADOS
    ===================================================== */
 
 .listaNombres{
@@ -509,9 +528,7 @@ header{
 h3{
 
   margin:
-    25px
-    0
-    5px;
+    25px 0 5px;
 
   font-family:
     Georgia,
@@ -528,40 +545,14 @@ h3{
 
 .qr{
 
+  display:block;
+
   width:220px;
 
   height:220px;
 
   margin:
-    15px
-    auto;
-
-  display:block;
-
-  background:#ffffff;
-
-}
-
-
-/* =====================================================
-   TEXTO DEL CÓDIGO
-   ===================================================== */
-
-.tarjeta > p{
-
-  color:#706860;
-
-  font-size:12px;
-
-  line-height:1.5;
-
-}
-
-.tarjeta > p b{
-
-  color:#292522;
-
-  letter-spacing:1px;
+    15px auto;
 
 }
 
@@ -629,25 +620,6 @@ h3{
 
 }
 
-
-/* =====================================================
-   EVITAR AUTOCOMPLETADO AZUL DEL NAVEGADOR
-   ===================================================== */
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus{
-
-  -webkit-text-fill-color:#292522;
-
-  transition:
-    background-color
-    5000s
-    ease-in-out
-    0s;
-
-}
-
 </style>
 
 </head>
@@ -681,7 +653,6 @@ input:-webkit-autofill:focus{
     </div>
 
   </header>
-
 
 
   <!-- =================================================
@@ -744,12 +715,15 @@ String(
 
 
 // =====================================================
-// API
+// CONEXIÓN CON GOOGLE APPS SCRIPT
 // =====================================================
 
 function solicitarAPI(
+
   accion,
+
   datos={}
+
 ){
 
   datos.accion =
@@ -784,8 +758,11 @@ function solicitarAPI(
   )
 
   .then(
+
     respuesta =>
+
       respuesta.json()
+
   );
 
 }
@@ -798,8 +775,11 @@ function solicitarAPI(
 function escapar(texto){
 
   if(
+
     texto === null ||
+
     texto === undefined
+
   ){
 
     return '';
@@ -845,8 +825,11 @@ window.onload =
 function(){
 
   if(
+
     !codigo ||
+
     !evento
+
   ){
 
     mostrarError(
@@ -886,14 +869,19 @@ function cargarInvitacion(){
 
     function(datos){
 
+
       if(
+
         !datos ||
+
         !datos.ok
+
       ){
 
         mostrarError(
 
           datos?.mensaje ||
+
           'La invitación no existe.'
 
         );
@@ -904,8 +892,8 @@ function cargarInvitacion(){
 
 
       /*
-       * Si la invitación ya está confirmada,
-       * mostramos directamente el pase QR.
+       * Si ya fue confirmada,
+       * mostrar directamente el pase QR.
        */
 
       if(
@@ -961,15 +949,17 @@ function cargarInvitacion(){
 // =====================================================
 
 function mostrarFormulario(
+
   datos
+
 ){
 
   let campos = '';
 
 
   /*
-   * Genera automáticamente
-   * un campo por cada pase.
+   * Crear los campos
+   * según el número de pases.
    */
 
   for(
@@ -987,14 +977,22 @@ function mostrarFormulario(
       <div class="campo">
 
         <label>
+
           NOMBRE DEL INVITADO ${i}
+
         </label>
 
+
         <input
+
           id="nombre${i}"
+
           type="text"
+
           placeholder="Nombre completo"
+
           autocomplete="name"
+
         >
 
       </div>
@@ -1003,6 +1001,18 @@ function mostrarFormulario(
 
   }
 
+
+  /*
+   * Construimos la tarjeta.
+   *
+   * IMPORTANTE:
+   *
+   * Aquí NO ponemos directamente
+   * el botón dentro del innerHTML.
+   *
+   * Dejamos una zona vacía
+   * llamada zonaBoton.
+   */
 
   document
     .getElementById('contenido')
@@ -1047,23 +1057,7 @@ function mostrarFormulario(
         ${campos}
 
 
-        <!-- =========================================
-             BOTÓN
-             ========================================= -->
-
-        <button
-
-          type="button"
-
-          class="boton"
-
-          id="btnConfirmar"
-
-        >
-
-          CONFIRMAR ASISTENCIA
-
-        </button>
+        <div id="zonaBoton"></div>
 
 
       </div>
@@ -1071,24 +1065,69 @@ function mostrarFormulario(
     `;
 
 
-  /*
-   * Conectamos el botón con la función.
-   */
+  // ===================================================
+  // CREAR BOTÓN FÍSICAMENTE
+  // ===================================================
 
-  const boton =
+  const zonaBoton =
     document.getElementById(
-      'btnConfirmar'
+      'zonaBoton'
     );
 
 
-  if(boton){
+  if(!zonaBoton){
 
-    boton.addEventListener(
-      'click',
-      confirmar
+    console.error(
+      'No se encontró zonaBoton.'
     );
+
+    return;
 
   }
+
+
+  const boton =
+    document.createElement(
+      'button'
+    );
+
+
+  boton.type =
+    'button';
+
+
+  boton.id =
+    'btnConfirmar';
+
+
+  boton.className =
+    'boton';
+
+
+  boton.textContent =
+    'CONFIRMAR ASISTENCIA';
+
+
+  /*
+   * Agregar botón a la tarjeta.
+   */
+
+  zonaBoton.appendChild(
+    boton
+  );
+
+
+  /*
+   * Activar botón.
+   */
+
+  boton.addEventListener(
+
+    'click',
+
+    confirmar
+
+  );
 
 }
 
@@ -1103,8 +1142,7 @@ function confirmar(){
 
 
   /*
-   * Recorremos los campos
-   * hasta encontrar todos los nombres.
+   * Buscar todos los campos.
    */
 
   for(
@@ -1118,8 +1156,11 @@ function confirmar(){
   ){
 
     const campo =
+
       document.getElementById(
+
         'nombre' + i
+
       );
 
 
@@ -1131,14 +1172,22 @@ function confirmar(){
 
 
     const nombre =
+
       campo.value.trim();
 
+
+    /*
+     * No permitir nombres vacíos.
+     */
 
     if(!nombre){
 
       alert(
+
         'Escribe todos los nombres antes de confirmar.'
+
       );
+
 
       campo.focus();
 
@@ -1155,12 +1204,13 @@ function confirmar(){
 
 
   /*
-   * Debe existir al menos
-   * un invitado.
+   * Seguridad.
    */
 
   if(
+
     nombres.length === 0
+
   ){
 
     alert(
@@ -1173,18 +1223,23 @@ function confirmar(){
 
 
   const boton =
+
     document.getElementById(
+
       'btnConfirmar'
+
     );
 
 
   /*
-   * Evita dobles clics.
+   * Desactivar mientras
+   * se guarda la información.
    */
 
   if(boton){
 
-    boton.disabled = true;
+    boton.disabled =
+      true;
 
     boton.textContent =
       'CONFIRMANDO...';
@@ -1193,8 +1248,8 @@ function confirmar(){
 
 
   /*
-   * Enviamos la confirmación
-   * al Google Apps Script.
+   * Enviar información
+   * a Google Apps Script.
    */
 
   solicitarAPI(
@@ -1217,14 +1272,17 @@ function confirmar(){
 
     function(respuesta){
 
+
       /*
-       * Si otra persona ya confirmó
-       * este pase.
+       * Ya había sido confirmado.
        */
 
       if(
+
         respuesta &&
+
         respuesta.yaConfirmado
+
       ){
 
         cargarInvitacion();
@@ -1235,17 +1293,21 @@ function confirmar(){
 
 
       /*
-       * Error del servidor.
+       * Error.
        */
 
       if(
+
         !respuesta ||
+
         !respuesta.ok
+
       ){
 
         alert(
 
           respuesta?.mensaje ||
+
           'No se pudo confirmar.'
 
         );
@@ -1267,7 +1329,7 @@ function confirmar(){
 
 
       /*
-       * Mostrar pase final.
+       * Mostrar pase QR.
        */
 
       mostrarConfirmacion({
@@ -1296,6 +1358,7 @@ function confirmar(){
 
       console.error(error);
 
+
       alert(
         'Error al confirmar.'
       );
@@ -1319,11 +1382,13 @@ function confirmar(){
 
 
 // =====================================================
-// MOSTRAR CONFIRMACIÓN EXISTENTE
+// CONFIRMACIÓN EXISTENTE
 // =====================================================
 
 function mostrarConfirmacionExistente(
+
   datos
+
 ){
 
   mostrarConfirmacion({
@@ -1350,17 +1415,20 @@ function mostrarConfirmacionExistente(
 // =====================================================
 
 function mostrarConfirmacion(
+
   datos
+
 ){
 
   let lista = '';
 
 
   /*
-   * Crear lista de invitados.
+   * Crear lista de nombres.
    */
 
   (datos.nombres || [])
+
     .forEach(
 
       function(nombre){
@@ -1381,8 +1449,7 @@ function mostrarConfirmacion(
 
 
   /*
-   * Crear QR usando el código
-   * único de la invitación.
+   * Crear URL del QR.
    */
 
   const qrURL =
@@ -1392,12 +1459,20 @@ function mostrarConfirmacion(
     +
 
     encodeURIComponent(
+
       datos.codigo
+
     );
 
 
+  /*
+   * Mostrar pase final.
+   */
+
   document
+
     .getElementById('contenido')
+
     .innerHTML = `
 
       <div class="tarjeta">
@@ -1492,15 +1567,19 @@ function mostrarConfirmacion(
 
 
 // =====================================================
-// MOSTRAR ERROR
+// ERROR
 // =====================================================
 
 function mostrarError(
+
   mensaje
+
 ){
 
   document
+
     .getElementById('contenido')
+
     .innerHTML = `
 
       <div class="tarjeta">
@@ -1541,6 +1620,7 @@ function mostrarError(
 
 
 </script>
+
 
 </body>
 
