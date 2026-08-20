@@ -986,7 +986,32 @@ ${escapar(nombre)}
 
 );
 
+// APLICAR DISEÑO DEL EVENTO
 
+if(datos.colorFondo){
+
+  document.body.style.backgroundColor =
+    datos.colorFondo;
+
+}
+
+if(datos.colorBoton){
+
+  document.documentElement.style.setProperty(
+    '--color-boton',
+    datos.colorBoton
+  );
+
+}
+
+if(datos.color){
+
+  document.documentElement.style.setProperty(
+    '--color-evento',
+    datos.color
+  );
+
+}
 
 
 
@@ -1027,10 +1052,19 @@ document
 </div>
 
 
+<h3 style="
+font-family:Georgia,serif;
+color:var(--color-evento,#292522);
+margin-top:10px;
+">
+
+${escapar(datos.evento || '')}
+
+</h3>
+
+
 <h2>
-
 ¡Asistencia confirmada!
-
 </h2>
 
 
