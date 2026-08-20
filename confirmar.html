@@ -5,30 +5,49 @@
 
 <meta charset="UTF-8">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1"
+>
 
 <title>AN PASS - Confirmación</title>
 
-
 <style>
+
+/* =====================================================
+   CONFIGURACIÓN GENERAL
+   ===================================================== */
 
 *{
   box-sizing:border-box;
 }
 
+html,
+body{
+  margin:0;
+  padding:0;
+  min-height:100%;
+}
 
 body{
 
-  margin:0;
-
   background:#f7f3ed;
 
-  color:var(--color-evento);
+  color:#292522;
 
-  font-family:Arial,sans-serif;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
+  -webkit-font-smoothing:antialiased;
 
 }
 
+
+/* =====================================================
+   CONTENEDOR PRINCIPAL
+   ===================================================== */
 
 .app{
 
@@ -36,27 +55,34 @@ body{
 
   max-width:500px;
 
-  margin:auto;
+  margin:0 auto;
 
-  padding:30px 18px 60px;
+  padding:
+    28px
+    18px
+    60px;
 
 }
 
 
+/* =====================================================
+   ENCABEZADO
+   ===================================================== */
 
 header{
 
   text-align:center;
 
-  margin-bottom:25px;
+  margin-bottom:24px;
 
 }
 
-
-
 .logo{
 
-  font-family:Georgia,serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:32px;
 
@@ -64,8 +90,9 @@ header{
 
   letter-spacing:3px;
 
-}
+  color:#292522;
 
+}
 
 .logo span{
 
@@ -74,8 +101,6 @@ header{
   letter-spacing:6px;
 
 }
-
-
 
 .subtitulo{
 
@@ -90,37 +115,64 @@ header{
 }
 
 
-
+/* =====================================================
+   TARJETA
+   ===================================================== */
 
 .tarjeta{
 
-  background:var(--color-fondo, white);
+  width:100%;
 
-  border:1px solid var(--color-evento, #e5ddd2);
+  background:#ffffff;
+
+  border:
+    1px solid
+    #e5ddd2;
 
   border-radius:22px;
 
-  padding:25px 18px;
+  padding:
+    25px
+    18px
+    22px;
 
-  box-shadow:0 5px 18px rgba(70,60,50,.07);
+  box-shadow:
+    0 5px 18px
+    rgba(70,60,50,.07);
 
   text-align:center;
 
 }
 
 
+/* =====================================================
+   NOMBRE DE LA FAMILIA
+   ===================================================== */
 
 .nombreFamilia{
 
-  font-family:Georgia,serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:27px;
 
-  margin:5px 0 10px;
+  line-height:1.2;
+
+  margin:
+    5px
+    0
+    10px;
+
+  color:#292522;
 
 }
 
 
+/* =====================================================
+   DESCRIPCIÓN
+   ===================================================== */
 
 .descripcion{
 
@@ -130,9 +182,14 @@ header{
 
   line-height:1.5;
 
+  margin-bottom:4px;
+
 }
 
 
+/* =====================================================
+   CANTIDAD DE PASES
+   ===================================================== */
 
 .cantidad{
 
@@ -146,21 +203,28 @@ header{
 
 }
 
-
-
 .cantidad strong{
 
   display:block;
 
-  font-family:Georgia,serif;
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
 
   font-size:38px;
 
+  line-height:1;
+
+  color:#292522;
+
 }
 
-
-
 .cantidad small{
+
+  display:block;
+
+  margin-top:6px;
 
   font-size:9px;
 
@@ -168,20 +232,24 @@ header{
 
   letter-spacing:1px;
 
+  color:#292522;
+
 }
 
 
-
+/* =====================================================
+   CAMPOS
+   ===================================================== */
 
 .campo{
 
+  width:100%;
+
   text-align:left;
 
-  margin-bottom:13px;
+  margin-bottom:14px;
 
 }
-
-
 
 .campo label{
 
@@ -193,139 +261,394 @@ header{
 
   margin-bottom:6px;
 
+  color:#292522;
+
+  letter-spacing:.2px;
+
 }
-
-
 
 .campo input{
 
+  display:block;
+
   width:100%;
 
-  padding:13px;
+  min-height:46px;
 
-  border:1px solid #ddd3c7;
+  padding:
+    12px
+    13px;
+
+  border:
+    1px solid
+    #ddd3c7;
 
   border-radius:12px;
 
+  background:#ffffff;
+
+  color:#292522;
+
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
+
   font-size:14px;
+
+  outline:none;
+
+  transition:
+    border-color .2s,
+    box-shadow .2s;
+
+}
+
+.campo input:focus{
+
+  border-color:#8b8177;
+
+  box-shadow:
+    0 0 0 3px
+    rgba(118,107,96,.10);
+
+}
+
+.campo input::placeholder{
+
+  color:#aaa29a;
 
 }
 
 
+/* =====================================================
+   BOTÓN DE CONFIRMACIÓN
+   ===================================================== */
 
 .boton{
 
+  display:block;
+
   width:100%;
 
-  border:0;
+  min-height:50px;
+
+  margin:
+    22px
+    0
+    2px;
+
+  padding:
+    15px
+    18px;
+
+  border:none;
 
   border-radius:13px;
 
-  padding:16px;
+  background:#292522;
 
-  background:var(--color-boton);
+  color:#ffffff;
 
-  color:white;
+  font-family:
+    Arial,
+    Helvetica,
+    sans-serif;
 
   font-size:14px;
 
   font-weight:bold;
 
+  letter-spacing:.4px;
+
+  text-align:center;
+
+  cursor:pointer;
+
+  appearance:none;
+
+  -webkit-appearance:none;
+
+  box-shadow:none;
+
+  transition:
+    transform .15s,
+    background .15s,
+    opacity .15s;
+
 }
 
+.boton:hover{
 
+  background:#3b3632;
+
+}
+
+.boton:active{
+
+  transform:scale(.98);
+
+}
 
 .boton:disabled{
 
- opacity:.6;
+  opacity:.6;
+
+  cursor:not-allowed;
+
+  transform:none;
 
 }
 
 
-
-.icono{
-
- font-size:52px;
-
-}
-
-
+/* =====================================================
+   MENSAJES
+   ===================================================== */
 
 .mensaje{
 
- text-align:center;
+  text-align:center;
 
- padding:15px;
+  padding:15px;
+
+}
+
+.icono{
+
+  font-size:52px;
+
+  line-height:1;
+
+  margin-bottom:10px;
+
+}
+
+.mensaje h2{
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  color:#292522;
+
+  margin:
+    10px
+    0;
+
+}
+
+.mensaje p{
+
+  color:#706860;
+
+  font-size:13px;
+
+  line-height:1.5;
 
 }
 
 
-
-.qr{
-
- width:220px;
-
- height:220px;
-
- margin:15px auto;
-
- display:block;
-
-}
-
-
+/* =====================================================
+   LISTA DE INVITADOS CONFIRMADOS
+   ===================================================== */
 
 .listaNombres{
 
- background:#f7f3ed;
+  background:#f7f3ed;
 
- border-radius:15px;
+  border-radius:15px;
 
- padding:15px;
+  padding:15px;
 
- margin-top:20px;
+  margin-top:20px;
 
- text-align:left;
+  text-align:left;
 
 }
-
-
 
 .listaNombres strong{
 
- display:block;
+  display:block;
 
- font-size:10px;
+  font-size:10px;
 
- letter-spacing:1px;
+  letter-spacing:1px;
 
- margin-bottom:10px;
+  margin-bottom:10px;
+
+  color:#292522;
 
 }
-
-
 
 .listaNombres div{
 
- padding:5px 0;
+  padding:7px 0;
 
- border-bottom:1px solid var(--color-evento, #e5ddd2);
+  border-bottom:
+    1px solid
+    #e5ddd2;
 
- font-size:13px;
+  font-size:13px;
+
+  color:#292522;
+
+}
+
+.listaNombres div:last-child{
+
+  border-bottom:none;
 
 }
 
 
+/* =====================================================
+   QR
+   ===================================================== */
+
+h3{
+
+  margin:
+    25px
+    0
+    5px;
+
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:18px;
+
+  font-weight:normal;
+
+  color:#292522;
+
+}
+
+.qr{
+
+  width:220px;
+
+  height:220px;
+
+  margin:
+    15px
+    auto;
+
+  display:block;
+
+  background:#ffffff;
+
+}
+
+
+/* =====================================================
+   TEXTO DEL CÓDIGO
+   ===================================================== */
+
+.tarjeta > p{
+
+  color:#706860;
+
+  font-size:12px;
+
+  line-height:1.5;
+
+}
+
+.tarjeta > p b{
+
+  color:#292522;
+
+  letter-spacing:1px;
+
+}
+
+
+/* =====================================================
+   ERROR
+   ===================================================== */
 
 .error{
 
- color:#8b443b;
+  color:#8b443b;
+
+}
+
+.error h2{
+
+  color:#8b443b;
 
 }
 
 
-</style>
+/* =====================================================
+   CELULARES PEQUEÑOS
+   ===================================================== */
 
+@media(max-width:380px){
+
+  .app{
+
+    padding:
+      22px
+      14px
+      45px;
+
+  }
+
+  .tarjeta{
+
+    padding:
+      22px
+      15px
+      20px;
+
+  }
+
+  .nombreFamilia{
+
+    font-size:24px;
+
+  }
+
+  .cantidad strong{
+
+    font-size:34px;
+
+  }
+
+  .qr{
+
+    width:200px;
+
+    height:200px;
+
+  }
+
+}
+
+
+/* =====================================================
+   EVITAR AUTOCOMPLETADO AZUL DEL NAVEGADOR
+   ===================================================== */
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus{
+
+  -webkit-text-fill-color:#292522;
+
+  transition:
+    background-color
+    5000s
+    ease-in-out
+    0s;
+
+}
+
+</style>
 
 </head>
 
@@ -336,43 +659,56 @@ header{
 <div class="app">
 
 
-<header>
+  <!-- =================================================
+       ENCABEZADO
+       ================================================= -->
 
-<div class="logo">
-AN<br>
-<span>PASS</span>
+  <header>
+
+    <div class="logo">
+
+      AN<br>
+
+      <span>PASS</span>
+
+    </div>
+
+
+    <div class="subtitulo">
+
+      CONFIRMACIÓN DE ASISTENCIA
+
+    </div>
+
+  </header>
+
+
+
+  <!-- =================================================
+       CONTENIDO
+       ================================================= -->
+
+  <div id="contenido">
+
+    <div class="tarjeta">
+
+      <div class="mensaje">
+
+        Cargando invitación...
+
+      </div>
+
+    </div>
+
+  </div>
+
+
 </div>
 
 
-<div class="subtitulo">
-CONFIRMACIÓN DE ASISTENCIA
-</div>
 
+<script>
 
-</header>
-
-
-
-<div id="contenido">
-
-
-<div class="tarjeta">
-
-<div class="mensaje">
-
-Cargando invitación...
-
-</div>
-
-</div>
-
-
-</div>
-
-
-</div>
-
-  <script>
 
 // =====================================================
 // CONFIGURACIÓN
@@ -407,7 +743,6 @@ String(
 .toUpperCase();
 
 
-
 // =====================================================
 // API
 // =====================================================
@@ -417,99 +752,115 @@ function solicitarAPI(
   datos={}
 ){
 
-datos.accion = accion;
+  datos.accion =
+    accion;
 
-datos.idEvento = evento;
+  datos.idEvento =
+    evento;
 
 
-return fetch(
-URL_APPS_SCRIPT,
-{
+  return fetch(
 
-method:'POST',
+    URL_APPS_SCRIPT,
 
-mode:'cors',
+    {
 
-headers:{
-'Content-Type':
-'text/plain;charset=utf-8'
-},
+      method:'POST',
 
-body:
-JSON.stringify(datos)
+      mode:'cors',
+
+      headers:{
+
+        'Content-Type':
+          'text/plain;charset=utf-8'
+
+      },
+
+      body:
+        JSON.stringify(datos)
+
+    }
+
+  )
+
+  .then(
+    respuesta =>
+      respuesta.json()
+  );
 
 }
-
-)
-
-.then(
-respuesta =>
-respuesta.json()
-);
-
-
-}
-
 
 
 // =====================================================
-// SEGURIDAD TEXTO
+// SEGURIDAD DE TEXTO
 // =====================================================
 
 function escapar(texto){
 
-if(
-texto===null ||
-texto===undefined
-){
+  if(
+    texto === null ||
+    texto === undefined
+  ){
 
-return '';
+    return '';
+
+  }
+
+
+  return String(texto)
+
+    .replace(
+      /&/g,
+      '&amp;'
+    )
+
+    .replace(
+      /</g,
+      '&lt;'
+    )
+
+    .replace(
+      />/g,
+      '&gt;'
+    )
+
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+
+    .replace(
+      /'/g,
+      '&#039;'
+    );
 
 }
-
-
-return String(texto)
-
-.replace(/&/g,'&amp;')
-
-.replace(/</g,'&lt;')
-
-.replace(/>/g,'&gt;')
-
-.replace(/"/g,'&quot;')
-
-.replace(/'/g,'&#039;');
-
-}
-
 
 
 // =====================================================
 // INICIO
 // =====================================================
 
-window.onload=function(){
+window.onload =
+function(){
+
+  if(
+    !codigo ||
+    !evento
+  ){
+
+    mostrarError(
+      'Código o evento incorrecto.'
+    );
+
+    return;
+
+  }
 
 
-if(
-!codigo ||
-!evento
-){
-
-mostrarError(
-'Código o evento incorrecto.'
-);
-
-return;
-
-}
-
-
-cargarInvitacion();
-
+  cargarInvitacion();
 
 };
-
 
 
 // =====================================================
@@ -518,99 +869,91 @@ cargarInvitacion();
 
 function cargarInvitacion(){
 
+  solicitarAPI(
 
-solicitarAPI(
+    'obtenerDatosConfirmacion',
 
-'obtenerDatosConfirmacion',
+    {
 
-{
-codigo:codigo
-}
+      codigo:
+        codigo
 
-)
+    }
 
+  )
 
-.then(
-function(datos){
+  .then(
 
+    function(datos){
 
+      if(
+        !datos ||
+        !datos.ok
+      ){
 
-if(
-!datos ||
-!datos.ok
-){
+        mostrarError(
 
-mostrarError(
-datos?.mensaje ||
-'La invitación no existe.'
-);
+          datos?.mensaje ||
+          'La invitación no existe.'
 
-return;
+        );
 
-}
+        return;
 
-
-
-// ===============================
-// AQUÍ ESTABA EL ERROR
-// ===============================
-// Si ya está confirmada,
-// NO mostramos formulario.
-// Mostramos QR.
+      }
 
 
-if(
-String(
-datos.confirmacion || ''
-)
-.toUpperCase()
-===
-'CONFIRMADO'
-){
+      /*
+       * Si la invitación ya está confirmada,
+       * mostramos directamente el pase QR.
+       */
+
+      if(
+
+        String(
+          datos.confirmacion || ''
+        )
+        .trim()
+        .toUpperCase()
+
+        ===
+
+        'CONFIRMADO'
+
+      ){
+
+        mostrarConfirmacionExistente(
+          datos
+        );
+
+        return;
+
+      }
 
 
-mostrarConfirmacionExistente(
-datos
-);
+      mostrarFormulario(
+        datos
+      );
 
+    }
 
-return;
+  )
 
+  .catch(
 
-}
+    function(error){
 
+      console.error(error);
 
+      mostrarError(
+        'No se pudo conectar con el sistema.'
+      );
 
+    }
 
-mostrarFormulario(
-datos
-);
-
-
-
-}
-
-)
-
-
-
-.catch(
-function(error){
-
-console.error(error);
-
-mostrarError(
-'No se pudo conectar con el sistema.'
-);
-
+  );
 
 }
-
-);
-
-
-}
-
 
 
 // =====================================================
@@ -618,130 +961,137 @@ mostrarError(
 // =====================================================
 
 function mostrarFormulario(
-datos
+  datos
 ){
 
-
-let campos='';
-
+  let campos = '';
 
 
-for(
-let i=1;
-i<=datos.personas;
-i++
-){
+  /*
+   * Genera automáticamente
+   * un campo por cada pase.
+   */
+
+  for(
+
+    let i = 1;
+
+    i <= Number(datos.personas);
+
+    i++
+
+  ){
+
+    campos += `
+
+      <div class="campo">
+
+        <label>
+          NOMBRE DEL INVITADO ${i}
+        </label>
+
+        <input
+          id="nombre${i}"
+          type="text"
+          placeholder="Nombre completo"
+          autocomplete="name"
+        >
+
+      </div>
+
+    `;
+
+  }
 
 
-campos += `
+  document
+    .getElementById('contenido')
+    .innerHTML = `
 
-<div class="campo">
-
-<label>
-NOMBRE DEL INVITADO ${i}
-</label>
+      <div class="tarjeta">
 
 
-<input
+        <div class="nombreFamilia">
 
-id="nombre${i}"
+          ${escapar(datos.invitado)}
 
-type="text"
-
-placeholder="Nombre completo"
-
-/>
+        </div>
 
 
-</div>
+        <div class="descripcion">
+
+          Nos dará mucho gusto contar contigo.
+          Por favor confirma quiénes asistirán.
+
+        </div>
 
 
-`;
+        <div class="cantidad">
 
+          <strong>
+
+            ${Number(datos.personas)}
+
+          </strong>
+
+
+          <small>
+
+            PASES DISPONIBLES
+
+          </small>
+
+        </div>
+
+
+        ${campos}
+
+
+        <!-- =========================================
+             BOTÓN
+             ========================================= -->
+
+        <button
+
+          type="button"
+
+          class="boton"
+
+          id="btnConfirmar"
+
+        >
+
+          CONFIRMAR ASISTENCIA
+
+        </button>
+
+
+      </div>
+
+    `;
+
+
+  /*
+   * Conectamos el botón con la función.
+   */
+
+  const boton =
+    document.getElementById(
+      'btnConfirmar'
+    );
+
+
+  if(boton){
+
+    boton.addEventListener(
+      'click',
+      confirmar
+    );
+
+  }
 
 }
 
-
-
-document
-.getElementById('contenido')
-.innerHTML = `
-
-
-<div class="tarjeta">
-
-
-<div class="nombreFamilia">
-
-${escapar(datos.invitado)}
-
-</div>
-
-
-
-<div class="descripcion">
-
-Nos dará mucho gusto contar contigo.
-Por favor confirma quiénes asistirán.
-
-</div>
-
-
-
-<div class="cantidad">
-
-<strong>
-
-${datos.personas}
-
-</strong>
-
-
-<small>
-
-PASES DISPONIBLES
-
-</small>
-
-
-</div>
-
-
-${campos}
-
-
-
-<button
-
-class="boton"
-
-id="btnConfirmar"
-
->
-
-CONFIRMAR ASISTENCIA
-
-</button>
-
-
-
-</div>
-
-
-`;
-
-
-
-document
-.getElementById('btnConfirmar')
-.addEventListener(
-'click',
-confirmar
-);
-
-
-
-}
 
 // =====================================================
 // CONFIRMAR ASISTENCIA
@@ -749,476 +1099,448 @@ confirmar
 
 function confirmar(){
 
-
-const nombres=[];
-
-
-for(
-let i=1;
-i<=100;
-i++
-){
+  const nombres = [];
 
 
-const campo =
-document.getElementById(
-'nombre'+i
-);
+  /*
+   * Recorremos los campos
+   * hasta encontrar todos los nombres.
+   */
+
+  for(
+
+    let i = 1;
+
+    i <= 100;
+
+    i++
+
+  ){
+
+    const campo =
+      document.getElementById(
+        'nombre' + i
+      );
 
 
-if(!campo)
-break;
+    if(!campo){
+
+      break;
+
+    }
 
 
-
-const nombre =
-campo.value.trim();
-
+    const nombre =
+      campo.value.trim();
 
 
-if(!nombre){
+    if(!nombre){
 
-alert(
-'Escribe todos los nombres antes de confirmar.'
-);
+      alert(
+        'Escribe todos los nombres antes de confirmar.'
+      );
 
-campo.focus();
+      campo.focus();
 
-return;
+      return;
+
+    }
+
+
+    nombres.push(
+      nombre
+    );
+
+  }
+
+
+  /*
+   * Debe existir al menos
+   * un invitado.
+   */
+
+  if(
+    nombres.length === 0
+  ){
+
+    alert(
+      'Agrega al menos un nombre.'
+    );
+
+    return;
+
+  }
+
+
+  const boton =
+    document.getElementById(
+      'btnConfirmar'
+    );
+
+
+  /*
+   * Evita dobles clics.
+   */
+
+  if(boton){
+
+    boton.disabled = true;
+
+    boton.textContent =
+      'CONFIRMANDO...';
+
+  }
+
+
+  /*
+   * Enviamos la confirmación
+   * al Google Apps Script.
+   */
+
+  solicitarAPI(
+
+    'confirmarAsistencia',
+
+    {
+
+      codigo:
+        codigo,
+
+      nombres:
+        nombres
+
+    }
+
+  )
+
+  .then(
+
+    function(respuesta){
+
+      /*
+       * Si otra persona ya confirmó
+       * este pase.
+       */
+
+      if(
+        respuesta &&
+        respuesta.yaConfirmado
+      ){
+
+        cargarInvitacion();
+
+        return;
+
+      }
+
+
+      /*
+       * Error del servidor.
+       */
+
+      if(
+        !respuesta ||
+        !respuesta.ok
+      ){
+
+        alert(
+
+          respuesta?.mensaje ||
+          'No se pudo confirmar.'
+
+        );
+
+
+        if(boton){
+
+          boton.disabled =
+            false;
+
+          boton.textContent =
+            'CONFIRMAR ASISTENCIA';
+
+        }
+
+        return;
+
+      }
+
+
+      /*
+       * Mostrar pase final.
+       */
+
+      mostrarConfirmacion({
+
+        codigo:
+          codigo,
+
+        invitado:
+          respuesta.invitado,
+
+        personas:
+          respuesta.personas,
+
+        nombres:
+          respuesta.nombres
+
+      });
+
+    }
+
+  )
+
+  .catch(
+
+    function(error){
+
+      console.error(error);
+
+      alert(
+        'Error al confirmar.'
+      );
+
+
+      if(boton){
+
+        boton.disabled =
+          false;
+
+        boton.textContent =
+          'CONFIRMAR ASISTENCIA';
+
+      }
+
+    }
+
+  );
 
 }
-
-
-nombres.push(nombre);
-
-
-}
-
-
-
-
-const boton =
-document.getElementById(
-'btnConfirmar'
-);
-
-
-
-boton.disabled=true;
-
-boton.textContent=
-'CONFIRMANDO...';
-
-
-
-solicitarAPI(
-
-'confirmarAsistencia',
-
-{
-codigo:codigo,
-nombres:nombres
-}
-
-)
-
-
-.then(
-
-function(respuesta){
-
-
-
-if(
-respuesta.yaConfirmado
-){
-
-cargarInvitacion();
-
-return;
-
-}
-
-
-
-if(
-!respuesta ||
-!respuesta.ok
-){
-
-
-alert(
-respuesta?.mensaje ||
-'No se pudo confirmar.'
-);
-
-
-boton.disabled=false;
-
-boton.textContent=
-'CONFIRMAR ASISTENCIA';
-
-
-return;
-
-
-}
-
-
-
-
-mostrarConfirmacion({
-
-  codigo:
-  datos.codigo,
-
-  invitado:
-  datos.invitado,
-
-  personas:
-  datos.personas,
-
-  nombres:
-  datos.nombres || [],
-
-  evento:
-  datos.evento,
-
-  color:
-  datos.color,
-
-  colorFondo:
-  datos.colorFondo,
-
-  colorBoton:
-  datos.colorBoton
-
-});
-
-
-
-}
-
-)
-
-
-
-.catch(
-
-function(){
-
-alert(
-'Error al confirmar.'
-);
-
-
-boton.disabled=false;
-
-
-}
-
-);
-
-
-}
-
 
 
 // =====================================================
 // MOSTRAR CONFIRMACIÓN EXISTENTE
 // =====================================================
 
-
 function mostrarConfirmacionExistente(
-datos
+  datos
 ){
 
+  mostrarConfirmacion({
 
-mostrarConfirmacion({
+    codigo:
+      datos.codigo,
 
-codigo:
-datos.codigo,
+    invitado:
+      datos.invitado,
 
-invitado:
-datos.invitado,
+    personas:
+      datos.personas,
 
-personas:
-datos.personas,
+    nombres:
+      datos.nombres || []
 
-nombres:
-datos.nombres || []
-
-});
-
+  });
 
 }
-
-
 
 
 // =====================================================
 // PANTALLA FINAL CON QR
 // =====================================================
 
-
 function mostrarConfirmacion(
-datos
+  datos
 ){
 
+  let lista = '';
 
-let lista='';
+
+  /*
+   * Crear lista de invitados.
+   */
+
+  (datos.nombres || [])
+    .forEach(
+
+      function(nombre){
+
+        lista += `
+
+          <div>
+
+            ${escapar(nombre)}
+
+          </div>
+
+        `;
+
+      }
+
+    );
 
 
-(datos.nombres || [])
-.forEach(
+  /*
+   * Crear QR usando el código
+   * único de la invitación.
+   */
 
-function(nombre){
+  const qrURL =
 
-lista += `
+    'https://quickchart.io/qr?size=500&text='
 
-<div>
-${escapar(nombre)}
-</div>
+    +
 
-`;
+    encodeURIComponent(
+      datos.codigo
+    );
+
+
+  document
+    .getElementById('contenido')
+    .innerHTML = `
+
+      <div class="tarjeta">
+
+
+        <div class="mensaje">
+
+
+          <div class="icono">
+
+            ✅
+
+          </div>
+
+
+          <h2>
+
+            ¡Asistencia confirmada!
+
+          </h2>
+
+
+          <p>
+
+            Gracias por confirmar.
+
+          </p>
+
+
+        </div>
+
+
+        <div class="listaNombres">
+
+
+          <strong>
+
+            INVITADOS CONFIRMADOS
+
+          </strong>
+
+
+          ${lista}
+
+
+        </div>
+
+
+        <h3>
+
+          TU PASE QR
+
+        </h3>
+
+
+        <img
+
+          class="qr"
+
+          src="${qrURL}"
+
+          alt="QR Pase"
+
+        >
+
+
+        <p>
+
+          Código:
+
+          <b>
+
+            ${escapar(datos.codigo)}
+
+          </b>
+
+        </p>
+
+
+        <p>
+
+          Guarda este código para ingresar al evento.
+
+        </p>
+
+
+      </div>
+
+    `;
 
 }
-
-);
-
-// APLICAR DISEÑO DEL EVENTO
-
-if(datos.colorFondo){
-
-  document.body.style.backgroundColor =
-    datos.colorFondo;
-
-}
-
-if(datos.colorBoton){
-
-  document.documentElement.style.setProperty(
-    '--color-boton',
-    datos.colorBoton
-  );
-
-}
-
-if(datos.color){
-
-  document.documentElement.style.setProperty(
-    '--color-evento',
-    datos.color
-  );
-
-}
-
-
-
-const qrURL =
-
-'https://quickchart.io/qr?size=500&text='
-
-+
-
-encodeURIComponent(
-
-datos.codigo
-
-);
-
-
-
-
-
-
-document
-.getElementById('contenido')
-.innerHTML = `
-
-
-
-<div class="tarjeta">
-
-
-
-<div class="mensaje">
-
-
-<div class="icono">
-
-✅
-
-</div>
-
-
-<h3 style="
-font-family:Georgia,serif;
-color:var(--color-evento,#292522);
-margin-top:10px;
-">
-
-${escapar(datos.evento || '')}
-
-</h3>
-
-
-<h2>
-¡Asistencia confirmada!
-</h2>
-
-
-
-<p>
-
-Gracias por confirmar.
-
-</p>
-
-
-</div>
-
-
-
-
-
-<div class="listaNombres">
-
-
-<strong>
-
-INVITADOS CONFIRMADOS
-
-</strong>
-
-
-${lista}
-
-
-</div>
-
-
-
-
-
-<h3>
-
-TU PASE QR
-
-</h3>
-
-
-
-
-<img
-
-class="qr"
-
-src="${qrURL}"
-
-alt="QR Pase"
-
-
-
->
-
-
-
-<p>
-
-Código:
-
-<b>
-
-${escapar(datos.codigo)}
-
-</b>
-
-
-</p>
-
-
-
-<p>
-
-Guarda este código para ingresar al evento.
-
-</p>
-
-
-
-
-</div>
-
-
-
-`;
-
-
-
-}
-
-
 
 
 // =====================================================
-// ERROR
+// MOSTRAR ERROR
 // =====================================================
-
 
 function mostrarError(
-mensaje
+  mensaje
 ){
 
+  document
+    .getElementById('contenido')
+    .innerHTML = `
 
-document
-.getElementById('contenido')
-.innerHTML = `
-
-
-<div class="tarjeta">
+      <div class="tarjeta">
 
 
-<div class="mensaje error">
+        <div class="mensaje error">
 
 
-<div class="icono">
+          <div class="icono">
 
-❌
+            ❌
 
-</div>
-
-
-
-<h2>
-
-No pudimos abrir tu invitación
-
-</h2>
+          </div>
 
 
+          <h2>
 
-<p>
+            No pudimos abrir tu invitación
 
-${escapar(mensaje)}
-
-</p>
-
+          </h2>
 
 
-</div>
+          <p>
+
+            ${escapar(mensaje)}
+
+          </p>
 
 
-</div>
+        </div>
 
 
-`;
+      </div>
+
+    `;
 
 }
 
 
 </script>
-
 
 </body>
 
