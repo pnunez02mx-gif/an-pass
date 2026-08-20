@@ -96,6 +96,10 @@
       box-shadow: 0 8px 20px rgba(40, 35, 30, .12);
     }
 
+    .botonEscaner:hover {
+      opacity: .92;
+    }
+
     .iconoCamara {
       font-size: 38px;
       margin-bottom: 8px;
@@ -192,30 +196,23 @@
 
     /* NOMBRES CONFIRMADOS */
 
-    .confirmados {
-      margin-top: 22px;
+    .nombresConfirmados {
+      margin-top: 18px;
       background: #f7f3ed;
-      padding: 20px;
       border-radius: 16px;
+      padding: 18px;
       text-align: left;
     }
 
-    .confirmados h3 {
-      margin: 0 0 14px;
-      text-align: center;
-      font-size: 13px;
+    .nombresConfirmados h3 {
+      margin: 0 0 10px;
+      font-size: 12px;
       letter-spacing: 2px;
     }
 
-    .listaConfirmados {
-      background: white;
-      border-radius: 12px;
-      overflow: hidden;
-    }
-
     .nombreConfirmado {
-      padding: 11px 14px;
-      border-bottom: 1px solid #eee7df;
+      padding: 9px 4px;
+      border-bottom: 1px solid #e5ddd2;
       font-size: 14px;
     }
 
@@ -223,12 +220,7 @@
       border-bottom: 0;
     }
 
-    .sinConfirmacion {
-      text-align: center;
-      color: #8a8178;
-      font-size: 13px;
-      padding: 10px;
-    }
+    /* CONTROL DE CANTIDAD */
 
     .entrada {
       margin-top: 22px;
@@ -237,20 +229,45 @@
       border-radius: 16px;
     }
 
-    .entrada input {
-      width: 100%;
-      padding: 15px;
-      border: 1px solid #d8cec2;
-      border-radius: 12px;
-      font-size: 24px;
+    .entrada h3 {
+      margin-top: 0;
+      font-size: 16px;
+    }
+
+    .contador {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 18px;
+      margin: 18px 0;
+    }
+
+    .botonCantidad {
+      width: 58px;
+      height: 58px;
+      border: 0;
+      border-radius: 50%;
+      background: #292522;
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+    }
+
+    .botonCantidad:active {
+      transform: scale(.94);
+    }
+
+    .cantidadActual {
+      min-width: 70px;
+      font-family: Georgia, serif;
+      font-size: 42px;
       text-align: center;
-      background: white;
     }
 
     .botonRegistro {
       width: 100%;
-      margin-top: 12px;
-      padding: 16px;
+      margin-top: 5px;
+      padding: 17px;
       border: 0;
       border-radius: 13px;
       background: #292522;
@@ -368,7 +385,6 @@
     }
 
     @media (max-width: 650px) {
-
       .resumen {
         grid-template-columns: 1fr;
       }
@@ -398,15 +414,10 @@
       AN<br>
       <span>PASS</span>
     </div>
-
-    <div class="subtitulo">
-      CONTROL DE ACCESO
-    </div>
+    <div class="subtitulo">CONTROL DE ACCESO</div>
   </header>
 
-
   <!-- RESUMEN -->
-
   <div class="resumen">
 
     <div class="tarjeta">
@@ -426,57 +437,26 @@
 
   </div>
 
-
   <!-- ESCÁNER -->
-
-  <button
-    class="botonEscaner"
-    id="botonEscanear"
-  >
-
-    <div class="iconoCamara">
-      📷
-    </div>
-
-    <strong>
-      ESCANEAR PASE
-    </strong>
-
-    <span>
-      Toca para abrir el lector QR
-    </span>
-
+  <button class="botonEscaner" id="botonEscanear">
+    <div class="iconoCamara">📷</div>
+    <strong>ESCANEAR PASE</strong>
+    <span>Toca para abrir el lector QR</span>
   </button>
 
-
   <!-- RESULTADO -->
-
   <div id="resultado">
 
     <div class="mensaje">
-
-      <div class="mensajeIcono">
-        🎟️
-      </div>
-
-      <h2>
-        AN PASS
-      </h2>
-
-      <p>
-        Listo para escanear un pase.
-      </p>
-
+      <div class="mensajeIcono">🎟️</div>
+      <h2>AN PASS</h2>
+      <p>Listo para escanear un pase.</p>
     </div>
 
   </div>
 
-
   <!-- LISTA -->
-
-  <h3 class="tituloLista">
-    INVITADOS
-  </h3>
+  <h3 class="tituloLista">INVITADOS</h3>
 
   <input
     type="text"
@@ -485,38 +465,31 @@
     placeholder="🔍 Buscar invitado por nombre..."
   >
 
-  <div
-    class="lista"
-    id="listaInvitados"
-  >
-
+  <div class="lista" id="listaInvitados">
     <div style="padding:25px;text-align:center;">
       Cargando invitados...
     </div>
-
   </div>
 
 </div>
 
-
 <script>
 
-// =====================================================
-// URL APPS SCRIPT
-// =====================================================
+/* =====================================================
+   CONEXIÓN CON APPS SCRIPT
+   ===================================================== */
 
 const URL_APPS_SCRIPT =
 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
 
 
 let scanner = null;
-
 let todosLosInvitados = [];
 
 
-// =====================================================
-// INICIO
-// =====================================================
+/* =====================================================
+   INICIO
+   ===================================================== */
 
 window.onload = function() {
 
@@ -524,263 +497,180 @@ window.onload = function() {
 
   document
     .getElementById('botonEscanear')
-    .addEventListener(
-      'click',
-      iniciarEscaner
-    );
+    .addEventListener('click', iniciarEscaner);
 
   document
     .getElementById('buscadorInvitados')
-    .addEventListener(
-      'input',
-      filtrarYMostrarInvitados
-    );
+    .addEventListener('input', filtrarYMostrarInvitados);
 
 };
 
 
-// =====================================================
-// ESCAPAR HTML
-// =====================================================
+/* =====================================================
+   API
+   ===================================================== */
 
-function escapar(texto) {
-
-  if (
-    texto === null ||
-    texto === undefined
-  ) return '';
-
-  return String(texto)
-
-    .replace(/&/g, '&amp;')
-
-    .replace(/</g, '&lt;')
-
-    .replace(/>/g, '&gt;')
-
-    .replace(/"/g, '&quot;')
-
-    .replace(/'/g, '&#039;');
-}
-
-
-// =====================================================
-// API
-// =====================================================
-
-function solicitarAPI(
-  accion,
-  payload = {}
-) {
+function solicitarAPI(accion, payload = {}) {
 
   payload.accion = accion;
 
-  return fetch(
-    URL_APPS_SCRIPT,
-    {
-      method: 'POST',
-      mode: 'cors',
-      headers: {
-        'Content-Type':
-          'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify(payload)
-    }
-  )
-  .then(
-    res => res.json()
-  );
+  return fetch(URL_APPS_SCRIPT, {
+
+    method: 'POST',
+    mode: 'cors',
+
+    headers: {
+      'Content-Type': 'text/plain;charset=utf-8'
+    },
+
+    body: JSON.stringify(payload)
+
+  }).then(res => res.json());
+
 }
 
 
-// =====================================================
-// CARGAR DATOS
-// =====================================================
+/* =====================================================
+   CARGAR DATOS
+   ===================================================== */
 
 function cargarDatos() {
 
-  solicitarAPI(
-    'obtenerDatosPanel'
-  )
+  solicitarAPI('obtenerDatosPanel')
 
-  .then(mostrarDatos)
+    .then(mostrarDatos)
 
-  .catch(
-    err =>
-      console.error(err)
-  );
+    .catch(err => {
+      console.error(err);
+    });
+
 }
 
 
-// =====================================================
-// MOSTRAR DATOS
-// =====================================================
+/* =====================================================
+   MOSTRAR RESUMEN
+   ===================================================== */
 
 function mostrarDatos(datos) {
 
-  if (
-    !datos ||
-    !datos.ok
-  ) return;
+  if (!datos || !datos.ok) return;
 
+  const resumen = datos.resumen;
 
-  const resumen =
-    datos.resumen;
+  document.getElementById('autorizados').textContent =
+    resumen.autorizadas;
 
+  document.getElementById('ingresaron').textContent =
+    resumen.ingresaron;
 
-  document
-    .getElementById('autorizados')
-    .textContent =
-      resumen.autorizadas;
+  document.getElementById('faltan').textContent =
+    resumen.restantes;
 
-
-  document
-    .getElementById('ingresaron')
-    .textContent =
-      resumen.ingresaron;
-
-
-  document
-    .getElementById('faltan')
-    .textContent =
-      resumen.restantes;
-
-
-  todosLosInvitados =
-    datos.invitados || [];
-
+  todosLosInvitados = datos.invitados || [];
 
   filtrarYMostrarInvitados();
+
 }
 
 
-// =====================================================
-// LISTA DE INVITADOS
-// =====================================================
+/* =====================================================
+   LISTA DE INVITADOS
+   ===================================================== */
 
 function filtrarYMostrarInvitados() {
 
   const termino =
     document
-      .getElementById(
-        'buscadorInvitados'
-      )
+      .getElementById('buscadorInvitados')
       .value
       .toLowerCase()
       .trim();
 
-
   const lista =
-    document.getElementById(
-      'listaInvitados'
-    );
-
-
-  const invitadosFiltrados =
-    todosLosInvitados.filter(
-      function(inv) {
-
-        return String(
-          inv.invitado || ''
-        )
-        .toLowerCase()
-        .includes(termino);
-
-      }
-    );
-
+    document.getElementById('listaInvitados');
 
   let html = '';
 
+  const invitadosFiltrados =
+    todosLosInvitados.filter(inv =>
 
-  invitadosFiltrados.forEach(
-    function(inv) {
+      String(inv.invitado || '')
+        .toLowerCase()
+        .includes(termino)
 
-      let clase = '';
-
-      if (
-        inv.estado === 'PARCIAL'
-      ) {
-        clase = 'parcial';
-      }
-
-      if (
-        inv.estado === 'PENDIENTE'
-      ) {
-        clase = 'pendiente';
-      }
-
-      if (
-        inv.estado === 'UTILIZADO'
-      ) {
-        clase = 'utilizado';
-      }
+    );
 
 
-      html += `
+  invitadosFiltrados.forEach(inv => {
 
-        <div
-          class="invitado"
-          onclick="consultarPase('${escapar(inv.codigo)}')"
-        >
+    let estado = inv.estado;
 
-          <b>
-            ${escapar(inv.invitado)}
-          </b>
+    let clase = '';
 
-          <span>
-            ${inv.autorizadas} autorizadas
-          </span>
+    if (estado === 'PARCIAL')
+      clase = 'parcial';
 
-          <span>
-            ${inv.confirmadas || 0} confirmadas
-          </span>
+    if (estado === 'PENDIENTE')
+      clase = 'pendiente';
 
-          <em class="${clase}">
-            ${escapar(inv.estado)}
-          </em>
+    if (
+      estado === 'UTILIZADO' ||
+      estado === 'COMPLETO'
+    )
+      clase = 'utilizado';
 
-        </div>
 
-      `;
-    }
-  );
+    html += `
+
+      <div
+        class="invitado"
+        onclick="consultarPase('${escapar(inv.codigo)}')"
+      >
+
+        <b>${escapar(inv.invitado)}</b>
+
+        <span>
+          ${inv.autorizadas} autorizadas
+        </span>
+
+        <span>
+          ${inv.ingresaron} ingresaron
+        </span>
+
+        <em class="${clase}">
+          ${estado}
+        </em>
+
+      </div>
+
+    `;
+
+  });
 
 
   lista.innerHTML =
     html ||
-    `
-      <div
-        style="
-          padding:25px;
-          text-align:center;
-        "
-      >
-        No se encontraron invitados.
-      </div>
-    `;
+    `<div style="padding:25px;text-align:center;">
+      No se encontraron invitados.
+    </div>`;
+
 }
 
 
-// =====================================================
-// INICIAR ESCÁNER
-// =====================================================
+/* =====================================================
+   ESCÁNER
+   ===================================================== */
 
 function iniciarEscaner() {
 
   const resultado =
-    document.getElementById(
-      'resultado'
-    );
-
+    document.getElementById('resultado');
 
   resultado.innerHTML = `
 
     <div class="lector">
 
-      <h2>
-        ESCANEAR PASE
-      </h2>
+      <h2>ESCANEAR PASE</h2>
 
       <p>
         Apunta la cámara al código QR.
@@ -800,30 +690,32 @@ function iniciarEscaner() {
     } catch (e) {}
 
     scanner = null;
+
   }
 
 
-  scanner =
-    new Html5QrcodeScanner(
-      'lectorQR',
-      {
-        fps: 10,
-        qrbox: 250,
-        rememberLastUsedCamera: true,
-        showTorchButtonIfSupported: true
-      }
-    );
+  scanner = new Html5QrcodeScanner(
 
+    'lectorQR',
 
-  scanner.render(
-    codigoDetectado
+    {
+      fps: 10,
+      qrbox: 250,
+      rememberLastUsedCamera: true,
+      showTorchButtonIfSupported: true
+    }
+
   );
+
+
+  scanner.render(codigoDetectado);
+
 }
 
 
-// =====================================================
-// QR DETECTADO
-// =====================================================
+/* =====================================================
+   QR DETECTADO
+   ===================================================== */
 
 function codigoDetectado(codigo) {
 
@@ -834,6 +726,7 @@ function codigoDetectado(codigo) {
     } catch (e) {}
 
     scanner = null;
+
   }
 
 
@@ -846,40 +739,28 @@ function codigoDetectado(codigo) {
     const url =
       new URL(codigoPase);
 
-
     const parametro =
-      url.searchParams.get(
-        'codigo'
-      );
+      url.searchParams.get('codigo');
 
-
-    if (parametro) {
-
-      codigoPase =
-        parametro.trim();
-
-    }
+    if (parametro)
+      codigoPase = parametro.trim();
 
   } catch (e) {}
 
 
-  consultarPase(
-    codigoPase
-  );
+  consultarPase(codigoPase);
+
 }
 
 
-// =====================================================
-// CONSULTAR PASE
-// =====================================================
+/* =====================================================
+   CONSULTAR PASE
+   ===================================================== */
 
 function consultarPase(codigo) {
 
   const resultado =
-    document.getElementById(
-      'resultado'
-    );
-
+    document.getElementById('resultado');
 
   resultado.innerHTML = `
 
@@ -889,9 +770,7 @@ function consultarPase(codigo) {
         🔎
       </div>
 
-      <h2>
-        CONSULTANDO...
-      </h2>
+      <h2>CONSULTANDO...</h2>
 
       <p>
         Código:
@@ -911,57 +790,42 @@ function consultarPase(codigo) {
 
   solicitarAPI(
     'buscarPase',
-    {
-      codigo: codigo
-    }
+    { codigo: codigo }
   )
 
-  .then(
-    function(res) {
+    .then(res => {
 
-      if (
-        res &&
-        res.ok
-      ) {
+      if (res.ok) {
 
-        mostrarPase(
-          res.pase
-        );
+        mostrarPase(res.pase);
 
       } else {
 
-        mostrarError(
-          res.mensaje ||
-          'No se pudo consultar el pase.'
-        );
+        mostrarError(res.mensaje);
 
       }
 
-    }
-  )
+    })
 
-  .catch(
-    function() {
+    .catch(() => {
 
       mostrarError(
         'No se pudo consultar el pase.'
       );
 
-    }
-  );
+    });
+
 }
 
 
-// =====================================================
-// MOSTRAR PASE
-// =====================================================
+/* =====================================================
+   MOSTRAR PASE
+   ===================================================== */
 
 function mostrarPase(pase) {
 
   const resultado =
-    document.getElementById(
-      'resultado'
-    );
+    document.getElementById('resultado');
 
 
   if (!pase) {
@@ -971,6 +835,7 @@ function mostrarPase(pase) {
     );
 
     return;
+
   }
 
 
@@ -978,74 +843,49 @@ function mostrarPase(pase) {
     Number(pase.restantes) > 0;
 
 
-  const nombres =
-    Array.isArray(
-      pase.nombresConfirmados
-    )
-      ? pase.nombresConfirmados
-      : [];
-
+  /*
+    Intentamos obtener los nombres
+    que ya vienen guardados.
+  */
 
   let nombresHTML = '';
 
-
   if (
-    nombres.length > 0
+    pase.nombresAsistentes &&
+    Array.isArray(pase.nombresAsistentes)
   ) {
 
-    nombresHTML = `
-
-      <div class="confirmados">
-
-        <h3>
-          INVITADOS CONFIRMADOS
-        </h3>
-
-        <div class="listaConfirmados">
-
-          ${nombres
-            .map(
-              function(nombre) {
-
-                return `
-
-                  <div
-                    class="nombreConfirmado"
-                  >
-                    👤
-                    ${escapar(nombre)}
-                  </div>
-
-                `;
-
-              }
-            )
-            .join('')}
-
+    nombresHTML = pase.nombresAsistentes
+      .map(nombre => `
+        <div class="nombreConfirmado">
+          👤 ${escapar(nombre)}
         </div>
+      `)
+      .join('');
 
-      </div>
-
-    `;
-
-  } else {
-
-    nombresHTML = `
-
-      <div class="confirmados">
-
-        <h3>
-          CONFIRMACIÓN
-        </h3>
-
-        <div class="sinConfirmacion">
-          Esta familia todavía no ha confirmado asistencia.
-        </div>
-
-      </div>
-
-    `;
   }
+
+
+  /*
+    Si Apps Script todavía no manda
+    los nombres, simplemente no mostramos
+    esa sección.
+  */
+
+  const nombresSeccion =
+    nombresHTML
+      ? `
+        <div class="nombresConfirmados">
+
+          <h3>
+            INVITADOS CONFIRMADOS
+          </h3>
+
+          ${nombresHTML}
+
+        </div>
+      `
+      : '';
 
 
   resultado.innerHTML = `
@@ -1062,24 +902,16 @@ function mostrarPase(pase) {
 
       <p>
         Código:
-        <b>
-          ${escapar(pase.codigo)}
-        </b>
+        <b>${escapar(pase.codigo)}</b>
       </p>
 
 
-      <div
-        class="estado ${
-          valido
-            ? 'valido'
-            : 'utilizado'
-        }"
-      >
+      <div class="estado ${valido ? 'valido' : 'utilizado'}">
 
         ${
           valido
-            ? '🟢 PASE VÁLIDO'
-            : '🔴 PASE UTILIZADO'
+          ? '🟢 PASE VÁLIDO'
+          : '🔴 PASE UTILIZADO'
         }
 
       </div>
@@ -1103,11 +935,11 @@ function mostrarPase(pase) {
         <div class="dato">
 
           <strong>
-            ${pase.confirmadas || 0}
+            ${pase.ingresaron}
           </strong>
 
           <small>
-            CONFIRMADAS
+            INGRESARON
           </small>
 
         </div>
@@ -1128,38 +960,62 @@ function mostrarPase(pase) {
       </div>
 
 
-      ${nombresHTML}
+      ${nombresSeccion}
 
 
       ${
         valido
-          ? `
 
-            <div class="entrada">
+        ? `
 
-              <h3>
-                ¿Cuántas personas están entrando?
-              </h3>
+          <div class="entrada">
 
-              <input
-                id="cantidadEntrada"
-                type="number"
-                min="1"
-                max="${pase.restantes}"
-                value="1"
-              >
+            <h3>
+              ¿Cuántas personas están entrando?
+            </h3>
+
+
+            <div class="contador">
 
               <button
-                class="botonRegistro"
-                id="botonRegistrar"
+                class="botonCantidad"
+                onclick="cambiarCantidad(-1, ${pase.restantes})"
               >
-                ✅ REGISTRAR ENTRADA
+                −
+              </button>
+
+
+              <div
+                class="cantidadActual"
+                id="cantidadActual"
+              >
+                1
+              </div>
+
+
+              <button
+                class="botonCantidad"
+                onclick="cambiarCantidad(1, ${pase.restantes})"
+              >
+                +
               </button>
 
             </div>
 
-          `
-          : ''
+
+            <button
+              class="botonRegistro"
+              id="botonRegistrar"
+            >
+              ✅ REGISTRAR 1 PERSONA
+            </button>
+
+          </div>
+
+        `
+
+        : ''
+
       }
 
 
@@ -1170,15 +1026,14 @@ function mostrarPase(pase) {
         📷 ESCANEAR OTRO PASE
       </button>
 
+
     </div>
 
   `;
 
 
   document
-    .getElementById(
-      'botonOtro'
-    )
+    .getElementById('botonOtro')
     .addEventListener(
       'click',
       iniciarEscaner
@@ -1188,9 +1043,7 @@ function mostrarPase(pase) {
   if (valido) {
 
     document
-      .getElementById(
-        'botonRegistrar'
-      )
+      .getElementById('botonRegistrar')
       .addEventListener(
         'click',
         function() {
@@ -1198,42 +1051,9 @@ function mostrarPase(pase) {
           const cantidad =
             Number(
               document
-                .getElementById(
-                  'cantidadEntrada'
-                )
-                .value
+                .getElementById('cantidadActual')
+                .textContent
             );
-
-
-          if (
-            !Number.isInteger(
-              cantidad
-            ) ||
-            cantidad < 1
-          ) {
-
-            alert(
-              'Escribe una cantidad válida.'
-            );
-
-            return;
-          }
-
-
-          if (
-            cantidad >
-            pase.restantes
-          ) {
-
-            alert(
-              'Solo quedan ' +
-              pase.restantes +
-              ' personas disponibles.'
-            );
-
-            return;
-          }
-
 
           registrarEntrada(
             pase.codigo,
@@ -1244,12 +1064,64 @@ function mostrarPase(pase) {
       );
 
   }
+
 }
 
 
-// =====================================================
-// REGISTRAR ENTRADA
-// =====================================================
+/* =====================================================
+   CAMBIAR CANTIDAD
+   ===================================================== */
+
+function cambiarCantidad(cambio, maximo) {
+
+  const elemento =
+    document.getElementById('cantidadActual');
+
+  if (!elemento) return;
+
+
+  let cantidad =
+    Number(elemento.textContent);
+
+
+  cantidad += cambio;
+
+
+  if (cantidad < 1)
+    cantidad = 1;
+
+
+  if (cantidad > maximo)
+    cantidad = maximo;
+
+
+  elemento.textContent =
+    cantidad;
+
+
+  const boton =
+    document.getElementById('botonRegistrar');
+
+
+  if (boton) {
+
+    boton.textContent =
+      cantidad === 1
+
+      ? '✅ REGISTRAR 1 PERSONA'
+
+      : '✅ REGISTRAR ' +
+        cantidad +
+        ' PERSONAS';
+
+  }
+
+}
+
+
+/* =====================================================
+   REGISTRAR ENTRADA
+   ===================================================== */
 
 function registrarEntrada(
   codigo,
@@ -1257,9 +1129,7 @@ function registrarEntrada(
 ) {
 
   const resultado =
-    document.getElementById(
-      'resultado'
-    );
+    document.getElementById('resultado');
 
 
   resultado.innerHTML = `
@@ -1274,105 +1144,127 @@ function registrarEntrada(
         REGISTRANDO...
       </h2>
 
+      <p>
+        Espera un momento.
+      </p>
+
     </div>
 
   `;
 
 
   solicitarAPI(
+
     'registrarEntrada',
+
     {
       codigo: codigo,
       cantidad: cantidad
     }
+
   )
 
-  .then(
-    function(respuesta) {
+  .then(respuesta => {
 
-      if (
-        !respuesta ||
-        !respuesta.ok
-      ) {
-
-        mostrarError(
-          respuesta?.mensaje ||
-          'No se pudo registrar.'
-        );
-
-        return;
-      }
-
-
-      cargarDatos();
-
-
-      resultado.innerHTML = `
-
-        <div class="mensaje exito">
-
-          <div class="mensajeIcono">
-            ✅
-          </div>
-
-          <h2>
-            ENTRADA REGISTRADA
-          </h2>
-
-          <p>
-            ${escapar(
-              respuesta.mensaje
-            )}
-          </p>
-
-          <button
-            class="botonMensaje"
-            id="nuevoPase"
-          >
-            📷 ESCANEAR OTRO PASE
-          </button>
-
-        </div>
-
-      `;
-
-
-      document
-        .getElementById(
-          'nuevoPase'
-        )
-        .addEventListener(
-          'click',
-          iniciarEscaner
-        );
-
-    }
-  )
-
-  .catch(
-    function() {
+    if (
+      !respuesta ||
+      !respuesta.ok
+    ) {
 
       mostrarError(
-        'Error al registrar.'
+        respuesta?.mensaje ||
+        'No se pudo registrar.'
       );
 
+      return;
+
     }
-  );
+
+
+    cargarDatos();
+
+
+    resultado.innerHTML = `
+
+      <div class="mensaje exito">
+
+        <div class="mensajeIcono">
+          ✅
+        </div>
+
+        <h2>
+          ENTRADA REGISTRADA
+        </h2>
+
+        <p>
+          ${escapar(respuesta.mensaje)}
+        </p>
+
+        <p>
+          <b>
+            ${respuesta.ingresaron}
+          </b>
+          de
+          <b>
+            ${respuesta.autorizadas}
+          </b>
+          personas han ingresado.
+        </p>
+
+        <p>
+          ${
+            respuesta.restantes > 0
+
+            ? '🟡 Quedan ' +
+              respuesta.restantes +
+              ' persona(s).'
+
+            : '🔴 PASE COMPLETAMENTE UTILIZADO'
+          }
+        </p>
+
+
+        <button
+          class="botonMensaje"
+          id="nuevoPase"
+        >
+          📷 ESCANEAR OTRO PASE
+        </button>
+
+      </div>
+
+    `;
+
+
+    document
+      .getElementById('nuevoPase')
+      .addEventListener(
+        'click',
+        iniciarEscaner
+      );
+
+  })
+
+
+  .catch(() => {
+
+    mostrarError(
+      'Error al registrar.'
+    );
+
+  });
+
 }
 
 
-// =====================================================
-// ERROR
-// =====================================================
+/* =====================================================
+   ERROR
+   ===================================================== */
 
-function mostrarError(
-  mensaje
-) {
+function mostrarError(mensaje) {
 
   document
-    .getElementById(
-      'resultado'
-    )
+    .getElementById('resultado')
     .innerHTML = `
 
       <div class="mensaje error">
@@ -1402,13 +1294,52 @@ function mostrarError(
 
 
   document
-    .getElementById(
-      'nuevoPase'
-    )
+    .getElementById('nuevoPase')
     .addEventListener(
       'click',
       iniciarEscaner
     );
+
+}
+
+
+/* =====================================================
+   SEGURIDAD HTML
+   ===================================================== */
+
+function escapar(texto) {
+
+  if (
+    texto === null ||
+    texto === undefined
+  )
+    return '';
+
+
+  return String(texto)
+
+    .replace(/&/g, '&amp;')
+
+    .replace(
+      /</g,
+      '&lt;'
+    )
+
+    .replace(
+      />/g,
+      '&gt;'
+    )
+
+    .replace(
+      /"/g,
+      '&quot;'
+    )
+
+    .replace(
+      /'/g,
+      '&#039;'
+    );
+
 }
 
 </script>
