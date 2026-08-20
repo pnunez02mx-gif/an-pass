@@ -2,261 +2,407 @@
 <html lang="es">
 <head>
 
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
 
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1"
-  >
+<meta 
+name="viewport" 
+content="width=device-width, initial-scale=1"
+>
 
-  <title>AN PASS - Confirmación</title>
+<title>AN PASS - Confirmación</title>
 
-  <style>
 
-    * {
-      box-sizing: border-box;
-    }
+<style>
 
-    body {
-      margin: 0;
-      background: #f7f3ed;
-      color: #292522;
-      font-family: Arial, sans-serif;
-    }
+*{
+box-sizing:border-box;
+}
 
-    .app {
-      width: 100%;
-      max-width: 500px;
-      margin: auto;
-      padding: 30px 18px 60px;
-    }
+body{
 
-    header {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+margin:0;
 
-    .logo {
-      font-family: Georgia, serif;
-      font-size: 32px;
-      line-height: .8;
-      letter-spacing: 3px;
-    }
+background:#f7f3ed;
 
-    .logo span {
-      font-size: 20px;
-      letter-spacing: 6px;
-    }
+color:#292522;
 
-    .subtitulo {
-      margin-top: 15px;
-      font-size: 9px;
-      letter-spacing: 3px;
-      color: #766b60;
-    }
+font-family:Arial,sans-serif;
 
-    .tarjeta {
-      background: white;
-      border: 1px solid #e5ddd2;
-      border-radius: 22px;
-      padding: 25px 18px;
-      box-shadow: 0 5px 18px rgba(70, 60, 50, .07);
-      text-align: center;
-    }
+}
 
-    .nombreFamilia {
-      font-family: Georgia, serif;
-      font-size: 27px;
-      margin: 5px 0 10px;
-    }
 
-    .descripcion {
-      color: #706860;
-      font-size: 13px;
-      line-height: 1.5;
-      margin-bottom: 20px;
-    }
+.app{
 
-    .cantidad {
-      background: #f7f3ed;
-      border-radius: 15px;
-      padding: 18px;
-      margin-bottom: 20px;
-    }
+width:100%;
 
-    .cantidad strong {
-      display: block;
-      font-family: Georgia, serif;
-      font-size: 38px;
-      margin-bottom: 5px;
-    }
+max-width:500px;
 
-    .cantidad small {
-      font-size: 9px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
+margin:auto;
 
-    .campo {
-      text-align: left;
-      margin-bottom: 13px;
-    }
+padding:30px 18px 60px;
 
-    .campo label {
-      display: block;
-      font-size: 9px;
-      font-weight: bold;
-      margin-bottom: 6px;
-    }
+}
 
-    .campo input {
-      width: 100%;
-      padding: 13px;
-      border: 1px solid #ddd3c7;
-      border-radius: 12px;
-      background: white;
-      font-size: 14px;
-      outline: none;
-    }
 
-    .campo input:focus {
-      border-color: #292522;
-    }
+header{
 
-    .boton {
-      width: 100%;
-      border: 0;
-      border-radius: 13px;
-      padding: 16px;
-      background: #292522;
-      color: white;
-      font-size: 14px;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 8px;
-    }
+text-align:center;
 
-    .boton:disabled {
-      opacity: .6;
-      cursor: wait;
-    }
+margin-bottom:25px;
 
-    .mensaje {
-      text-align: center;
-      padding: 10px 5px;
-    }
+}
 
-    .icono {
-      font-size: 52px;
-      margin-bottom: 10px;
-    }
 
-    .exito h2 {
-      font-family: Georgia, serif;
-      font-size: 27px;
-      margin: 8px 0;
-    }
+.logo{
 
-    .exito p {
-      color: #706860;
-      font-size: 13px;
-      line-height: 1.5;
-    }
+font-family:Georgia,serif;
 
-    .qrTitulo {
-      margin-top: 28px;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
+font-size:32px;
 
-    .qr {
-      display: block;
-      width: 220px;
-      height: 220px;
-      margin: 15px auto;
-      border-radius: 8px;
-    }
+line-height:.8;
 
-    .nota {
-      color: #766b60;
-      font-size: 10px;
-      line-height: 1.5;
-      margin-top: 15px;
-    }
+letter-spacing:3px;
 
-    .listaNombres {
-      background: #f7f3ed;
-      border-radius: 15px;
-      padding: 15px;
-      text-align: left;
-      margin-top: 20px;
-    }
+}
 
-    .listaNombres strong {
-      display: block;
-      font-size: 10px;
-      letter-spacing: 1px;
-      margin-bottom: 9px;
-    }
 
-    .listaNombres div {
-      font-size: 13px;
-      padding: 5px 0;
-      border-bottom: 1px solid #e6ddd2;
-    }
+.logo span{
 
-    .listaNombres div:last-child {
-      border-bottom: 0;
-    }
+font-size:20px;
 
-    .error {
-      color: #8b443b;
-    }
+letter-spacing:6px;
 
-    .error h2 {
-      font-family: Georgia, serif;
-    }
+}
 
-    .cargando {
-      text-align: center;
-      color: #706860;
-      padding: 30px 10px;
-    }
 
-  </style>
+.subtitulo{
+
+margin-top:15px;
+
+font-size:9px;
+
+letter-spacing:3px;
+
+color:#766b60;
+
+}
+
+
+.tarjeta{
+
+background:white;
+
+border:1px solid #e5ddd2;
+
+border-radius:22px;
+
+padding:25px 18px;
+
+box-shadow:0 5px 18px rgba(70,60,50,.07);
+
+text-align:center;
+
+}
+
+
+.nombreFamilia{
+
+font-family:Georgia,serif;
+
+font-size:27px;
+
+margin:5px 0 10px;
+
+}
+
+
+.descripcion{
+
+color:#706860;
+
+font-size:13px;
+
+line-height:1.5;
+
+margin-bottom:20px;
+
+}
+
+
+.cantidad{
+
+background:#f7f3ed;
+
+border-radius:15px;
+
+padding:18px;
+
+margin-bottom:20px;
+
+}
+
+
+.cantidad strong{
+
+display:block;
+
+font-family:Georgia,serif;
+
+font-size:38px;
+
+margin-bottom:5px;
+
+}
+
+
+.cantidad small{
+
+font-size:9px;
+
+font-weight:bold;
+
+letter-spacing:1px;
+
+}
+
+
+.campo{
+
+text-align:left;
+
+margin-bottom:13px;
+
+}
+
+
+.campo label{
+
+display:block;
+
+font-size:9px;
+
+font-weight:bold;
+
+margin-bottom:6px;
+
+}
+
+
+.campo input{
+
+width:100%;
+
+padding:13px;
+
+border:1px solid #ddd3c7;
+
+border-radius:12px;
+
+background:white;
+
+font-size:14px;
+
+outline:none;
+
+}
+
+
+.boton{
+
+width:100%;
+
+border:0;
+
+border-radius:13px;
+
+padding:16px;
+
+background:#292522;
+
+color:white;
+
+font-size:14px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+margin-top:8px;
+
+}
+
+
+.boton:disabled{
+
+opacity:.6;
+
+cursor:wait;
+
+}
+
+
+.mensaje{
+
+text-align:center;
+
+padding:10px 5px;
+
+}
+
+
+.icono{
+
+font-size:52px;
+
+margin-bottom:10px;
+
+}
+
+
+.error{
+
+color:#8b443b;
+
+}
+
+
+.cargando{
+
+text-align:center;
+
+color:#706860;
+
+padding:30px 10px;
+
+}
+
+
+.listaNombres{
+
+background:#f7f3ed;
+
+border-radius:15px;
+
+padding:15px;
+
+text-align:left;
+
+margin-top:20px;
+
+}
+
+
+.listaNombres strong{
+
+display:block;
+
+font-size:10px;
+
+letter-spacing:1px;
+
+margin-bottom:9px;
+
+}
+
+
+.listaNombres div{
+
+font-size:13px;
+
+padding:5px 0;
+
+border-bottom:1px solid #e6ddd2;
+
+}
+
+
+.listaNombres div:last-child{
+
+border-bottom:0;
+
+}
+
+
+.qrTitulo{
+
+margin-top:28px;
+
+font-size:12px;
+
+font-weight:bold;
+
+letter-spacing:2px;
+
+}
+
+
+.qr{
+
+display:block;
+
+width:220px;
+
+height:220px;
+
+margin:15px auto;
+
+border-radius:8px;
+
+}
+
+
+.nota{
+
+color:#766b60;
+
+font-size:10px;
+
+line-height:1.5;
+
+margin-top:15px;
+
+}
+
+
+</style>
 
 </head>
 
+
 <body>
+
 
 <div class="app">
 
-  <header>
 
-    <div class="logo">
-      AN<br>
-      <span>PASS</span>
-    </div>
+<header>
 
-    <div class="subtitulo">
-      CONFIRMACIÓN DE ASISTENCIA
-    </div>
-
-  </header>
+<div class="logo">
+AN<br>
+<span>PASS</span>
+</div>
 
 
-  <div id="contenido">
+<div class="subtitulo">
+CONFIRMACIÓN DE ASISTENCIA
+</div>
 
-    <div class="tarjeta">
 
-      <div class="cargando">
-        Cargando invitación...
-      </div>
+</header>
 
-    </div>
 
-  </div>
+<div id="contenido">
+
+<div class="tarjeta">
+
+<div class="cargando">
+Cargando invitación...
+</div>
+
+</div>
+
+</div>
+
 
 </div>
 
@@ -264,645 +410,788 @@
 <script>
 
 
-// =====================================================
+// ===============================
 // CONFIGURACIÓN
-// =====================================================
+// ===============================
+
 
 const URL_APPS_SCRIPT =
-  'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
 
 
-// =====================================================
-// OBTENER CÓDIGO DE LA URL
-// =====================================================
+// ===============================
+// DATOS URL
+// ===============================
+
 
 const parametros =
-  new URLSearchParams(
-    window.location.search
-  );
+new URLSearchParams(
+window.location.search
+);
 
 
 const codigo =
-  String(
-    parametros.get('codigo') || ''
-  ).trim();
+String(
+parametros.get('codigo') || ''
+)
+.trim();
 
 
-// =====================================================
-// LLAMAR A APPS SCRIPT
-// =====================================================
+const idEvento =
+String(
+parametros.get('evento') || ''
+)
+.trim()
+.toUpperCase();
+  // ===============================
+// API
+// ===============================
+
 
 function solicitarAPI(
   accion,
-  payload = {}
-) {
+  payload={}
+){
 
-  payload.accion = accion;
+payload.accion = accion;
 
-  return fetch(
-    URL_APPS_SCRIPT,
-    {
-      method: 'POST',
 
-      mode: 'cors',
+return fetch(
+URL_APPS_SCRIPT,
+{
 
-      headers: {
-        'Content-Type':
-          'text/plain;charset=utf-8'
-      },
+method:'POST',
 
-      body:
-        JSON.stringify(payload)
-    }
-  )
-  .then(function(respuesta) {
+mode:'cors',
 
-    return respuesta.json();
+headers:{
 
-  });
+'Content-Type':
+'text/plain;charset=utf-8'
+
+},
+
+body:
+JSON.stringify(payload)
+
+}
+
+)
+
+.then(function(res){
+
+return res.json();
+
+});
+
 }
 
 
-// =====================================================
-// SANITIZAR TEXTO
-// =====================================================
 
-function escapar(texto) {
+// ===============================
+// SEGURIDAD
+// ===============================
 
-  if (
-    texto === null ||
-    texto === undefined
-  ) {
-    return '';
-  }
 
-  return String(texto)
+function escapar(texto){
 
-    .replace(
-      /&/g,
-      '&amp;'
-    )
+if(
+texto===null ||
+texto===undefined
+){
 
-    .replace(
-      /</g,
-      '&lt;'
-    )
+return '';
 
-    .replace(
-      />/g,
-      '&gt;'
-    )
-
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-
-    .replace(
-      /'/g,
-      '&#039;'
-    );
 }
 
 
-// =====================================================
+return String(texto)
+
+.replace(
+/&/g,
+'&amp;'
+)
+
+.replace(
+/</g,
+'&lt;'
+)
+
+.replace(
+/>/g,
+'&gt;'
+)
+
+.replace(
+/"/g,
+'&quot;'
+)
+
+.replace(
+/'/g,
+'&#039;'
+);
+
+}
+
+
+
+// ===============================
 // INICIO
-// =====================================================
+// ===============================
 
-window.onload = function() {
 
-  if (!codigo) {
+window.onload=function(){
 
-    mostrarError(
-      'No encontramos el código de esta invitación.'
-    );
 
-    return;
-  }
+if(
+!codigo ||
+!idEvento
+){
 
-  cargarInvitacion();
+mostrarError(
+'Esta invitación no tiene evento asignado.'
+);
+
+return;
+
+}
+
+
+cargarInvitacion();
+
+
 };
 
 
-// =====================================================
+
+
+// ===============================
 // CARGAR INVITACIÓN
-// =====================================================
-
-function cargarInvitacion() {
-
-  solicitarAPI(
-    'obtenerDatosConfirmacion',
-    {
-      codigo: codigo
-    }
-  )
-
-  .then(function(datos) {
-
-    if (
-      !datos ||
-      !datos.ok
-    ) {
-
-      mostrarError(
-        datos?.mensaje ||
-        'No encontramos esta invitación.'
-      );
-
-      return;
-    }
+// ===============================
 
 
-    // =================================================
-    // SI YA ESTÁ CONFIRMADO
-    // =================================================
-
-    if (
-      String(
-        datos.confirmacion || ''
-      ).toUpperCase() ===
-      'CONFIRMADO'
-    ) {
-
-      mostrarConfirmacionExistente(
-        datos
-      );
-
-      return;
-    }
+function cargarInvitacion(){
 
 
-    // =================================================
-    // SI TODAVÍA NO CONFIRMA
-    // =================================================
+solicitarAPI(
 
-    mostrarFormulario(
-      datos
-    );
+'obtenerDatosConfirmacion',
 
-  })
+{
 
-  .catch(function(error) {
+codigo:codigo,
 
-    console.error(error);
+idEvento:idEvento
 
-    mostrarError(
-      'No pudimos conectar con el sistema de confirmación.'
-    );
+}
 
-  });
+)
+
+
+.then(function(datos){
+
+
+if(
+!datos ||
+!datos.ok
+){
+
+mostrarError(
+
+datos?.mensaje ||
+
+'La invitación no existe.'
+
+);
+
+return;
+
 }
 
 
-// =====================================================
-// MOSTRAR FORMULARIO
-// =====================================================
 
-function mostrarFormulario(
-  datos
-) {
-
-  const contenido =
-    document.getElementById(
-      'contenido'
-    );
+mostrarFormulario(datos);
 
 
-  let campos = '';
+
+})
 
 
-  for (
-    let i = 1;
-    i <= datos.personas;
-    i++
-  ) {
+.catch(function(){
 
-    campos += `
+mostrarError(
 
-      <div class="campo">
+'No pudimos conectar con el sistema.'
 
-        <label>
-          NOMBRE DEL INVITADO ${i}
-        </label>
+);
 
-        <input
-          type="text"
-          id="nombre${i}"
-          placeholder="Nombre completo"
-          autocomplete="name"
-        >
-
-      </div>
-
-    `;
-  }
+});
 
 
-  contenido.innerHTML = `
-
-    <div class="tarjeta">
-
-      <div class="nombreFamilia">
-        ${escapar(datos.invitado)}
-      </div>
-
-      <div class="descripcion">
-        Nos dará mucho gusto contar contigo.
-        Por favor confirma quiénes asistirán.
-      </div>
-
-      <div class="cantidad">
-
-        <strong>
-          ${datos.personas}
-        </strong>
-
-        <small>
-          PASES DISPONIBLES
-        </small>
-
-      </div>
-
-      ${campos}
-
-      <button
-        class="boton"
-        id="botonConfirmar"
-      >
-        CONFIRMAR ASISTENCIA
-      </button>
-
-    </div>
-
-  `;
-
-
-  document
-    .getElementById(
-      'botonConfirmar'
-    )
-    .addEventListener(
-      'click',
-      confirmar
-    );
 }
 
 
-// =====================================================
-// CONFIRMAR
-// =====================================================
-
-function confirmar() {
-
-  const nombres = [];
 
 
-  for (
-    let i = 1;
-    i <= 100;
-    i++
-  ) {
 
-    const campo =
-      document.getElementById(
-        'nombre' + i
-      );
+// ===============================
+// FORMULARIO
+// ===============================
 
 
-    if (!campo) break;
+function mostrarFormulario(datos){
 
 
-    const nombre =
-      campo.value.trim();
+const contenido =
+document.getElementById(
+'contenido'
+);
 
 
-    if (!nombre) {
 
-      alert(
-        'Por favor escribe el nombre del invitado ' +
-        i +
-        '.'
-      );
-
-      campo.focus();
-
-      return;
-    }
+let campos='';
 
 
-    nombres.push(
-      nombre
-    );
-  }
+
+for(
+let i=1;
+i<=datos.personas;
+i++
+){
 
 
-  if (
-    nombres.length === 0
-  ) {
-
-    alert(
-      'Debes registrar al menos un invitado.'
-    );
-
-    return;
-  }
+campos += `
 
 
-  const boton =
-    document.getElementById(
-      'botonConfirmar'
-    );
+<div class="campo">
 
 
-  boton.disabled = true;
+<label>
 
-  boton.textContent =
-    'CONFIRMANDO...';
+NOMBRE DEL INVITADO ${i}
 
-
-  solicitarAPI(
-    'confirmarAsistencia',
-    {
-      codigo: codigo,
-      nombres: nombres
-    }
-  )
-
-  .then(function(respuesta) {
-
-    // ===============================================
-    // SI YA ESTABA CONFIRMADO
-    // ===============================================
-
-    if (
-      respuesta &&
-      respuesta.yaConfirmado
-    ) {
-
-      cargarInvitacion();
-
-      return;
-    }
+</label>
 
 
-    if (
-      !respuesta ||
-      !respuesta.ok
-    ) {
 
-      boton.disabled = false;
+<input
 
-      boton.textContent =
-        'CONFIRMAR ASISTENCIA';
+type="text"
 
+id="nombre${i}"
 
-      alert(
-        respuesta?.mensaje ||
-        'No se pudo confirmar la asistencia.'
-      );
+placeholder="Nombre completo"
 
-      return;
-    }
+autocomplete="name"
+
+>
 
 
-    // ===============================================
-    // CONFIRMACIÓN EXITOSA
-    // ===============================================
-
-    mostrarConfirmacionNueva(
-      respuesta
-    );
-
-  })
-
-  .catch(function(error) {
-
-    console.error(error);
-
-    boton.disabled = false;
-
-    boton.textContent =
-      'CONFIRMAR ASISTENCIA';
+</div>
 
 
-    alert(
-      'No pudimos completar la confirmación.'
-    );
+`;
 
-  });
+
 }
 
 
-// =====================================================
-// MOSTRAR CONFIRMACIÓN NUEVA
-// =====================================================
-
-function mostrarConfirmacionNueva(
-  datos
-) {
-
-  const nombres =
-    datos.nombres || [];
 
 
-  mostrarPantallaConfirmada({
+contenido.innerHTML = `
 
-    invitado:
-      datos.invitado,
 
-    personas:
-      datos.personas,
+<div class="tarjeta">
 
-    nombres:
-      nombres,
 
-    fechaConfirmacion:
-      datos.fechaConfirmacion,
+<div class="nombreFamilia">
 
-    codigo:
-      datos.codigo
-  });
+${escapar(datos.invitado)}
+
+</div>
+
+
+
+<div class="descripcion">
+
+Nos dará mucho gusto contar contigo.
+
+Por favor confirma quiénes asistirán.
+
+</div>
+
+
+
+
+<div class="cantidad">
+
+
+<strong>
+
+${datos.personas}
+
+</strong>
+
+
+<small>
+
+PASES DISPONIBLES
+
+</small>
+
+
+</div>
+
+
+
+${campos}
+
+
+
+<button
+
+class="boton"
+
+id="botonConfirmar"
+
+>
+
+CONFIRMAR ASISTENCIA
+
+</button>
+
+
+
+</div>
+
+
+`;
+
+
+
+document
+
+.getElementById(
+'botonConfirmar'
+)
+
+.addEventListener(
+
+'click',
+
+confirmar
+
+);
+
+
 }
 
 
-// =====================================================
-// MOSTRAR CONFIRMACIÓN EXISTENTE
-// =====================================================
 
-function mostrarConfirmacionExistente(
-  datos
-) {
 
-  mostrarPantallaConfirmada({
 
-    invitado:
-      datos.invitado,
+// ===============================
+// ENVIAR CONFIRMACIÓN
+// ===============================
 
-    personas:
-      datos.personas,
 
-    nombres:
-      datos.nombres || [],
+function confirmar(){
 
-    fechaConfirmacion:
-      datos.fechaConfirmacion,
 
-    codigo:
-      datos.codigo
-  });
+const nombres=[];
+
+
+
+for(
+let i=1;
+i<=100;
+i++
+){
+
+
+const campo =
+
+document.getElementById(
+'nombre'+i
+);
+
+
+
+if(!campo)
+break;
+
+
+
+const nombre =
+campo.value.trim();
+
+
+
+if(!nombre){
+
+
+alert(
+
+'Escribe el nombre del invitado '+i
+
+);
+
+
+campo.focus();
+
+
+return;
+
+
 }
 
 
-// =====================================================
-// PANTALLA DE CONFIRMACIÓN
-// =====================================================
 
-function mostrarPantallaConfirmada(
-  datos
-) {
-
-  const contenido =
-    document.getElementById(
-      'contenido'
-    );
+nombres.push(nombre);
 
 
-  const nombres =
-    datos.nombres || [];
 
-
-  let listaNombres = '';
-
-
-  nombres.forEach(
-    function(nombre) {
-
-      listaNombres += `
-
-        <div>
-          ${escapar(nombre)}
-        </div>
-
-      `;
-
-    }
-  );
-
-
-  // ===============================================
-  // QR
-  // ===============================================
-
-  const qrURL =
-    'https://quickchart.io/qr?size=500&text=' +
-    encodeURIComponent(
-      datos.codigo
-    );
-
-
-  contenido.innerHTML = `
-
-    <div class="tarjeta">
-
-      <div class="mensaje exito">
-
-        <div class="icono">
-          ✅
-        </div>
-
-        <h2>
-          ¡Asistencia confirmada!
-        </h2>
-
-        <p>
-          ${datos.personas}
-          persona(s) confirmada(s)
-          para
-          <b>
-            ${escapar(datos.invitado)}
-          </b>.
-        </p>
-
-      </div>
-
-
-      <div class="listaNombres">
-
-        <strong>
-          INVITADOS CONFIRMADOS
-        </strong>
-
-        ${listaNombres}
-
-      </div>
-
-
-      <div class="qrTitulo">
-        TU PASE QR
-      </div>
-
-
-      <img
-        class="qr"
-        src="${qrURL}"
-        alt="Código QR de acceso"
-      >
-
-
-      <div class="nota">
-
-        Guarda este código QR y
-        preséntalo al llegar al evento.
-
-        <br><br>
-
-        Este código corresponde
-        exclusivamente a esta invitación.
-
-      </div>
-
-    </div>
-
-  `;
 }
 
 
-// =====================================================
+
+
+const boton =
+
+document.getElementById(
+'botonConfirmar'
+);
+
+
+
+boton.disabled=true;
+
+
+boton.textContent=
+'CONFIRMANDO...';
+
+
+
+solicitarAPI(
+
+'confirmarAsistencia',
+
+{
+
+
+codigo:codigo,
+
+
+idEvento:idEvento,
+
+
+nombres:nombres
+
+
+}
+
+)
+
+
+
+.then(function(respuesta){
+
+
+if(
+!respuesta ||
+!respuesta.ok
+){
+
+
+alert(
+
+respuesta?.mensaje ||
+
+'No se pudo confirmar.'
+
+);
+
+
+
+boton.disabled=false;
+
+
+boton.textContent=
+
+'CONFIRMAR ASISTENCIA';
+
+
+
+return;
+
+
+}
+
+
+
+mostrarConfirmacionNueva(
+respuesta
+);
+
+
+
+})
+
+
+
+.catch(function(){
+
+
+alert(
+'Error al confirmar.'
+);
+
+
+boton.disabled=false;
+
+
+boton.textContent=
+
+'CONFIRMAR ASISTENCIA';
+
+
+
+});
+
+
+}
+
+
+
+
+// ===============================
+// PANTALLA FINAL
+// ===============================
+
+
+function mostrarConfirmacionNueva(datos){
+
+
+const contenido =
+
+document.getElementById(
+'contenido'
+);
+
+
+
+let lista='';
+
+
+
+(datos.nombres || [])
+
+.forEach(function(nombre){
+
+
+lista += `
+
+<div>
+
+${escapar(nombre)}
+
+</div>
+
+`;
+
+
+});
+
+
+
+const textoQR =
+
+'https://pnunez02mx-gif.github.io/an-pass/?evento='
+
++ idEvento
+
++ '&codigo='
+
++ datos.codigo;
+
+
+
+const qrURL =
+
+'https://quickchart.io/qr?size=500&text='
+
++
+
+encodeURIComponent(
+textoQR
+);
+
+
+
+
+contenido.innerHTML=`
+
+
+<div class="tarjeta">
+
+
+<div class="mensaje">
+
+
+<div class="icono">
+
+✅
+
+</div>
+
+
+<h2>
+
+¡Asistencia confirmada!
+
+</h2>
+
+
+
+<p>
+
+Gracias por confirmar.
+
+</p>
+
+
+
+</div>
+
+
+
+<div class="listaNombres">
+
+
+<strong>
+
+INVITADOS CONFIRMADOS
+
+</strong>
+
+
+${lista}
+
+
+</div>
+
+
+
+
+<div class="qrTitulo">
+
+TU PASE QR
+
+</div>
+
+
+
+
+<img
+
+class="qr"
+
+src="${qrURL}"
+
+>
+
+
+<div class="nota">
+
+
+Guarda este código QR para el acceso.
+
+
+<br><br>
+
+
+Este pase pertenece únicamente a este evento.
+
+
+</div>
+
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+ 
+// ===============================
 // MOSTRAR ERROR
-// =====================================================
+// ===============================
+
 
 function mostrarError(
-  mensaje
-) {
+mensaje
+){
 
-  document.getElementById(
-    'contenido'
-  ).innerHTML = `
 
-    <div class="tarjeta">
+document.getElementById(
+'contenido'
+)
 
-      <div class="mensaje error">
+.innerHTML = `
 
-        <div class="icono">
-          ❌
-        </div>
 
-        <h2>
-          No pudimos abrir tu invitación
-        </h2>
+<div class="tarjeta">
 
-        <p>
-          ${escapar(mensaje)}
-        </p>
 
-      </div>
+<div class="mensaje error">
 
-    </div>
 
-  `;
+<div class="icono">
+
+❌
+
+</div>
+
+
+
+<h2>
+
+No pudimos abrir tu invitación
+
+</h2>
+
+
+
+<p>
+
+${escapar(mensaje)}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+`;
+
+
 }
+
+
+
 
 </script>
 
+
 </body>
+
 </html>
