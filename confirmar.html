@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta 
-name="viewport" 
-content="width=device-width, initial-scale=1"
->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>AN PASS - Confirmación</title>
 
@@ -15,356 +13,319 @@ content="width=device-width, initial-scale=1"
 <style>
 
 *{
-box-sizing:border-box;
+  box-sizing:border-box;
 }
+
 
 body{
 
-margin:0;
+  margin:0;
 
-background:#f7f3ed;
+  background:#f7f3ed;
 
-color:#292522;
+  color:#292522;
 
-font-family:Arial,sans-serif;
+  font-family:Arial,sans-serif;
 
 }
 
 
 .app{
 
-width:100%;
+  width:100%;
 
-max-width:500px;
+  max-width:500px;
 
-margin:auto;
+  margin:auto;
 
-padding:30px 18px 60px;
+  padding:30px 18px 60px;
 
 }
+
 
 
 header{
 
-text-align:center;
+  text-align:center;
 
-margin-bottom:25px;
+  margin-bottom:25px;
 
 }
 
 
+
 .logo{
 
-font-family:Georgia,serif;
+  font-family:Georgia,serif;
 
-font-size:32px;
+  font-size:32px;
 
-line-height:.8;
+  line-height:.8;
 
-letter-spacing:3px;
+  letter-spacing:3px;
 
 }
 
 
 .logo span{
 
-font-size:20px;
+  font-size:20px;
 
-letter-spacing:6px;
+  letter-spacing:6px;
 
 }
+
 
 
 .subtitulo{
 
-margin-top:15px;
+  margin-top:15px;
 
-font-size:9px;
+  font-size:9px;
 
-letter-spacing:3px;
+  letter-spacing:3px;
 
-color:#766b60;
+  color:#766b60;
 
 }
+
+
 
 
 .tarjeta{
 
-background:white;
+  background:white;
 
-border:1px solid #e5ddd2;
+  border:1px solid #e5ddd2;
 
-border-radius:22px;
+  border-radius:22px;
 
-padding:25px 18px;
+  padding:25px 18px;
 
-box-shadow:0 5px 18px rgba(70,60,50,.07);
+  box-shadow:0 5px 18px rgba(70,60,50,.07);
 
-text-align:center;
+  text-align:center;
 
 }
+
 
 
 .nombreFamilia{
 
-font-family:Georgia,serif;
+  font-family:Georgia,serif;
 
-font-size:27px;
+  font-size:27px;
 
-margin:5px 0 10px;
+  margin:5px 0 10px;
 
 }
+
 
 
 .descripcion{
 
-color:#706860;
+  color:#706860;
 
-font-size:13px;
+  font-size:13px;
 
-line-height:1.5;
-
-margin-bottom:20px;
+  line-height:1.5;
 
 }
+
 
 
 .cantidad{
 
-background:#f7f3ed;
+  background:#f7f3ed;
 
-border-radius:15px;
+  border-radius:15px;
 
-padding:18px;
+  padding:18px;
 
-margin-bottom:20px;
+  margin:20px 0;
 
 }
+
 
 
 .cantidad strong{
 
-display:block;
+  display:block;
 
-font-family:Georgia,serif;
+  font-family:Georgia,serif;
 
-font-size:38px;
-
-margin-bottom:5px;
+  font-size:38px;
 
 }
+
 
 
 .cantidad small{
 
-font-size:9px;
+  font-size:9px;
 
-font-weight:bold;
+  font-weight:bold;
 
-letter-spacing:1px;
+  letter-spacing:1px;
 
 }
+
+
 
 
 .campo{
 
-text-align:left;
+  text-align:left;
 
-margin-bottom:13px;
+  margin-bottom:13px;
 
 }
+
 
 
 .campo label{
 
-display:block;
+  display:block;
 
-font-size:9px;
+  font-size:9px;
 
-font-weight:bold;
+  font-weight:bold;
 
-margin-bottom:6px;
+  margin-bottom:6px;
 
 }
+
 
 
 .campo input{
 
-width:100%;
+  width:100%;
 
-padding:13px;
+  padding:13px;
 
-border:1px solid #ddd3c7;
+  border:1px solid #ddd3c7;
 
-border-radius:12px;
+  border-radius:12px;
 
-background:white;
-
-font-size:14px;
-
-outline:none;
+  font-size:14px;
 
 }
+
 
 
 .boton{
 
-width:100%;
+  width:100%;
 
-border:0;
+  border:0;
 
-border-radius:13px;
+  border-radius:13px;
 
-padding:16px;
+  padding:16px;
 
-background:#292522;
+  background:#292522;
 
-color:white;
+  color:white;
 
-font-size:14px;
+  font-size:14px;
 
-font-weight:bold;
-
-cursor:pointer;
-
-margin-top:8px;
+  font-weight:bold;
 
 }
+
 
 
 .boton:disabled{
 
-opacity:.6;
-
-cursor:wait;
+ opacity:.6;
 
 }
 
-
-.mensaje{
-
-text-align:center;
-
-padding:10px 5px;
-
-}
 
 
 .icono{
 
-font-size:52px;
-
-margin-bottom:10px;
+ font-size:52px;
 
 }
 
 
-.error{
 
-color:#8b443b;
+.mensaje{
 
-}
+ text-align:center;
 
-
-.cargando{
-
-text-align:center;
-
-color:#706860;
-
-padding:30px 10px;
+ padding:15px;
 
 }
 
-
-.listaNombres{
-
-background:#f7f3ed;
-
-border-radius:15px;
-
-padding:15px;
-
-text-align:left;
-
-margin-top:20px;
-
-}
-
-
-.listaNombres strong{
-
-display:block;
-
-font-size:10px;
-
-letter-spacing:1px;
-
-margin-bottom:9px;
-
-}
-
-
-.listaNombres div{
-
-font-size:13px;
-
-padding:5px 0;
-
-border-bottom:1px solid #e6ddd2;
-
-}
-
-
-.listaNombres div:last-child{
-
-border-bottom:0;
-
-}
-
-
-.qrTitulo{
-
-margin-top:28px;
-
-font-size:12px;
-
-font-weight:bold;
-
-letter-spacing:2px;
-
-}
 
 
 .qr{
 
-display:block;
+ width:220px;
 
-width:220px;
+ height:220px;
 
-height:220px;
+ margin:15px auto;
 
-margin:15px auto;
-
-border-radius:8px;
+ display:block;
 
 }
 
 
-.nota{
 
-color:#766b60;
+.listaNombres{
 
-font-size:10px;
+ background:#f7f3ed;
 
-line-height:1.5;
+ border-radius:15px;
 
-margin-top:15px;
+ padding:15px;
+
+ margin-top:20px;
+
+ text-align:left;
+
+}
+
+
+
+.listaNombres strong{
+
+ display:block;
+
+ font-size:10px;
+
+ letter-spacing:1px;
+
+ margin-bottom:10px;
+
+}
+
+
+
+.listaNombres div{
+
+ padding:5px 0;
+
+ border-bottom:1px solid #e5ddd2;
+
+ font-size:13px;
+
+}
+
+
+
+.error{
+
+ color:#8b443b;
 
 }
 
 
 </style>
+
 
 </head>
 
@@ -391,13 +352,15 @@ CONFIRMACIÓN DE ASISTENCIA
 </header>
 
 
+
 <div id="contenido">
+
 
 <div class="tarjeta">
 
-<div class="cargando">
+<div class="mensaje">
+
 Cargando invitación...
-</div>
 
 </div>
 
@@ -407,53 +370,56 @@ Cargando invitación...
 </div>
 
 
-<script>
+</div>
 
+  <script>
 
-// ===============================
+// =====================================================
 // CONFIGURACIÓN
-// ===============================
-
+// =====================================================
 
 const URL_APPS_SCRIPT =
 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
 
 
-// ===============================
-// DATOS URL
-// ===============================
-
+// =====================================================
+// DATOS DE LA URL
+// =====================================================
 
 const parametros =
 new URLSearchParams(
-window.location.search
+  window.location.search
 );
 
 
 const codigo =
 String(
-parametros.get('codigo') || ''
+  parametros.get('codigo') || ''
 )
 .trim();
 
 
-const idEvento =
+const evento =
 String(
-parametros.get('evento') || ''
+  parametros.get('evento') || ''
 )
 .trim()
 .toUpperCase();
-  // ===============================
-// API
-// ===============================
 
+
+
+// =====================================================
+// API
+// =====================================================
 
 function solicitarAPI(
   accion,
-  payload={}
+  datos={}
 ){
 
-payload.accion = accion;
+datos.accion = accion;
+
+datos.idEvento = evento;
 
 
 return fetch(
@@ -465,33 +431,30 @@ method:'POST',
 mode:'cors',
 
 headers:{
-
 'Content-Type':
 'text/plain;charset=utf-8'
-
 },
 
 body:
-JSON.stringify(payload)
+JSON.stringify(datos)
 
 }
 
 )
 
-.then(function(res){
+.then(
+respuesta =>
+respuesta.json()
+);
 
-return res.json();
-
-});
 
 }
 
 
 
-// ===============================
-// SEGURIDAD
-// ===============================
-
+// =====================================================
+// SEGURIDAD TEXTO
+// =====================================================
 
 function escapar(texto){
 
@@ -507,50 +470,34 @@ return '';
 
 return String(texto)
 
-.replace(
-/&/g,
-'&amp;'
-)
+.replace(/&/g,'&amp;')
 
-.replace(
-/</g,
-'&lt;'
-)
+.replace(/</g,'&lt;')
 
-.replace(
-/>/g,
-'&gt;'
-)
+.replace(/>/g,'&gt;')
 
-.replace(
-/"/g,
-'&quot;'
-)
+.replace(/"/g,'&quot;')
 
-.replace(
-/'/g,
-'&#039;'
-);
+.replace(/'/g,'&#039;');
 
 }
 
 
 
-// ===============================
+// =====================================================
 // INICIO
-// ===============================
-
+// =====================================================
 
 window.onload=function(){
 
 
 if(
 !codigo ||
-!idEvento
+!evento
 ){
 
 mostrarError(
-'Esta invitación no tiene evento asignado.'
+'Código o evento incorrecto.'
 );
 
 return;
@@ -565,11 +512,9 @@ cargarInvitacion();
 
 
 
-
-// ===============================
+// =====================================================
 // CARGAR INVITACIÓN
-// ===============================
-
+// =====================================================
 
 function cargarInvitacion(){
 
@@ -579,17 +524,15 @@ solicitarAPI(
 'obtenerDatosConfirmacion',
 
 {
-
-codigo:codigo,
-
-idEvento:idEvento
-
+codigo:codigo
 }
 
 )
 
 
-.then(function(datos){
+.then(
+function(datos){
+
 
 
 if(
@@ -598,11 +541,8 @@ if(
 ){
 
 mostrarError(
-
 datos?.mensaje ||
-
 'La invitación no existe.'
-
 );
 
 return;
@@ -611,22 +551,30 @@ return;
 
 
 
-mostrarFormulario(datos);
+// ===============================
+// AQUÍ ESTABA EL ERROR
+// ===============================
+// Si ya está confirmada,
+// NO mostramos formulario.
+// Mostramos QR.
 
 
+if(
+String(
+datos.confirmacion || ''
+)
+.toUpperCase()
+===
+'CONFIRMADO'
+){
 
-})
 
-
-.catch(function(){
-
-mostrarError(
-
-'No pudimos conectar con el sistema.'
-
+mostrarConfirmacionExistente(
+datos
 );
 
-});
+
+return;
 
 
 }
@@ -634,20 +582,44 @@ mostrarError(
 
 
 
-
-// ===============================
-// FORMULARIO
-// ===============================
-
-
-function mostrarFormulario(datos){
-
-
-const contenido =
-document.getElementById(
-'contenido'
+mostrarFormulario(
+datos
 );
 
+
+
+}
+
+)
+
+
+
+.catch(
+function(error){
+
+console.error(error);
+
+mostrarError(
+'No se pudo conectar con el sistema.'
+);
+
+
+}
+
+);
+
+
+}
+
+
+
+// =====================================================
+// FORMULARIO
+// =====================================================
+
+function mostrarFormulario(
+datos
+){
 
 
 let campos='';
@@ -663,29 +635,22 @@ i++
 
 campos += `
 
-
 <div class="campo">
 
-
 <label>
-
 NOMBRE DEL INVITADO ${i}
-
 </label>
-
 
 
 <input
 
-type="text"
-
 id="nombre${i}"
+
+type="text"
 
 placeholder="Nombre completo"
 
-autocomplete="name"
-
->
+/>
 
 
 </div>
@@ -698,8 +663,9 @@ autocomplete="name"
 
 
 
-
-contenido.innerHTML = `
+document
+.getElementById('contenido')
+.innerHTML = `
 
 
 <div class="tarjeta">
@@ -716,16 +682,13 @@ ${escapar(datos.invitado)}
 <div class="descripcion">
 
 Nos dará mucho gusto contar contigo.
-
 Por favor confirma quiénes asistirán.
 
 </div>
 
 
 
-
 <div class="cantidad">
-
 
 <strong>
 
@@ -744,7 +707,6 @@ PASES DISPONIBLES
 </div>
 
 
-
 ${campos}
 
 
@@ -753,7 +715,7 @@ ${campos}
 
 class="boton"
 
-id="botonConfirmar"
+id="btnConfirmar"
 
 >
 
@@ -771,36 +733,24 @@ CONFIRMAR ASISTENCIA
 
 
 document
-
-.getElementById(
-'botonConfirmar'
-)
-
+.getElementById('btnConfirmar')
 .addEventListener(
-
 'click',
-
 confirmar
-
 );
+
 
 
 }
 
-
-
-
-
-// ===============================
-// ENVIAR CONFIRMACIÓN
-// ===============================
-
+// =====================================================
+// CONFIRMAR ASISTENCIA
+// =====================================================
 
 function confirmar(){
 
 
 const nombres=[];
-
 
 
 for(
@@ -811,11 +761,9 @@ i++
 
 
 const campo =
-
 document.getElementById(
 'nombre'+i
 );
-
 
 
 if(!campo)
@@ -830,26 +778,18 @@ campo.value.trim();
 
 if(!nombre){
 
-
 alert(
-
-'Escribe el nombre del invitado '+i
-
+'Escribe todos los nombres antes de confirmar.'
 );
-
 
 campo.focus();
 
-
 return;
-
 
 }
 
 
-
 nombres.push(nombre);
-
 
 
 }
@@ -858,15 +798,13 @@ nombres.push(nombre);
 
 
 const boton =
-
 document.getElementById(
-'botonConfirmar'
+'btnConfirmar'
 );
 
 
 
 boton.disabled=true;
-
 
 boton.textContent=
 'CONFIRMANDO...';
@@ -878,24 +816,29 @@ solicitarAPI(
 'confirmarAsistencia',
 
 {
-
-
 codigo:codigo,
-
-
-idEvento:idEvento,
-
-
 nombres:nombres
-
-
 }
 
 )
 
 
+.then(
 
-.then(function(respuesta){
+function(respuesta){
+
+
+
+if(
+respuesta.yaConfirmado
+){
+
+cargarInvitacion();
+
+return;
+
+}
+
 
 
 if(
@@ -905,22 +848,15 @@ if(
 
 
 alert(
-
 respuesta?.mensaje ||
-
 'No se pudo confirmar.'
-
 );
-
 
 
 boton.disabled=false;
 
-
 boton.textContent=
-
 'CONFIRMAR ASISTENCIA';
-
 
 
 return;
@@ -930,18 +866,33 @@ return;
 
 
 
-mostrarConfirmacionNueva(
-respuesta
-);
+
+mostrarConfirmacion({
+
+codigo:codigo,
+
+invitado:respuesta.invitado,
+
+personas:
+respuesta.personas,
+
+nombres:
+respuesta.nombres
+
+
+});
 
 
 
-})
+}
+
+)
 
 
 
-.catch(function(){
+.catch(
 
+function(){
 
 alert(
 'Error al confirmar.'
@@ -951,11 +902,38 @@ alert(
 boton.disabled=false;
 
 
-boton.textContent=
+}
 
-'CONFIRMAR ASISTENCIA';
+);
 
 
+}
+
+
+
+// =====================================================
+// MOSTRAR CONFIRMACIÓN EXISTENTE
+// =====================================================
+
+
+function mostrarConfirmacionExistente(
+datos
+){
+
+
+mostrarConfirmacion({
+
+codigo:
+datos.codigo,
+
+invitado:
+datos.invitado,
+
+personas:
+datos.personas,
+
+nombres:
+datos.nombres || []
 
 });
 
@@ -965,55 +943,37 @@ boton.textContent=
 
 
 
-// ===============================
-// PANTALLA FINAL
-// ===============================
+// =====================================================
+// PANTALLA FINAL CON QR
+// =====================================================
 
 
-function mostrarConfirmacionNueva(datos){
-
-
-const contenido =
-
-document.getElementById(
-'contenido'
-);
-
+function mostrarConfirmacion(
+datos
+){
 
 
 let lista='';
 
 
-
 (datos.nombres || [])
+.forEach(
 
-.forEach(function(nombre){
-
+function(nombre){
 
 lista += `
 
 <div>
-
 ${escapar(nombre)}
-
 </div>
 
 `;
 
+}
 
-});
+);
 
 
-
-const textoQR =
-
-'https://pnunez02mx-gif.github.io/an-pass/?evento='
-
-+ idEvento
-
-+ '&codigo='
-
-+ datos.codigo;
 
 
 
@@ -1024,16 +984,24 @@ const qrURL =
 +
 
 encodeURIComponent(
-textoQR
+
+datos.codigo
+
 );
 
 
 
 
-contenido.innerHTML=`
+
+
+document
+.getElementById('contenido')
+.innerHTML = `
+
 
 
 <div class="tarjeta">
+
 
 
 <div class="mensaje">
@@ -1061,8 +1029,9 @@ Gracias por confirmar.
 </p>
 
 
-
 </div>
+
+
 
 
 
@@ -1084,11 +1053,12 @@ ${lista}
 
 
 
-<div class="qrTitulo">
+
+<h3>
 
 TU PASE QR
 
-</div>
+</h3>
 
 
 
@@ -1099,26 +1069,40 @@ class="qr"
 
 src="${qrURL}"
 
+alt="QR Pase"
+
+
+
 >
 
 
-<div class="nota">
+
+<p>
+
+Código:
+
+<b>
+
+${escapar(datos.codigo)}
+
+</b>
 
 
-Guarda este código QR para el acceso.
+</p>
 
 
-<br><br>
+
+<p>
+
+Guarda este código para ingresar al evento.
+
+</p>
 
 
-Este pase pertenece únicamente a este evento.
 
 
 </div>
 
-
-
-</div>
 
 
 `;
@@ -1127,10 +1111,12 @@ Este pase pertenece únicamente a este evento.
 
 }
 
- 
-// ===============================
-// MOSTRAR ERROR
-// ===============================
+
+
+
+// =====================================================
+// ERROR
+// =====================================================
 
 
 function mostrarError(
@@ -1138,10 +1124,8 @@ mensaje
 ){
 
 
-document.getElementById(
-'contenido'
-)
-
+document
+.getElementById('contenido')
 .innerHTML = `
 
 
@@ -1183,10 +1167,7 @@ ${escapar(mensaje)}
 
 `;
 
-
 }
-
-
 
 
 </script>
