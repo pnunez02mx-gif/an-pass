@@ -486,6 +486,10 @@ const URL_APPS_SCRIPT =
 let scanner = null;
 let todosLosInvitados = [];
 
+// EVENTO ACTUAL DESDE LA URL
+const parametrosURL = new URLSearchParams(window.location.search);
+const ID_EVENTO = parametrosURL.get('evento') || 'EV001';
+
 
 /* =====================================================
    INICIO
@@ -513,6 +517,7 @@ window.onload = function() {
 function solicitarAPI(accion, payload = {}) {
 
   payload.accion = accion;
+  payload.id_evento = ID_EVENTO;
 
   return fetch(URL_APPS_SCRIPT, {
 
@@ -790,7 +795,10 @@ function consultarPase(codigo) {
 
   solicitarAPI(
     'buscarPase',
-    { codigo: codigo }
+    {
+      codigo: codigo,
+      id_evento: ID_EVENTO
+    }
   )
 
     .then(res => {
@@ -1159,7 +1167,8 @@ function registrarEntrada(
 
     {
       codigo: codigo,
-      cantidad: cantidad
+      cantidad: cantidad,
+      id_evento: ID_EVENTO
     }
 
   )
