@@ -869,16 +869,29 @@ return;
 
 mostrarConfirmacion({
 
-codigo:codigo,
+  codigo:
+  datos.codigo,
 
-invitado:respuesta.invitado,
+  invitado:
+  datos.invitado,
 
-personas:
-respuesta.personas,
+  personas:
+  datos.personas,
 
-nombres:
-respuesta.nombres
+  nombres:
+  datos.nombres || [],
 
+  evento:
+  datos.evento,
+
+  color:
+  datos.color,
+
+  colorFondo:
+  datos.colorFondo,
+
+  colorBoton:
+  datos.colorBoton
 
 });
 
