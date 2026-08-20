@@ -16,7 +16,7 @@
 <style>
 
 /* =====================================================
-   VARIABLES DEL EVENTO
+   COLORES DEL EVENTO
    ===================================================== */
 
 :root{
@@ -57,16 +57,19 @@ body{
 
 body{
 
-  background:var(--color-fondo);
+  background:
+    var(--color-fondo);
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
   font-family:
     Arial,
     Helvetica,
     sans-serif;
 
-  -webkit-font-smoothing:antialiased;
+  -webkit-font-smoothing:
+    antialiased;
 
   transition:
     background .3s ease,
@@ -107,6 +110,9 @@ header{
 
 }
 
+
+/* AN PASS */
+
 .logo{
 
   font-family:
@@ -120,9 +126,13 @@ header{
 
   letter-spacing:3px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
+
+/* PASS */
 
 .logo span{
 
@@ -132,39 +142,70 @@ header{
 
 }
 
-.subtitulo{
 
-  margin-top:15px;
+/* =====================================================
+   NOMBRE DEL EVENTO
+   ===================================================== */
 
-  font-size:9px;
+.nombreEvento{
 
-  letter-spacing:3px;
+  margin-top:18px;
 
-  color:var(--color-secundario);
+  font-family:
+    Georgia,
+    "Times New Roman",
+    serif;
+
+  font-size:20px;
+
+  line-height:1.25;
+
+  color:
+    var(--color-principal);
+
+  font-weight:normal;
 
 }
 
 
 /* =====================================================
-   IMAGEN DEL EVENTO
+   SUBTÍTULO
    ===================================================== */
 
-.imagenEvento{
+.subtitulo{
 
-  width:100%;
+  margin-top:10px;
 
-  max-height:230px;
+  font-size:9px;
 
-  object-fit:cover;
+  letter-spacing:3px;
 
-  border-radius:18px;
+  color:
+    var(--color-secundario);
+
+}
+
+
+/* =====================================================
+   LOGO / IMAGEN DEL EVENTO
+   ===================================================== */
+
+.logoEvento{
 
   display:block;
 
+  width:auto;
+
+  max-width:180px;
+
+  max-height:100px;
+
   margin:
     0
-    0
-    20px;
+    auto
+    15px;
+
+  object-fit:contain;
 
 }
 
@@ -177,7 +218,8 @@ header{
 
   width:100%;
 
-  background:var(--color-tarjeta);
+  background:
+    var(--color-tarjeta);
 
   border:
     1px solid
@@ -200,7 +242,7 @@ header{
 
 
 /* =====================================================
-   NOMBRE
+   NOMBRE DEL INVITADO
    ===================================================== */
 
 .nombreFamilia{
@@ -215,9 +257,12 @@ header{
   line-height:1.2;
 
   margin:
-    5px 0 10px;
+    5px
+    0
+    10px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
 
@@ -228,7 +273,8 @@ header{
 
 .descripcion{
 
-  color:var(--color-secundario);
+  color:
+    var(--color-secundario);
 
   font-size:13px;
 
@@ -238,12 +284,13 @@ header{
 
 
 /* =====================================================
-   PASES
+   PASES DISPONIBLES
    ===================================================== */
 
 .cantidad{
 
-  background:var(--color-fondo);
+  background:
+    var(--color-fondo);
 
   border-radius:15px;
 
@@ -252,6 +299,7 @@ header{
   margin:20px 0;
 
 }
+
 
 .cantidad strong{
 
@@ -266,9 +314,11 @@ header{
 
   line-height:1;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
 
 .cantidad small{
 
@@ -282,7 +332,8 @@ header{
 
   letter-spacing:1px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
 
@@ -301,6 +352,7 @@ header{
 
 }
 
+
 .campo label{
 
   display:block;
@@ -311,9 +363,11 @@ header{
 
   margin-bottom:6px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
 
 .campo input{
 
@@ -335,7 +389,8 @@ header{
 
   background:#ffffff;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
   font-family:
     Arial,
@@ -352,6 +407,7 @@ header{
 
 }
 
+
 .campo input:focus{
 
   border-color:
@@ -363,6 +419,7 @@ header{
 
 }
 
+
 .campo input::placeholder{
 
   color:#aaa29a;
@@ -371,10 +428,12 @@ header{
 
 
 /* =====================================================
-   BOTÓN
+   ZONA BOTÓN
    ===================================================== */
 
 #zonaBoton{
+
+  display:block;
 
   width:100%;
 
@@ -382,9 +441,18 @@ header{
 
 }
 
+
+/* =====================================================
+   BOTÓN
+   ===================================================== */
+
 button.boton{
 
   display:block !important;
+
+  visibility:visible !important;
+
+  opacity:1 !important;
 
   width:100% !important;
 
@@ -414,6 +482,10 @@ button.boton{
 
   letter-spacing:.4px;
 
+  line-height:normal;
+
+  text-align:center;
+
   cursor:pointer;
 
   appearance:none;
@@ -426,11 +498,14 @@ button.boton{
 
 }
 
+
 button.boton:active{
 
-  transform:scale(.98);
+  transform:
+    scale(.98);
 
 }
+
 
 button.boton:disabled{
 
@@ -442,7 +517,7 @@ button.boton:disabled{
 
 
 /* =====================================================
-   MENSAJES
+   MENSAJE
    ===================================================== */
 
 .mensaje{
@@ -452,6 +527,7 @@ button.boton:disabled{
   padding:15px;
 
 }
+
 
 .icono{
 
@@ -463,6 +539,7 @@ button.boton:disabled{
 
 }
 
+
 .mensaje h2{
 
   font-family:
@@ -470,16 +547,19 @@ button.boton:disabled{
     "Times New Roman",
     serif;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
   margin:
     10px 0;
 
 }
 
+
 .mensaje p{
 
-  color:var(--color-secundario);
+  color:
+    var(--color-secundario);
 
   font-size:13px;
 
@@ -489,12 +569,13 @@ button.boton:disabled{
 
 
 /* =====================================================
-   LISTA DE CONFIRMADOS
+   LISTA DE INVITADOS
    ===================================================== */
 
 .listaNombres{
 
-  background:var(--color-fondo);
+  background:
+    var(--color-fondo);
 
   border-radius:15px;
 
@@ -506,6 +587,7 @@ button.boton:disabled{
 
 }
 
+
 .listaNombres strong{
 
   display:block;
@@ -516,9 +598,11 @@ button.boton:disabled{
 
   margin-bottom:10px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
 
 .listaNombres div{
 
@@ -530,9 +614,11 @@ button.boton:disabled{
 
   font-size:13px;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
 
 .listaNombres div:last-child{
 
@@ -559,9 +645,11 @@ h3{
 
   font-weight:normal;
 
-  color:var(--color-principal);
+  color:
+    var(--color-principal);
 
 }
+
 
 .qr{
 
@@ -587,6 +675,7 @@ h3{
 
 }
 
+
 .error h2{
 
   color:#8b443b;
@@ -595,7 +684,7 @@ h3{
 
 
 /* =====================================================
-   CELULARES
+   CELULARES PEQUEÑOS
    ===================================================== */
 
 @media(max-width:380px){
@@ -609,6 +698,14 @@ h3{
 
   }
 
+
+  .nombreEvento{
+
+    font-size:18px;
+
+  }
+
+
   .tarjeta{
 
     padding:
@@ -618,17 +715,20 @@ h3{
 
   }
 
+
   .nombreFamilia{
 
     font-size:24px;
 
   }
 
+
   .cantidad strong{
 
     font-size:34px;
 
   }
+
 
   .qr{
 
@@ -651,9 +751,17 @@ h3{
 <div class="app">
 
 
+<!-- =================================================
+     ENCABEZADO
+     ================================================= -->
+
 <header>
 
-  <div class="logo">
+
+  <div
+    id="logoEvento"
+    class="logo"
+  >
 
     AN<br>
 
@@ -662,18 +770,33 @@ h3{
   </div>
 
 
+  <!-- NOMBRE DINÁMICO DEL EVENTO -->
+
+  <div
+    id="nombreEvento"
+    class="nombreEvento"
+  ></div>
+
+
   <div class="subtitulo">
 
     CONFIRMACIÓN DE ASISTENCIA
 
   </div>
 
+
 </header>
 
 
+<!-- =================================================
+     CONTENIDO
+     ================================================= -->
+
 <div id="contenido">
 
+
   <div class="tarjeta">
+
 
     <div class="mensaje">
 
@@ -681,7 +804,9 @@ h3{
 
     </div>
 
+
   </div>
+
 
 </div>
 
@@ -727,7 +852,7 @@ String(
 
 
 // =====================================================
-// CONFIGURACIÓN VISUAL DEL EVENTO
+// CONFIGURACIÓN VISUAL
 // =====================================================
 
 let configuracionEvento = {
@@ -748,21 +873,17 @@ let configuracionEvento = {
 
 
 // =====================================================
-// APLICAR CONFIGURACIÓN VISUAL
+// APLICAR CONFIGURACIÓN
 // =====================================================
 
 function aplicarConfiguracionEvento(
   datos
 ){
 
-  /*
-   * Aceptamos diferentes nombres
-   * para que sea compatible con
-   * la estructura que ya manejamos.
-   */
-
   const eventoDatos =
-    datos.evento || {};
+    datos.eventoDatos ||
+    datos.configuracion ||
+    {};
 
 
   const color =
@@ -828,20 +949,18 @@ function aplicarConfiguracionEvento(
   configuracionEvento.color =
     color;
 
+
   configuracionEvento.color_fondo =
     colorFondo;
+
 
   configuracionEvento.color_boton =
     colorBoton;
 
+
   configuracionEvento.imagen =
     imagen;
 
-
-  /*
-   * Aplicar colores mediante
-   * variables CSS.
-   */
 
   document.documentElement
     .style
@@ -868,7 +987,7 @@ function aplicarConfiguracionEvento(
 
 
   /*
-   * Aplicar imagen si existe.
+   * Mostrar imagen si existe.
    */
 
   if(imagen){
@@ -883,7 +1002,62 @@ function aplicarConfiguracionEvento(
 
 
 // =====================================================
-// MOSTRAR IMAGEN
+// NOMBRE DEL EVENTO
+// =====================================================
+
+function mostrarNombreEvento(
+  datos
+){
+
+  const elemento =
+    document.getElementById(
+      'nombreEvento'
+    );
+
+
+  if(!elemento){
+
+    return;
+
+  }
+
+
+  /*
+   * El nombre viene actualmente
+   * en datos.evento.
+   */
+
+  const nombre =
+
+    datos.evento ||
+
+    datos.nombreEvento ||
+
+    datos.nombre_evento ||
+
+    '';
+
+
+  if(nombre){
+
+    elemento.textContent =
+      nombre;
+
+    elemento.style.display =
+      'block';
+
+  }else{
+
+    elemento.style.display =
+      'none';
+
+  }
+
+}
+
+
+// =====================================================
+// MOSTRAR LOGO / IMAGEN
 // =====================================================
 
 function mostrarImagenEvento(
@@ -897,18 +1071,13 @@ function mostrarImagenEvento(
   }
 
 
-  /*
-   * La imagen se coloca
-   * antes de la tarjeta.
-   */
-
-  const contenedor =
-    document.getElementById(
-      'contenido'
+  const encabezado =
+    document.querySelector(
+      'header'
     );
 
 
-  if(!contenedor){
+  if(!encabezado){
 
     return;
 
@@ -916,51 +1085,55 @@ function mostrarImagenEvento(
 
 
   /*
-   * Evitar duplicados.
+   * Si ya existe,
+   * actualizarlo.
    */
 
-  const existente =
+  let imagenElemento =
     document.getElementById(
       'imagenEvento'
     );
 
 
-  if(existente){
+  if(!imagenElemento){
 
-    existente.src =
-      imagen;
+    imagenElemento =
+      document.createElement(
+        'img'
+      );
 
-    return;
+
+    imagenElemento.id =
+      'imagenEvento';
+
+
+    imagenElemento.className =
+      'logoEvento';
+
+
+    imagenElemento.alt =
+      'Logo del evento';
+
+
+    const nombre =
+      document.getElementById(
+        'nombreEvento'
+      );
+
+
+    encabezado.insertBefore(
+
+      imagenElemento,
+
+      nombre
+
+    );
 
   }
 
 
-  const imagenElemento =
-    document.createElement(
-      'img'
-    );
-
-
-  imagenElemento.id =
-    'imagenEvento';
-
-  imagenElemento.className =
-    'imagenEvento';
-
   imagenElemento.src =
     imagen;
-
-  imagenElemento.alt =
-    'Imagen del evento';
-
-
-  contenedor.parentNode.insertBefore(
-
-    imagenElemento,
-
-    contenedor
-
-  );
 
 }
 
@@ -1121,6 +1294,7 @@ function cargarInvitacion(){
 
     function(datos){
 
+
       if(
 
         !datos ||
@@ -1143,8 +1317,7 @@ function cargarInvitacion(){
 
 
       /*
-       * PRIMERO aplicamos
-       * el diseño del evento.
+       * Aplicar colores.
        */
 
       aplicarConfiguracionEvento(
@@ -1153,8 +1326,17 @@ function cargarInvitacion(){
 
 
       /*
-       * Si ya confirmó,
-       * mostrar su pase.
+       * Mostrar nombre del evento.
+       */
+
+      mostrarNombreEvento(
+        datos
+      );
+
+
+      /*
+       * Si ya está confirmado,
+       * mostrar QR.
        */
 
       if(
@@ -1219,11 +1401,6 @@ function mostrarFormulario(
     '';
 
 
-  /*
-   * Crear un campo
-   * por cada pase.
-   */
-
   for(
 
     let i = 1;
@@ -1265,10 +1442,6 @@ function mostrarFormulario(
 
   }
 
-
-  /*
-   * Construir tarjeta.
-   */
 
   document
     .getElementById('contenido')
@@ -1327,7 +1500,7 @@ function mostrarFormulario(
 
   /*
    * Crear botón después
-   * de crear los campos.
+   * de los campos.
    */
 
   const zonaBoton =
@@ -1352,11 +1525,14 @@ function mostrarFormulario(
   boton.type =
     'button';
 
+
   boton.id =
     'btnConfirmar';
 
+
   boton.className =
     'boton';
+
 
   boton.textContent =
     'CONFIRMAR ASISTENCIA';
@@ -1376,7 +1552,7 @@ function mostrarFormulario(
 
 
 // =====================================================
-// CONFIRMAR
+// CONFIRMAR ASISTENCIA
 // =====================================================
 
 function confirmar(){
@@ -1483,9 +1659,6 @@ function confirmar(){
 
     function(respuesta){
 
-      /*
-       * Ya confirmado.
-       */
 
       if(
 
@@ -1501,10 +1674,6 @@ function confirmar(){
 
       }
 
-
-      /*
-       * Error.
-       */
 
       if(
 
@@ -1539,7 +1708,9 @@ function confirmar(){
 
 
       /*
-       * Confirmación correcta.
+       * IMPORTANTE:
+       * usamos los nombres que acabamos
+       * de introducir.
        */
 
       mostrarConfirmacion({
@@ -1554,7 +1725,7 @@ function confirmar(){
           respuesta.personas,
 
         nombres:
-          respuesta.nombres
+          nombres
 
       });
 
@@ -1621,7 +1792,7 @@ function mostrarConfirmacionExistente(
 
 
 // =====================================================
-// MOSTRAR CONFIRMACIÓN
+// PANTALLA FINAL
 // =====================================================
 
 function mostrarConfirmacion(
@@ -1803,7 +1974,9 @@ function mostrarError(
 
           <p>
 
-            ${escapar(mensaje)}
+            ${escapar(
+              mensaje
+            )}
 
           </p>
 
