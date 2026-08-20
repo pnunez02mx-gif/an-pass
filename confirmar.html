@@ -16,6 +16,27 @@
 <style>
 
 /* =====================================================
+   VARIABLES DEL EVENTO
+   ===================================================== */
+
+:root{
+
+  --color-principal:#292522;
+
+  --color-fondo:#f7f3ed;
+
+  --color-boton:#292522;
+
+  --color-tarjeta:#ffffff;
+
+  --color-borde:#e5ddd2;
+
+  --color-secundario:#706860;
+
+}
+
+
+/* =====================================================
    GENERAL
    ===================================================== */
 
@@ -25,18 +46,20 @@
 
 html,
 body{
+
   margin:0;
+
   padding:0;
+
   min-height:100%;
+
 }
 
 body{
 
-  margin:0;
+  background:var(--color-fondo);
 
-  background:#f7f3ed;
-
-  color:#292522;
+  color:var(--color-principal);
 
   font-family:
     Arial,
@@ -44,6 +67,10 @@ body{
     sans-serif;
 
   -webkit-font-smoothing:antialiased;
+
+  transition:
+    background .3s ease,
+    color .3s ease;
 
 }
 
@@ -93,7 +120,7 @@ header{
 
   letter-spacing:3px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -113,7 +140,31 @@ header{
 
   letter-spacing:3px;
 
-  color:#766b60;
+  color:var(--color-secundario);
+
+}
+
+
+/* =====================================================
+   IMAGEN DEL EVENTO
+   ===================================================== */
+
+.imagenEvento{
+
+  width:100%;
+
+  max-height:230px;
+
+  object-fit:cover;
+
+  border-radius:18px;
+
+  display:block;
+
+  margin:
+    0
+    0
+    20px;
 
 }
 
@@ -126,11 +177,11 @@ header{
 
   width:100%;
 
-  background:#ffffff;
+  background:var(--color-tarjeta);
 
   border:
     1px solid
-    #e5ddd2;
+    var(--color-borde);
 
   border-radius:22px;
 
@@ -166,7 +217,7 @@ header{
   margin:
     5px 0 10px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -177,7 +228,7 @@ header{
 
 .descripcion{
 
-  color:#706860;
+  color:var(--color-secundario);
 
   font-size:13px;
 
@@ -187,12 +238,12 @@ header{
 
 
 /* =====================================================
-   PASES DISPONIBLES
+   PASES
    ===================================================== */
 
 .cantidad{
 
-  background:#f7f3ed;
+  background:var(--color-fondo);
 
   border-radius:15px;
 
@@ -215,7 +266,7 @@ header{
 
   line-height:1;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -231,7 +282,7 @@ header{
 
   letter-spacing:1px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -260,7 +311,7 @@ header{
 
   margin-bottom:6px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -278,13 +329,13 @@ header{
 
   border:
     1px solid
-    #ddd3c7;
+    var(--color-borde);
 
   border-radius:12px;
 
   background:#ffffff;
 
-  color:#292522;
+  color:var(--color-principal);
 
   font-family:
     Arial,
@@ -295,19 +346,20 @@ header{
 
   outline:none;
 
-  -webkit-appearance:none;
-
   appearance:none;
+
+  -webkit-appearance:none;
 
 }
 
 .campo input:focus{
 
-  border-color:#8b8177;
+  border-color:
+    var(--color-principal);
 
   box-shadow:
     0 0 0 3px
-    rgba(118,107,96,.10);
+    rgba(0,0,0,.08);
 
 }
 
@@ -319,45 +371,24 @@ header{
 
 
 /* =====================================================
-   ZONA DEL BOTÓN
+   BOTÓN
    ===================================================== */
 
 #zonaBoton{
 
-  display:block;
-
   width:100%;
-
-  min-height:52px;
 
   margin-top:22px;
 
 }
 
-
-/* =====================================================
-   BOTÓN CONFIRMAR
-   ===================================================== */
-
 button.boton{
 
   display:block !important;
 
-  visibility:visible !important;
-
-  opacity:1 !important;
-
-  position:relative;
-
-  z-index:20;
-
   width:100% !important;
 
-  min-width:100%;
-
-  height:52px;
-
-  margin:0 !important;
+  min-height:52px;
 
   padding:
     15px
@@ -365,11 +396,10 @@ button.boton{
 
   border:none !important;
 
-  outline:none;
-
   border-radius:13px;
 
-  background:#292522 !important;
+  background:
+    var(--color-boton) !important;
 
   color:#ffffff !important;
 
@@ -384,23 +414,15 @@ button.boton{
 
   letter-spacing:.4px;
 
-  line-height:normal;
-
-  text-align:center;
-
   cursor:pointer;
-
-  box-shadow:none;
-
-  -webkit-appearance:none;
 
   appearance:none;
 
-}
+  -webkit-appearance:none;
 
-button.boton:hover{
-
-  background:#3a3531 !important;
+  transition:
+    transform .15s,
+    opacity .15s;
 
 }
 
@@ -415,8 +437,6 @@ button.boton:disabled{
   opacity:.6 !important;
 
   cursor:not-allowed;
-
-  transform:none;
 
 }
 
@@ -450,7 +470,7 @@ button.boton:disabled{
     "Times New Roman",
     serif;
 
-  color:#292522;
+  color:var(--color-principal);
 
   margin:
     10px 0;
@@ -459,7 +479,7 @@ button.boton:disabled{
 
 .mensaje p{
 
-  color:#706860;
+  color:var(--color-secundario);
 
   font-size:13px;
 
@@ -469,12 +489,12 @@ button.boton:disabled{
 
 
 /* =====================================================
-   LISTA DE INVITADOS
+   LISTA DE CONFIRMADOS
    ===================================================== */
 
 .listaNombres{
 
-  background:#f7f3ed;
+  background:var(--color-fondo);
 
   border-radius:15px;
 
@@ -496,7 +516,7 @@ button.boton:disabled{
 
   margin-bottom:10px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -506,11 +526,11 @@ button.boton:disabled{
 
   border-bottom:
     1px solid
-    #e5ddd2;
+    var(--color-borde);
 
   font-size:13px;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -539,7 +559,7 @@ h3{
 
   font-weight:normal;
 
-  color:#292522;
+  color:var(--color-principal);
 
 }
 
@@ -575,7 +595,7 @@ h3{
 
 
 /* =====================================================
-   CELULARES PEQUEÑOS
+   CELULARES
    ===================================================== */
 
 @media(max-width:380px){
@@ -631,47 +651,39 @@ h3{
 <div class="app">
 
 
-  <!-- =================================================
-       ENCABEZADO
-       ================================================= -->
+<header>
 
-  <header>
+  <div class="logo">
 
-    <div class="logo">
+    AN<br>
 
-      AN<br>
+    <span>PASS</span>
 
-      <span>PASS</span>
-
-    </div>
+  </div>
 
 
-    <div class="subtitulo">
+  <div class="subtitulo">
 
-      CONFIRMACIÓN DE ASISTENCIA
+    CONFIRMACIÓN DE ASISTENCIA
 
-    </div>
+  </div>
 
-  </header>
+</header>
 
 
-  <!-- =================================================
-       CONTENIDO
-       ================================================= -->
+<div id="contenido">
 
-  <div id="contenido">
+  <div class="tarjeta">
 
-    <div class="tarjeta">
+    <div class="mensaje">
 
-      <div class="mensaje">
-
-        Cargando invitación...
-
-      </div>
+      Cargando invitación...
 
     </div>
 
   </div>
+
+</div>
 
 
 </div>
@@ -682,7 +694,7 @@ h3{
 
 
 // =====================================================
-// CONFIGURACIÓN
+// URL DEL APPS SCRIPT
 // =====================================================
 
 const URL_APPS_SCRIPT =
@@ -715,7 +727,246 @@ String(
 
 
 // =====================================================
-// CONEXIÓN CON GOOGLE APPS SCRIPT
+// CONFIGURACIÓN VISUAL DEL EVENTO
+// =====================================================
+
+let configuracionEvento = {
+
+  color:
+    '#292522',
+
+  color_fondo:
+    '#f7f3ed',
+
+  color_boton:
+    '#292522',
+
+  imagen:
+    ''
+
+};
+
+
+// =====================================================
+// APLICAR CONFIGURACIÓN VISUAL
+// =====================================================
+
+function aplicarConfiguracionEvento(
+  datos
+){
+
+  /*
+   * Aceptamos diferentes nombres
+   * para que sea compatible con
+   * la estructura que ya manejamos.
+   */
+
+  const eventoDatos =
+    datos.evento || {};
+
+
+  const color =
+
+    eventoDatos.color ||
+
+    eventoDatos.COLOR ||
+
+    datos.color ||
+
+    datos.COLOR ||
+
+    '#292522';
+
+
+  const colorFondo =
+
+    eventoDatos.color_fondo ||
+
+    eventoDatos.COLOR_FONDO ||
+
+    eventoDatos.colorFondo ||
+
+    datos.color_fondo ||
+
+    datos.COLOR_FONDO ||
+
+    datos.colorFondo ||
+
+    '#f7f3ed';
+
+
+  const colorBoton =
+
+    eventoDatos.color_boton ||
+
+    eventoDatos.COLOR_BOTON ||
+
+    eventoDatos.colorBoton ||
+
+    datos.color_boton ||
+
+    datos.COLOR_BOTON ||
+
+    datos.colorBoton ||
+
+    color;
+
+
+  const imagen =
+
+    eventoDatos.imagen ||
+
+    eventoDatos.IMAGEN ||
+
+    datos.imagen ||
+
+    datos.IMAGEN ||
+
+    '';
+
+
+  configuracionEvento.color =
+    color;
+
+  configuracionEvento.color_fondo =
+    colorFondo;
+
+  configuracionEvento.color_boton =
+    colorBoton;
+
+  configuracionEvento.imagen =
+    imagen;
+
+
+  /*
+   * Aplicar colores mediante
+   * variables CSS.
+   */
+
+  document.documentElement
+    .style
+    .setProperty(
+      '--color-principal',
+      color
+    );
+
+
+  document.documentElement
+    .style
+    .setProperty(
+      '--color-fondo',
+      colorFondo
+    );
+
+
+  document.documentElement
+    .style
+    .setProperty(
+      '--color-boton',
+      colorBoton
+    );
+
+
+  /*
+   * Aplicar imagen si existe.
+   */
+
+  if(imagen){
+
+    mostrarImagenEvento(
+      imagen
+    );
+
+  }
+
+}
+
+
+// =====================================================
+// MOSTRAR IMAGEN
+// =====================================================
+
+function mostrarImagenEvento(
+  imagen
+){
+
+  if(!imagen){
+
+    return;
+
+  }
+
+
+  /*
+   * La imagen se coloca
+   * antes de la tarjeta.
+   */
+
+  const contenedor =
+    document.getElementById(
+      'contenido'
+    );
+
+
+  if(!contenedor){
+
+    return;
+
+  }
+
+
+  /*
+   * Evitar duplicados.
+   */
+
+  const existente =
+    document.getElementById(
+      'imagenEvento'
+    );
+
+
+  if(existente){
+
+    existente.src =
+      imagen;
+
+    return;
+
+  }
+
+
+  const imagenElemento =
+    document.createElement(
+      'img'
+    );
+
+
+  imagenElemento.id =
+    'imagenEvento';
+
+  imagenElemento.className =
+    'imagenEvento';
+
+  imagenElemento.src =
+    imagen;
+
+  imagenElemento.alt =
+    'Imagen del evento';
+
+
+  contenedor.parentNode.insertBefore(
+
+    imagenElemento,
+
+    contenedor
+
+  );
+
+}
+
+
+// =====================================================
+// API
 // =====================================================
 
 function solicitarAPI(
@@ -760,7 +1011,6 @@ function solicitarAPI(
   .then(
 
     respuesta =>
-
       respuesta.json()
 
   );
@@ -769,10 +1019,12 @@ function solicitarAPI(
 
 
 // =====================================================
-// SEGURIDAD DE TEXTO
+// ESCAPAR TEXTO
 // =====================================================
 
-function escapar(texto){
+function escapar(
+  texto
+){
 
   if(
 
@@ -869,7 +1121,6 @@ function cargarInvitacion(){
 
     function(datos){
 
-
       if(
 
         !datos ||
@@ -892,8 +1143,18 @@ function cargarInvitacion(){
 
 
       /*
-       * Si ya fue confirmada,
-       * mostrar directamente el pase QR.
+       * PRIMERO aplicamos
+       * el diseño del evento.
+       */
+
+      aplicarConfiguracionEvento(
+        datos
+      );
+
+
+      /*
+       * Si ya confirmó,
+       * mostrar su pase.
        */
 
       if(
@@ -954,19 +1215,22 @@ function mostrarFormulario(
 
 ){
 
-  let campos = '';
+  let campos =
+    '';
 
 
   /*
-   * Crear los campos
-   * según el número de pases.
+   * Crear un campo
+   * por cada pase.
    */
 
   for(
 
     let i = 1;
 
-    i <= Number(datos.personas);
+    i <= Number(
+      datos.personas
+    );
 
     i++
 
@@ -1003,15 +1267,7 @@ function mostrarFormulario(
 
 
   /*
-   * Construimos la tarjeta.
-   *
-   * IMPORTANTE:
-   *
-   * Aquí NO ponemos directamente
-   * el botón dentro del innerHTML.
-   *
-   * Dejamos una zona vacía
-   * llamada zonaBoton.
+   * Construir tarjeta.
    */
 
   document
@@ -1023,7 +1279,9 @@ function mostrarFormulario(
 
         <div class="nombreFamilia">
 
-          ${escapar(datos.invitado)}
+          ${escapar(
+            datos.invitado
+          )}
 
         </div>
 
@@ -1040,7 +1298,9 @@ function mostrarFormulario(
 
           <strong>
 
-            ${Number(datos.personas)}
+            ${Number(
+              datos.personas
+            )}
 
           </strong>
 
@@ -1065,9 +1325,10 @@ function mostrarFormulario(
     `;
 
 
-  // ===================================================
-  // CREAR BOTÓN FÍSICAMENTE
-  // ===================================================
+  /*
+   * Crear botón después
+   * de crear los campos.
+   */
 
   const zonaBoton =
     document.getElementById(
@@ -1076,10 +1337,6 @@ function mostrarFormulario(
 
 
   if(!zonaBoton){
-
-    console.error(
-      'No se encontró zonaBoton.'
-    );
 
     return;
 
@@ -1095,55 +1352,38 @@ function mostrarFormulario(
   boton.type =
     'button';
 
-
   boton.id =
     'btnConfirmar';
-
 
   boton.className =
     'boton';
 
-
   boton.textContent =
     'CONFIRMAR ASISTENCIA';
 
-
-  /*
-   * Agregar botón a la tarjeta.
-   */
 
   zonaBoton.appendChild(
     boton
   );
 
 
-  /*
-   * Activar botón.
-   */
-
   boton.addEventListener(
-
     'click',
-
     confirmar
-
   );
 
 }
 
 
 // =====================================================
-// CONFIRMAR ASISTENCIA
+// CONFIRMAR
 // =====================================================
 
 function confirmar(){
 
-  const nombres = [];
+  const nombres =
+    [];
 
-
-  /*
-   * Buscar todos los campos.
-   */
 
   for(
 
@@ -1156,11 +1396,8 @@ function confirmar(){
   ){
 
     const campo =
-
       document.getElementById(
-
         'nombre' + i
-
       );
 
 
@@ -1172,20 +1409,13 @@ function confirmar(){
 
 
     const nombre =
-
       campo.value.trim();
 
-
-    /*
-     * No permitir nombres vacíos.
-     */
 
     if(!nombre){
 
       alert(
-
         'Escribe todos los nombres antes de confirmar.'
-
       );
 
 
@@ -1203,14 +1433,8 @@ function confirmar(){
   }
 
 
-  /*
-   * Seguridad.
-   */
-
   if(
-
     nombres.length === 0
-
   ){
 
     alert(
@@ -1223,18 +1447,10 @@ function confirmar(){
 
 
   const boton =
-
     document.getElementById(
-
       'btnConfirmar'
-
     );
 
-
-  /*
-   * Desactivar mientras
-   * se guarda la información.
-   */
 
   if(boton){
 
@@ -1246,11 +1462,6 @@ function confirmar(){
 
   }
 
-
-  /*
-   * Enviar información
-   * a Google Apps Script.
-   */
 
   solicitarAPI(
 
@@ -1272,9 +1483,8 @@ function confirmar(){
 
     function(respuesta){
 
-
       /*
-       * Ya había sido confirmado.
+       * Ya confirmado.
        */
 
       if(
@@ -1329,7 +1539,7 @@ function confirmar(){
 
 
       /*
-       * Mostrar pase QR.
+       * Confirmación correcta.
        */
 
       mostrarConfirmacion({
@@ -1411,7 +1621,7 @@ function mostrarConfirmacionExistente(
 
 
 // =====================================================
-// PANTALLA FINAL CON QR
+// MOSTRAR CONFIRMACIÓN
 // =====================================================
 
 function mostrarConfirmacion(
@@ -1420,12 +1630,9 @@ function mostrarConfirmacion(
 
 ){
 
-  let lista = '';
+  let lista =
+    '';
 
-
-  /*
-   * Crear lista de nombres.
-   */
 
   (datos.nombres || [])
 
@@ -1449,7 +1656,7 @@ function mostrarConfirmacion(
 
 
   /*
-   * Crear URL del QR.
+   * QR.
    */
 
   const qrURL =
@@ -1459,20 +1666,12 @@ function mostrarConfirmacion(
     +
 
     encodeURIComponent(
-
       datos.codigo
-
     );
 
 
-  /*
-   * Mostrar pase final.
-   */
-
   document
-
     .getElementById('contenido')
-
     .innerHTML = `
 
       <div class="tarjeta">
@@ -1545,7 +1744,9 @@ function mostrarConfirmacion(
 
           <b>
 
-            ${escapar(datos.codigo)}
+            ${escapar(
+              datos.codigo
+            )}
 
           </b>
 
@@ -1577,9 +1778,7 @@ function mostrarError(
 ){
 
   document
-
     .getElementById('contenido')
-
     .innerHTML = `
 
       <div class="tarjeta">
@@ -1620,7 +1819,6 @@ function mostrarError(
 
 
 </script>
-
 
 </body>
 
