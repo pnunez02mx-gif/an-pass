@@ -5,82 +5,53 @@
 
 <meta charset="UTF-8">
 
-<meta
-  name="viewport"
-  content="width=device-width, initial-scale=1"
->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>AN PASS - Confirmación</title>
 
 
 <style>
 
-/* =====================================================
-   COLORES DEL EVENTO
-   ===================================================== */
-
 :root{
 
   --color-principal:#292522;
-
   --color-fondo:#f7f3ed;
-
   --color-boton:#292522;
-
   --color-tarjeta:#ffffff;
-
   --color-borde:#e5ddd2;
-
   --color-secundario:#706860;
 
 }
 
 
-/* =====================================================
-   GENERAL
-   ===================================================== */
-
 *{
   box-sizing:border-box;
 }
 
-html,
-body{
+
+html,body{
 
   margin:0;
-
   padding:0;
-
   min-height:100%;
 
 }
 
+
 body{
 
-  background:
-    var(--color-fondo);
+  background:var(--color-fondo);
 
-  color:
-    var(--color-principal);
+  color:var(--color-principal);
 
   font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  -webkit-font-smoothing:
-    antialiased;
-
-  transition:
-    background .3s ease,
-    color .3s ease;
+  Arial,
+  Helvetica,
+  sans-serif;
 
 }
 
 
-/* =====================================================
-   CONTENEDOR
-   ===================================================== */
 
 .app{
 
@@ -88,681 +59,145 @@ body{
 
   max-width:500px;
 
-  margin:0 auto;
+  margin:auto;
 
   padding:
-    28px
-    18px
-    60px;
+  25px
+  18px
+  50px;
 
 }
 
 
-/* =====================================================
-   ENCABEZADO
-   ===================================================== */
 
 header{
 
   text-align:center;
 
-  margin-bottom:24px;
+  margin-bottom:25px;
 
 }
 
 
-/* AN PASS */
 
 .logo{
 
   font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  Georgia,
+  serif;
 
-  font-size:32px;
+  font-size:38px;
 
   line-height:.8;
 
-  letter-spacing:3px;
-
-  color:
-    var(--color-principal);
+  letter-spacing:4px;
 
 }
 
 
-/* PASS */
 
 .logo span{
 
-  font-size:20px;
+  display:block;
 
-  letter-spacing:6px;
+  font-size:18px;
+
+  letter-spacing:8px;
 
 }
 
 
-/* =====================================================
-   NOMBRE DEL EVENTO
-   ===================================================== */
 
 .nombreEvento{
 
-  margin-top:18px;
+  margin-top:20px;
 
   font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
+  Georgia,
+  serif;
 
-  font-size:20px;
-
-  line-height:1.25;
-
-  color:
-    var(--color-principal);
-
-  font-weight:normal;
+  font-size:22px;
 
 }
 
 
-/* =====================================================
-   SUBTÍTULO
-   ===================================================== */
 
 .subtitulo{
 
   margin-top:10px;
 
-  font-size:9px;
+  font-size:10px;
 
   letter-spacing:3px;
 
-  color:
-    var(--color-secundario);
+  color:var(--color-secundario);
 
 }
 
 
-/* =====================================================
-   LOGO / IMAGEN DEL EVENTO
-   ===================================================== */
 
-.logoEvento{
-
-  display:block;
-
-  width:auto;
-
-  max-width:180px;
-
-  max-height:100px;
-
-  margin:
-    0
-    auto
-    15px;
-
-  object-fit:contain;
-
-}
-
-
-/* =====================================================
-   TARJETA
-   ===================================================== */
 
 .tarjeta{
 
-  width:100%;
-
   background:
-    var(--color-tarjeta);
+  var(--color-tarjeta);
 
   border:
-    1px solid
-    var(--color-borde);
+  1px solid var(--color-borde);
 
-  border-radius:22px;
+  border-radius:24px;
 
-  padding:
-    25px
-    18px
-    22px;
+  padding:25px 18px;
 
   box-shadow:
-    0 5px 18px
-    rgba(70,60,50,.07);
-
-  text-align:center;
+  0 10px 25px rgba(0,0,0,.08);
 
 }
 
 
-/* =====================================================
-   NOMBRE DEL INVITADO
-   ===================================================== */
-
-.nombreFamilia{
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:27px;
-
-  line-height:1.2;
-
-  margin:
-    5px
-    0
-    10px;
-
-  color:
-    var(--color-principal);
-
-}
 
 
-/* =====================================================
-   DESCRIPCIÓN
-   ===================================================== */
+.boton{
 
-.descripcion{
+  width:100%;
 
-  color:
-    var(--color-secundario);
+  padding:16px;
 
-  font-size:13px;
+  border:none;
 
-  line-height:1.5;
-
-}
-
-
-/* =====================================================
-   PASES DISPONIBLES
-   ===================================================== */
-
-.cantidad{
+  border-radius:14px;
 
   background:
-    var(--color-fondo);
+  var(--color-boton);
 
-  border-radius:15px;
-
-  padding:18px;
-
-  margin:20px 0;
-
-}
-
-
-.cantidad strong{
-
-  display:block;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:38px;
-
-  line-height:1;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-.cantidad small{
-
-  display:block;
-
-  margin-top:6px;
-
-  font-size:9px;
+  color:white;
 
   font-weight:bold;
-
-  letter-spacing:1px;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-/* =====================================================
-   CAMPOS
-   ===================================================== */
-
-.campo{
-
-  width:100%;
-
-  text-align:left;
-
-  margin-bottom:14px;
-
-}
-
-
-.campo label{
-
-  display:block;
-
-  font-size:9px;
-
-  font-weight:bold;
-
-  margin-bottom:6px;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-.campo input{
-
-  display:block;
-
-  width:100%;
-
-  height:46px;
-
-  padding:
-    12px
-    13px;
-
-  border:
-    1px solid
-    var(--color-borde);
-
-  border-radius:12px;
-
-  background:#ffffff;
-
-  color:
-    var(--color-principal);
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  font-size:14px;
-
-  outline:none;
-
-  appearance:none;
-
-  -webkit-appearance:none;
-
-}
-
-
-.campo input:focus{
-
-  border-color:
-    var(--color-principal);
-
-  box-shadow:
-    0 0 0 3px
-    rgba(0,0,0,.08);
-
-}
-
-
-.campo input::placeholder{
-
-  color:#aaa29a;
-
-}
-
-
-/* =====================================================
-   ZONA BOTÓN
-   ===================================================== */
-
-#zonaBoton{
-
-  display:block;
-
-  width:100%;
-
-  margin-top:22px;
-
-}
-
-
-/* =====================================================
-   BOTÓN
-   ===================================================== */
-
-button.boton{
-
-  display:block !important;
-
-  visibility:visible !important;
-
-  opacity:1 !important;
-
-  width:100% !important;
-
-  min-height:52px;
-
-  padding:
-    15px
-    18px;
-
-  border:none !important;
-
-  border-radius:13px;
-
-  background:
-    var(--color-boton) !important;
-
-  color:#ffffff !important;
-
-  font-family:
-    Arial,
-    Helvetica,
-    sans-serif;
-
-  font-size:14px;
-
-  font-weight:bold;
-
-  letter-spacing:.4px;
-
-  line-height:normal;
-
-  text-align:center;
 
   cursor:pointer;
 
-  appearance:none;
-
-  -webkit-appearance:none;
-
-  transition:
-    transform .15s,
-    opacity .15s;
-
 }
 
 
-button.boton:active{
 
-  transform:
-    scale(.98);
 
-}
-
-
-button.boton:disabled{
-
-  opacity:.6 !important;
-
-  cursor:not-allowed;
-
-}
-
-
-/* =====================================================
-   MENSAJE
-   ===================================================== */
-
-.mensaje{
-
-  text-align:center;
-
-  padding:15px;
-
-}
-
-
-.icono{
-
-  font-size:52px;
-
-  line-height:1;
-
-  margin-bottom:10px;
-
-}
-
-
-.mensaje h2{
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  color:
-    var(--color-principal);
-
-  margin:
-    10px 0;
-
-}
-
-
-.mensaje p{
-
-  color:
-    var(--color-secundario);
-
-  font-size:13px;
-
-  line-height:1.5;
-
-}
-
-
-/* =====================================================
-   LISTA DE INVITADOS
-   ===================================================== */
-
-.listaNombres{
-
-  background:
-    var(--color-fondo);
-
-  border-radius:15px;
-
-  padding:15px;
-
-  margin-top:20px;
-
-  text-align:left;
-
-}
-
-
-.listaNombres strong{
-
-  display:block;
-
-  font-size:10px;
-
-  letter-spacing:1px;
-
-  margin-bottom:10px;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-.listaNombres div{
-
-  padding:7px 0;
-
-  border-bottom:
-    1px solid
-    var(--color-borde);
-
-  font-size:13px;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-.listaNombres div:last-child{
-
-  border-bottom:none;
-
-}
-
-
-/* =====================================================
-   QR
-   ===================================================== */
-
-h3{
-
-  margin:
-    25px 0 5px;
-
-  font-family:
-    Georgia,
-    "Times New Roman",
-    serif;
-
-  font-size:18px;
-
-  font-weight:normal;
-
-  color:
-    var(--color-principal);
-
-}
-
-
-.qr{
-
-  display:block;
-
-  width:220px;
-
-  height:220px;
-
-  margin:
-    15px auto;
-
-}
-
-
-/* =====================================================
-   ERROR
-   ===================================================== */
-
-.error{
-
-  color:#8b443b;
-
-}
-
-
-.error h2{
-
-  color:#8b443b;
-
-}
-
-
-/* =====================================================
-   CELULARES PEQUEÑOS
-   ===================================================== */
-
-@media(max-width:380px){
-
-  .app{
-
-    padding:
-      22px
-      14px
-      45px;
-
-  }
-
-
-  .nombreEvento{
-
-    font-size:18px;
-
-  }
-
-
-  .tarjeta{
-
-    padding:
-      22px
-      15px
-      20px;
-
-  }
-
-
-  .nombreFamilia{
-
-    font-size:24px;
-
-  }
-
-
-  .cantidad strong{
-
-    font-size:34px;
-
-  }
-
-
-  .qr{
-
-    width:200px;
-
-    height:200px;
-
-  }
-
-}
-
-/* =====================================================
-   AN PASS - TICKET DIGITAL
-===================================================== */
+/* =========================
+   TICKET AN PASS
+========================= */
 
 
 .ticket{
 
   width:100%;
 
-  max-width:420px;
+  background:white;
 
-  margin:20px auto;
-
-  background:var(--color-tarjeta);
-
-  border-radius:24px;
+  border-radius:25px;
 
   overflow:hidden;
 
-  border:1px solid var(--color-borde);
-
   box-shadow:
-  0 10px 30px rgba(0,0,0,.12);
+  0 12px 30px rgba(0,0,0,.15);
 
 }
 
@@ -775,27 +210,28 @@ h3{
 
   color:white;
 
-  padding:25px 20px;
-
   text-align:center;
 
-}
-
-
-
-.marca{
-
-  font-family:Georgia,serif;
-
-  font-size:38px;
-
-  letter-spacing:4px;
+  padding:30px 20px;
 
 }
 
 
 
-.marca span{
+.marcaTicket{
+
+  font-family:
+  Georgia,
+  serif;
+
+  font-size:45px;
+
+  letter-spacing:5px;
+
+}
+
+
+.marcaTicket span{
 
   display:block;
 
@@ -807,39 +243,9 @@ h3{
 
 
 
-.eventoTicket{
-
-  margin-top:18px;
-
-  font-size:18px;
-
-  font-weight:bold;
-
-}
-
-
-
-.textoPase{
-
-  margin-top:12px;
-
-  font-size:11px;
-
-  letter-spacing:3px;
-
-}
-
-
-
 .ticketBody{
 
-  padding:25px 20px;
-
-}
-
-
-
-.confirmado{
+  padding:25px;
 
   text-align:center;
 
@@ -847,65 +253,30 @@ h3{
 
 
 
-.confirmado h2{
+.checkTicket{
 
-  color:var(--color-principal);
-
-  font-family:Georgia,serif;
+  font-size:40px;
 
 }
 
 
 
-.datos{
+.ticketBody h2{
 
-  margin-top:25px;
-
-}
-
-
-
-.titulo{
-
-  font-size:10px;
-
-  font-weight:bold;
-
-  letter-spacing:2px;
-
-  color:var(--color-secundario);
+  font-family:
+  Georgia,
+  serif;
 
 }
 
 
 
-.nombres div{
+.nombreTicket{
 
-  padding:7px 0;
+  padding:8px;
 
   border-bottom:
   1px solid var(--color-borde);
-
-  color:var(--color-principal);
-
-}
-
-
-
-.separador{
-
-  margin:25px 0;
-
-  border-top:
-  2px dashed var(--color-borde);
-
-}
-
-
-
-.zonaQR{
-
-  text-align:center;
 
 }
 
@@ -913,35 +284,23 @@ h3{
 
 .qrTicket{
 
-  width:190px;
+  width:210px;
 
-  height:190px;
+  height:210px;
 
-}
-
-
-
-.codigo{
-
-  margin-top:15px;
-
-  color:var(--color-secundario);
-
-  font-size:12px;
+  margin:20px auto;
 
 }
 
 
 
-.codigo strong{
+.codigoTicket{
 
-  display:block;
+  font-size:22px;
 
-  font-size:20px;
+  font-weight:bold;
 
-  color:var(--color-principal);
-
-  letter-spacing:3px;
+  letter-spacing:4px;
 
 }
 
@@ -949,29 +308,39 @@ h3{
 
 .ticketFooter{
 
+  padding:18px;
+
   background:
   var(--color-fondo);
 
-  padding:20px;
-
   text-align:center;
 
-  font-size:10px;
-
-  letter-spacing:2px;
-
 }
 
 
 
-.ticketFooter .boton{
+@media(max-width:380px){
 
-  margin-top:15px;
+.ticketBody{
+
+padding:18px;
 
 }
-  
+
+
+.qrTicket{
+
+width:180px;
+
+height:180px;
+
+}
+
+}
+
 
 </style>
+
 
 </head>
 
@@ -982,62 +351,43 @@ h3{
 <div class="app">
 
 
-<!-- =================================================
-     ENCABEZADO
-     ================================================= -->
-
 <header>
 
+<div class="logo">
 
-  <div
-    id="logoEvento"
-    class="logo"
-  >
+AN
 
-    AN<br>
+<span>
 
-    <span>PASS</span>
+PASS
 
-  </div>
+</span>
 
-
-  <!-- NOMBRE DINÁMICO DEL EVENTO -->
-
-  <div
-    id="nombreEvento"
-    class="nombreEvento"
-  ></div>
+</div>
 
 
-  <div class="subtitulo">
+<div id="nombreEvento"
+class="nombreEvento">
 
-    CONFIRMACIÓN DE ASISTENCIA
+</div>
 
-  </div>
+
+<div class="subtitulo">
+
+CONFIRMACIÓN DE ASISTENCIA
+
+</div>
 
 
 </header>
 
 
-<!-- =================================================
-     CONTENIDO
-     ================================================= -->
-
 <div id="contenido">
 
 
-  <div class="tarjeta">
+<div class="tarjeta">
 
-
-    <div class="mensaje">
-
-      Cargando invitación...
-
-    </div>
-
-
-  </div>
-
+Cargando invitación...
 
 </div>
 
@@ -1045,12 +395,13 @@ h3{
 </div>
 
 
+</div>
 
-<script>
+  <script>
 
 
 // =====================================================
-// URL DEL APPS SCRIPT
+// URL APPS SCRIPT
 // =====================================================
 
 const URL_APPS_SCRIPT =
@@ -1058,315 +409,85 @@ const URL_APPS_SCRIPT =
 
 
 // =====================================================
-// DATOS DE LA URL
+// DATOS URL
 // =====================================================
 
 const parametros =
 new URLSearchParams(
-  window.location.search
+window.location.search
 );
 
 
 const codigo =
 String(
-  parametros.get('codigo') || ''
-)
-.trim();
+parametros.get('codigo') || ''
+).trim();
 
 
 const evento =
 String(
-  parametros.get('evento') || ''
-)
-.trim()
+parametros.get('evento') || ''
+).trim()
 .toUpperCase();
 
 
-// =====================================================
-// CONFIGURACIÓN VISUAL
-// =====================================================
-
-let configuracionEvento = {
-
-  color:
-    '#292522',
-
-  color_fondo:
-    '#f7f3ed',
-
-  color_boton:
-    '#292522',
-
-  imagen:
-    ''
-
-};
 
 
 // =====================================================
-// APLICAR CONFIGURACIÓN
+// CONFIGURACIÓN EVENTO
 // =====================================================
 
-function aplicarConfiguracionEvento(
-  datos
-){
-
-  const eventoDatos =
-    datos.eventoDatos ||
-    datos.configuracion ||
-    {};
+function aplicarConfiguracionEvento(datos){
 
 
-  const color =
-
-    eventoDatos.color ||
-
-    eventoDatos.COLOR ||
-
-    datos.color ||
-
-    datos.COLOR ||
-
-    '#292522';
+const eventoDatos =
+datos.eventoDatos ||
+datos.configuracion ||
+{};
 
 
-  const colorFondo =
 
-    eventoDatos.color_fondo ||
-
-    eventoDatos.COLOR_FONDO ||
-
-    eventoDatos.colorFondo ||
-
-    datos.color_fondo ||
-
-    datos.COLOR_FONDO ||
-
-    datos.colorFondo ||
-
-    '#f7f3ed';
+const color =
+eventoDatos.color ||
+datos.color ||
+'#292522';
 
 
-  const colorBoton =
 
-    eventoDatos.color_boton ||
-
-    eventoDatos.COLOR_BOTON ||
-
-    eventoDatos.colorBoton ||
-
-    datos.color_boton ||
-
-    datos.COLOR_BOTON ||
-
-    datos.colorBoton ||
-
-    color;
+const fondo =
+eventoDatos.color_fondo ||
+datos.color_fondo ||
+'#f7f3ed';
 
 
-  const imagen =
 
-    eventoDatos.imagen ||
-
-    eventoDatos.IMAGEN ||
-
-    datos.imagen ||
-
-    datos.IMAGEN ||
-
-    '';
+const boton =
+eventoDatos.color_boton ||
+datos.color_boton ||
+color;
 
 
-  configuracionEvento.color =
-    color;
+
+document.documentElement.style.setProperty(
+'--color-principal',
+color
+);
 
 
-  configuracionEvento.color_fondo =
-    colorFondo;
+document.documentElement.style.setProperty(
+'--color-fondo',
+fondo
+);
 
 
-  configuracionEvento.color_boton =
-    colorBoton;
+document.documentElement.style.setProperty(
+'--color-boton',
+boton
+);
 
-
-  configuracionEvento.imagen =
-    imagen;
-
-
-  document.documentElement
-    .style
-    .setProperty(
-      '--color-principal',
-      color
-    );
-
-
-  document.documentElement
-    .style
-    .setProperty(
-      '--color-fondo',
-      colorFondo
-    );
-
-
-  document.documentElement
-    .style
-    .setProperty(
-      '--color-boton',
-      colorBoton
-    );
-
-
-  /*
-   * Mostrar imagen si existe.
-   */
-
-  if(imagen){
-
-    mostrarImagenEvento(
-      imagen
-    );
-
-  }
 
 }
 
-
-// =====================================================
-// NOMBRE DEL EVENTO
-// =====================================================
-
-function mostrarNombreEvento(
-  datos
-){
-
-  const elemento =
-    document.getElementById(
-      'nombreEvento'
-    );
-
-
-  if(!elemento){
-
-    return;
-
-  }
-
-
-  /*
-   * El nombre viene actualmente
-   * en datos.evento.
-   */
-
-  const nombre =
-
-    datos.evento ||
-
-    datos.nombreEvento ||
-
-    datos.nombre_evento ||
-
-    '';
-
-
-  if(nombre){
-
-    elemento.textContent =
-      nombre;
-
-    elemento.style.display =
-      'block';
-
-  }else{
-
-    elemento.style.display =
-      'none';
-
-  }
-
-}
-
-
-// =====================================================
-// MOSTRAR LOGO / IMAGEN
-// =====================================================
-
-function mostrarImagenEvento(
-  imagen
-){
-
-  if(!imagen){
-
-    return;
-
-  }
-
-
-  const encabezado =
-    document.querySelector(
-      'header'
-    );
-
-
-  if(!encabezado){
-
-    return;
-
-  }
-
-
-  /*
-   * Si ya existe,
-   * actualizarlo.
-   */
-
-  let imagenElemento =
-    document.getElementById(
-      'imagenEvento'
-    );
-
-
-  if(!imagenElemento){
-
-    imagenElemento =
-      document.createElement(
-        'img'
-      );
-
-
-    imagenElemento.id =
-      'imagenEvento';
-
-
-    imagenElemento.className =
-      'logoEvento';
-
-
-    imagenElemento.alt =
-      'Logo del evento';
-
-
-    const nombre =
-      document.getElementById(
-        'nombreEvento'
-      );
-
-
-    encabezado.insertBefore(
-
-      imagenElemento,
-
-      nombre
-
-    );
-
-  }
-
-
-  imagenElemento.src =
-    imagen;
-
-}
 
 
 // =====================================================
@@ -1374,103 +495,103 @@ function mostrarImagenEvento(
 // =====================================================
 
 function solicitarAPI(
-
-  accion,
-
-  datos={}
-
+accion,
+datos={}
 ){
 
-  datos.accion =
-    accion;
 
-  datos.idEvento =
-    evento;
+datos.accion =
+accion;
 
 
-  return fetch(
+datos.idEvento =
+evento;
 
-    URL_APPS_SCRIPT,
 
-    {
 
-      method:'POST',
+return fetch(
 
-      mode:'cors',
+URL_APPS_SCRIPT,
 
-      headers:{
+{
 
-        'Content-Type':
-          'text/plain;charset=utf-8'
+method:'POST',
 
-      },
+headers:{
 
-      body:
-        JSON.stringify(datos)
+'Content-Type':
+'text/plain;charset=utf-8'
 
-    }
+},
 
-  )
+body:
 
-  .then(
+JSON.stringify(datos)
 
-    respuesta =>
-      respuesta.json()
+}
 
-  );
+)
+
+.then(
+
+respuesta =>
+respuesta.json()
+
+);
+
 
 }
 
 
+
 // =====================================================
-// ESCAPAR TEXTO
+// ESCAPAR HTML
 // =====================================================
 
-function escapar(
-  texto
+function escapar(texto){
+
+
+if(
+texto===null ||
+texto===undefined
 ){
 
-  if(
-
-    texto === null ||
-
-    texto === undefined
-
-  ){
-
-    return '';
-
-  }
-
-
-  return String(texto)
-
-    .replace(
-      /&/g,
-      '&amp;'
-    )
-
-    .replace(
-      /</g,
-      '&lt;'
-    )
-
-    .replace(
-      />/g,
-      '&gt;'
-    )
-
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-
-    .replace(
-      /'/g,
-      '&#039;'
-    );
+return '';
 
 }
+
+
+
+return String(texto)
+
+.replace(
+/&/g,
+'&amp;'
+)
+
+.replace(
+/</g,
+'&lt;'
+)
+
+.replace(
+/>/g,
+'&gt;'
+)
+
+.replace(
+/"/g,
+'&quot;'
+)
+
+.replace(
+/'/g,
+'&#039;'
+);
+
+
+}
+
 
 
 // =====================================================
@@ -1480,26 +601,28 @@ function escapar(
 window.onload =
 function(){
 
-  if(
 
-    !codigo ||
+if(
+!codigo ||
+!evento
+){
 
-    !evento
+mostrarError(
+'Código o evento incorrecto.'
+);
 
-  ){
+return;
 
-    mostrarError(
-      'Código o evento incorrecto.'
-    );
-
-    return;
-
-  }
+}
 
 
-  cargarInvitacion();
+
+cargarInvitacion();
+
 
 };
+
+
 
 
 // =====================================================
@@ -1508,813 +631,178 @@ function(){
 
 function cargarInvitacion(){
 
-  solicitarAPI(
-
-    'obtenerDatosConfirmacion',
-
-    {
-
-      codigo:
-        codigo
-
-    }
-
-  )
-
-  .then(
-
-    function(datos){
 
 
-      if(
+solicitarAPI(
 
-        !datos ||
+'obtenerDatosConfirmacion',
 
-        !datos.ok
+{
 
-      ){
-
-        mostrarError(
-
-          datos?.mensaje ||
-
-          'La invitación no existe.'
-
-        );
-
-        return;
-
-      }
-
-
-      /*
-       * Aplicar colores.
-       */
-
-      aplicarConfiguracionEvento(
-        datos
-      );
-
-
-      /*
-       * Mostrar nombre del evento.
-       */
-
-      mostrarNombreEvento(
-        datos
-      );
-
-
-      /*
-       * Si ya está confirmado,
-       * mostrar QR.
-       */
-
-      if(
-
-        String(
-          datos.confirmacion || ''
-        )
-        .trim()
-        .toUpperCase()
-
-        ===
-
-        'CONFIRMADO'
-
-      ){
-
-        mostrarConfirmacionExistente(
-          datos
-        );
-
-        return;
-
-      }
-
-
-      mostrarFormulario(
-        datos
-      );
-
-    }
-
-  )
-
-  .catch(
-
-    function(error){
-
-      console.error(error);
-
-      mostrarError(
-        'No se pudo conectar con el sistema.'
-      );
-
-    }
-
-  );
+codigo:
+codigo
 
 }
+
+)
+
+.then(
+
+function(datos){
+
+
+
+if(
+!datos ||
+!datos.ok
+){
+
+mostrarError(
+datos.mensaje ||
+'Invitación no encontrada.'
+);
+
+return;
+
+}
+
+
+
+aplicarConfiguracionEvento(
+datos
+);
+
+
+
+document
+.getElementById(
+'nombreEvento'
+)
+.textContent =
+datos.evento || '';
+
+
+
+
+if(
+
+String(
+datos.confirmacion || ''
+)
+.toUpperCase()
+===
+'CONFIRMADO'
+
+){
+
+
+mostrarConfirmacionExistente(
+datos
+);
+
+
+return;
+
+
+}
+
+
+
+mostrarFormulario(
+datos
+);
+
+
+
+}
+
+);
+
+
+
+}
+
+
 
 
 // =====================================================
 // FORMULARIO
 // =====================================================
 
-function mostrarFormulario(
+function mostrarFormulario(datos){
 
-  datos
 
+let campos='';
+
+
+
+for(
+let i=1;
+i<=Number(datos.personas);
+i++
 ){
 
-  let campos =
-    '';
 
+campos += `
 
-  for(
+<div class="campo">
 
-    let i = 1;
+<label>
+INVITADO ${i}
+</label>
 
-    i <= Number(
-      datos.personas
-    );
+<input
+id="nombre${i}"
+type="text"
+placeholder="Nombre completo"
+>
 
-    i++
+</div>
 
-  ){
+`;
 
-    campos += `
-
-      <div class="campo">
-
-        <label>
-
-          NOMBRE DEL INVITADO ${i}
-
-        </label>
-
-
-        <input
-
-          id="nombre${i}"
-
-          type="text"
-
-          placeholder="Nombre completo"
-
-          autocomplete="name"
-
-        >
-
-      </div>
-
-    `;
-
-  }
-
-
-  document
-    .getElementById('contenido')
-    .innerHTML = `
-
-      <div class="tarjeta">
-
-
-        <div class="nombreFamilia">
-
-          ${escapar(
-            datos.invitado
-          )}
-
-        </div>
-
-
-        <div class="descripcion">
-
-          Nos dará mucho gusto contar contigo.
-          Por favor confirma quiénes asistirán.
-
-        </div>
-
-
-        <div class="cantidad">
-
-          <strong>
-
-            ${Number(
-              datos.personas
-            )}
-
-          </strong>
-
-
-          <small>
-
-            PASES DISPONIBLES
-
-          </small>
-
-        </div>
-
-
-        ${campos}
-
-
-        <div id="zonaBoton"></div>
-
-
-      </div>
-
-    `;
-
-
-  /*
-   * Crear botón después
-   * de los campos.
-   */
-
-  const zonaBoton =
-    document.getElementById(
-      'zonaBoton'
-    );
-
-
-  if(!zonaBoton){
-
-    return;
-
-  }
-
-
-  const boton =
-    document.createElement(
-      'button'
-    );
-
-
-  boton.type =
-    'button';
-
-
-  boton.id =
-    'btnConfirmar';
-
-
-  boton.className =
-    'boton';
-
-
-  boton.textContent =
-    'CONFIRMAR ASISTENCIA';
-
-
-  zonaBoton.appendChild(
-    boton
-  );
-
-
-  boton.addEventListener(
-    'click',
-    confirmar
-  );
 
 }
 
 
-// =====================================================
-// CONFIRMAR ASISTENCIA
-// =====================================================
 
-function confirmar(){
+document
+.getElementById('contenido')
+.innerHTML = `
 
-  const nombres =
-    [];
 
+<div class="tarjeta">
 
-  for(
 
-    let i = 1;
+<h2>
 
-    i <= 100;
+${escapar(datos.invitado)}
 
-    i++
+</h2>
 
-  ){
 
-    const campo =
-      document.getElementById(
-        'nombre' + i
-      );
 
+<p>
 
-    if(!campo){
+Tienes ${datos.personas}
+pases disponibles.
 
-      break;
+</p>
 
-    }
 
 
-    const nombre =
-      campo.value.trim();
+${campos}
 
 
-    if(!nombre){
 
-      alert(
-        'Escribe todos los nombres antes de confirmar.'
-      );
+<button
+class="boton"
+onclick="confirmar()"
+>
 
+CONFIRMAR ASISTENCIA
 
-      campo.focus();
-
-      return;
-
-    }
-
-
-    nombres.push(
-      nombre
-    );
-
-  }
-
-
-  if(
-    nombres.length === 0
-  ){
-
-    alert(
-      'Agrega al menos un nombre.'
-    );
-
-    return;
-
-  }
-
-
-  const boton =
-    document.getElementById(
-      'btnConfirmar'
-    );
-
-
-  if(boton){
-
-    boton.disabled =
-      true;
-
-    boton.textContent =
-      'CONFIRMANDO...';
-
-  }
-
-
-  solicitarAPI(
-
-    'confirmarAsistencia',
-
-    {
-
-      codigo:
-        codigo,
-
-      nombres:
-        nombres
-
-    }
-
-  )
-
-  .then(
-
-    function(respuesta){
-
-
-      if(
-
-        respuesta &&
-
-        respuesta.yaConfirmado
-
-      ){
-
-        cargarInvitacion();
-
-        return;
-
-      }
-
-
-      if(
-
-        !respuesta ||
-
-        !respuesta.ok
-
-      ){
-
-        alert(
-
-          respuesta?.mensaje ||
-
-          'No se pudo confirmar.'
-
-        );
-
-
-        if(boton){
-
-          boton.disabled =
-            false;
-
-          boton.textContent =
-            'CONFIRMAR ASISTENCIA';
-
-        }
-
-        return;
-
-      }
-
-
-      /*
-       * IMPORTANTE:
-       * usamos los nombres que acabamos
-       * de introducir.
-       */
-
-      mostrarConfirmacion({
-
-        codigo:
-          codigo,
-
-        invitado:
-          respuesta.invitado,
-
-        personas:
-          respuesta.personas,
-
-        nombres:
-          nombres
-
-      });
-
-    }
-
-  )
-
-  .catch(
-
-    function(error){
-
-      console.error(error);
-
-
-      alert(
-        'Error al confirmar.'
-      );
-
-
-      if(boton){
-
-        boton.disabled =
-          false;
-
-        boton.textContent =
-          'CONFIRMAR ASISTENCIA';
-
-      }
-
-    }
-
-  );
-
-}
-
-
-// =====================================================
-// CONFIRMACIÓN EXISTENTE
-// =====================================================
-
-function mostrarConfirmacionExistente(
-
-  datos
-
-){
-
-  mostrarConfirmacion({
-
-    codigo:
-      datos.codigo,
-
-    invitado:
-      datos.invitado,
-
-    personas:
-      datos.personas,
-
-    nombres:
-      datos.nombres || []
-
-  });
-
-}
-
-
-// =====================================================
-// PANTALLA FINAL
-// =====================================================
-
-function mostrarConfirmacion(
-
-  datos
-
-){
-
-  let lista =
-    '';
-
-
-  (datos.nombres || [])
-
-    .forEach(
-
-      function(nombre){
-
-        lista += `
-
-          <div>
-
-            ${escapar(nombre)}
-
-          </div>
-
-        `;
-
-      }
-
-    );
-
-
-  /*
-   * QR.
-   */
-
-  const qrURL =
-
-    'https://quickchart.io/qr?size=500&text='
-
-    +
-
-    encodeURIComponent(
-      datos.codigo
-    );
-
-
-  document
-    .getElementById('contenido')
-    .innerHTML = `
-
-      <div class="tarjeta">
-
-
-        <div class="mensaje">
-
-
-          <div class="icono">
-
-            ✅
-
-          </div>
-
-
-          <h2>
-
-            ¡Asistencia confirmada!
-
-          </h2>
-
-
-          <p>
-
-            Gracias por confirmar.
-
-          </p>
-
-
-        </div>
-
-
-        <div class="listaNombres">
-
-
-          <strong>
-
-            INVITADOS CONFIRMADOS
-
-          </strong>
-
-
-          ${lista}
-
-
-        </div>
-
-
-        <h3>
-
-          TU PASE QR
-
-        </h3>
-
-
-        <img
-
-          class="qr"
-
-          src="${qrURL}"
-
-          alt="QR Pase"
-
-        >
-
-
-        <p>
-
-          Código:
-
-          <b>
-
-            ${escapar(
-              datos.codigo
-            )}
-
-          </b>
-
-        </p>
-
-
-        <p>
-
-          Guarda este código para ingresar al evento.
-
-        </p>
-
-
-      </div>
-
-    `;
-
-}
-
-
-// =====================================================
-// PANTALLA FINAL - AN PASS TICKET
-// =====================================================
-
-function mostrarConfirmacion(datos){
-
-  let lista = '';
-
-  (datos.nombres || [])
-    .forEach(function(nombre){
-
-      lista += `
-        <div>
-          ${escapar(nombre)}
-        </div>
-      `;
-
-    });
-
-
-  const qrURL =
-    'https://quickchart.io/qr?size=500&text='
-    +
-    encodeURIComponent(
-      datos.codigo
-    );
-
-
-  document
-    .getElementById('contenido')
-    .innerHTML = `
-
-
-<div class="ticket">
-
-
-  <div class="ticketHeader">
-
-    <div class="marca">
-      AN
-      <span>PASS</span>
-    </div>
-
-
-    <div class="eventoTicket">
-      ${escapar(
-        document.getElementById('nombreEvento').textContent
-      )}
-    </div>
-
-
-    <div class="textoPase">
-      PASE DE ACCESO
-    </div>
-
-
-  </div>
-
-
-
-  <div class="ticketBody">
-
-
-    <div class="confirmado">
-
-      ✅
-
-      <h2>
-      ¡Asistencia confirmada!
-      </h2>
-
-    </div>
-
-
-
-    <div class="datos">
-
-
-      <div class="titulo">
-      INVITADOS
-      </div>
-
-
-      <div class="nombres">
-
-        ${lista}
-
-      </div>
-
-
-    </div>
-
-
-
-
-    <div class="separador"></div>
-
-
-
-
-    <div class="zonaQR">
-
-
-      <img
-        src="${qrURL}"
-        class="qrTicket"
-      >
-
-
-      <div class="codigo">
-
-        CÓDIGO
-
-        <strong>
-        ${escapar(datos.codigo)}
-        </strong>
-
-      </div>
-
-
-    </div>
-
-
-
-  </div>
-
-
-
-  <div class="ticketFooter">
-
-    <div>
-      GUARDA ESTE PASE
-    </div>
-
-
-    <button
-      class="boton"
-      onclick="window.print()"
-    >
-
-      DESCARGAR MI PASE
-
-    </button>
-
-
-  </div>
+</button>
 
 
 
@@ -2323,59 +811,571 @@ function mostrarConfirmacion(datos){
 
 `;
 
+
+
 }
 
-function mostrarError(
+// =====================================================
+// CONFIRMAR ASISTENCIA
+// =====================================================
 
-  mensaje
+function confirmar(){
 
+
+const nombres=[];
+
+
+for(
+let i=1;
+i<=100;
+i++
 ){
 
-  document
-    .getElementById('contenido')
-    .innerHTML = `
 
-      <div class="tarjeta">
-
-
-        <div class="mensaje error">
+const campo =
+document.getElementById(
+'nombre'+i
+);
 
 
-          <div class="icono">
 
-            ❌
+if(!campo){
 
-          </div>
-
-
-          <h2>
-
-            No pudimos abrir tu invitación
-
-          </h2>
-
-
-          <p>
-
-            ${escapar(
-              mensaje
-            )}
-
-          </p>
-
-
-        </div>
-
-
-      </div>
-
-    `;
+break;
 
 }
+
+
+
+const nombre =
+campo.value.trim();
+
+
+
+if(!nombre){
+
+alert(
+'Completa todos los nombres.'
+);
+
+campo.focus();
+
+return;
+
+}
+
+
+
+nombres.push(nombre);
+
+
+
+}
+
+
+
+if(
+nombres.length===0
+){
+
+alert(
+'Agrega al menos un nombre.'
+);
+
+return;
+
+}
+
+
+
+
+solicitarAPI(
+
+'confirmarAsistencia',
+
+{
+
+codigo:
+codigo,
+
+nombres:
+nombres
+
+}
+
+)
+
+.then(
+
+function(respuesta){
+
+
+
+if(
+!respuesta ||
+!respuesta.ok
+){
+
+
+alert(
+
+respuesta.mensaje ||
+'No se pudo confirmar.'
+
+);
+
+
+return;
+
+}
+
+
+
+
+mostrarConfirmacion({
+
+codigo:
+codigo,
+
+nombres:
+nombres
+
+});
+
+
+
+}
+
+
+
+);
+
+
+
+}
+
+
+
+// =====================================================
+// CONFIRMACIÓN EXISTENTE
+// =====================================================
+
+function mostrarConfirmacionExistente(datos){
+
+
+mostrarConfirmacion({
+
+codigo:
+datos.codigo,
+
+nombres:
+datos.nombres || []
+
+});
+
+
+}
+
+
+
+
+
+// =====================================================
+// CREAR TICKET AN PASS
+// =====================================================
+
+function mostrarConfirmacion(datos){
+
+
+
+let lista='';
+
+
+
+(datos.nombres || [])
+
+.forEach(
+
+function(nombre){
+
+
+lista += `
+
+
+<div class="nombreTicket">
+
+${escapar(nombre)}
+
+</div>
+
+
+`;
+
+
+}
+
+);
+
+
+
+
+
+const qrURL =
+
+'https://quickchart.io/qr?size=600&text='
+
++
+
+encodeURIComponent(
+
+datos.codigo
+
+);
+
+
+
+
+
+document
+
+.getElementById('contenido')
+
+.innerHTML = `
+
+
+
+<div
+
+id="ticketParaDescargar"
+
+class="ticket"
+
+>
+
+
+
+<div class="ticketHeader">
+
+
+
+<div class="marcaTicket">
+
+
+AN
+
+
+<span>
+
+PASS
+
+</span>
+
+
+</div>
+
+
+
+<div>
+
+PASE DE ACCESO
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<div class="ticketBody">
+
+
+
+
+
+<div class="checkTicket">
+
+✓
+
+</div>
+
+
+
+<h2>
+
+¡ASISTENCIA CONFIRMADA!
+
+</h2>
+
+
+
+
+
+<div>
+
+
+<strong>
+
+INVITADOS
+
+</strong>
+
+
+${lista}
+
+
+</div>
+
+
+
+
+
+
+<hr>
+
+
+
+
+
+<img
+
+class="qrTicket"
+
+src="${qrURL}"
+
+crossorigin="anonymous"
+
+>
+
+
+
+
+
+
+<div class="codigoTicket">
+
+
+${escapar(datos.codigo)}
+
+
+</div>
+
+
+
+
+
+</div>
+
+
+
+
+
+
+<div class="ticketFooter">
+
+
+PRESENTA ESTE PASE AL INGRESAR
+
+
+<br><br>
+
+
+<button
+
+class="boton"
+
+onclick="descargarPaseImagen()"
+
+>
+
+DESCARGAR MI PASE
+
+</button>
+
+
+
+</div>
+
+
+
+
+
+
+</div>
+
+
+
+`;
+
+
+
+}
+
+// =====================================================
+// DESCARGAR TICKET COMO IMAGEN
+// =====================================================
+
+function descargarPaseImagen(){
+
+
+const ticket =
+document.getElementById(
+'ticketParaDescargar'
+);
+
+
+
+if(!ticket){
+
+alert(
+'No se encontró el pase.'
+);
+
+return;
+
+}
+
+
+
+html2canvas(
+
+ticket,
+
+{
+
+scale:3,
+
+useCORS:true,
+
+backgroundColor:null
+
+}
+
+)
+
+.then(
+
+function(canvas){
+
+
+
+const enlace =
+document.createElement(
+'a'
+);
+
+
+
+enlace.download =
+'AN-PASS.png';
+
+
+
+enlace.href =
+canvas.toDataURL(
+'image/png'
+);
+
+
+
+document.body.appendChild(
+enlace
+);
+
+
+
+enlace.click();
+
+
+
+document.body.removeChild(
+enlace
+);
+
+
+
+}
+
+)
+
+.catch(
+
+function(error){
+
+console.error(error);
+
+
+alert(
+'No se pudo generar la imagen.'
+);
+
+
+}
+
+);
+
+
+}
+
+
+
+// =====================================================
+// ERROR
+// =====================================================
+
+function mostrarError(mensaje){
+
+
+document
+
+.getElementById(
+'contenido'
+)
+
+.innerHTML = `
+
+
+<div class="tarjeta">
+
+
+<div style="text-align:center;">
+
+
+<h2>
+
+❌ Error
+
+</h2>
+
+
+<p>
+
+${escapar(mensaje)}
+
+</p>
+
+
+
+</div>
+
+
+</div>
+
+
+`;
+
+
+
+}
+
 
 
 </script>
 
+
 </body>
+
 
 </html>
