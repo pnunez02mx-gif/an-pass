@@ -740,6 +740,237 @@ h3{
 
 }
 
+/* =====================================================
+   AN PASS - TICKET DIGITAL
+===================================================== */
+
+
+.ticket{
+
+  width:100%;
+
+  max-width:420px;
+
+  margin:20px auto;
+
+  background:var(--color-tarjeta);
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  border:1px solid var(--color-borde);
+
+  box-shadow:
+  0 10px 30px rgba(0,0,0,.12);
+
+}
+
+
+
+.ticketHeader{
+
+  background:
+  var(--color-principal);
+
+  color:white;
+
+  padding:25px 20px;
+
+  text-align:center;
+
+}
+
+
+
+.marca{
+
+  font-family:Georgia,serif;
+
+  font-size:38px;
+
+  letter-spacing:4px;
+
+}
+
+
+
+.marca span{
+
+  display:block;
+
+  font-size:18px;
+
+  letter-spacing:8px;
+
+}
+
+
+
+.eventoTicket{
+
+  margin-top:18px;
+
+  font-size:18px;
+
+  font-weight:bold;
+
+}
+
+
+
+.textoPase{
+
+  margin-top:12px;
+
+  font-size:11px;
+
+  letter-spacing:3px;
+
+}
+
+
+
+.ticketBody{
+
+  padding:25px 20px;
+
+}
+
+
+
+.confirmado{
+
+  text-align:center;
+
+}
+
+
+
+.confirmado h2{
+
+  color:var(--color-principal);
+
+  font-family:Georgia,serif;
+
+}
+
+
+
+.datos{
+
+  margin-top:25px;
+
+}
+
+
+
+.titulo{
+
+  font-size:10px;
+
+  font-weight:bold;
+
+  letter-spacing:2px;
+
+  color:var(--color-secundario);
+
+}
+
+
+
+.nombres div{
+
+  padding:7px 0;
+
+  border-bottom:
+  1px solid var(--color-borde);
+
+  color:var(--color-principal);
+
+}
+
+
+
+.separador{
+
+  margin:25px 0;
+
+  border-top:
+  2px dashed var(--color-borde);
+
+}
+
+
+
+.zonaQR{
+
+  text-align:center;
+
+}
+
+
+
+.qrTicket{
+
+  width:190px;
+
+  height:190px;
+
+}
+
+
+
+.codigo{
+
+  margin-top:15px;
+
+  color:var(--color-secundario);
+
+  font-size:12px;
+
+}
+
+
+
+.codigo strong{
+
+  display:block;
+
+  font-size:20px;
+
+  color:var(--color-principal);
+
+  letter-spacing:3px;
+
+}
+
+
+
+.ticketFooter{
+
+  background:
+  var(--color-fondo);
+
+  padding:20px;
+
+  text-align:center;
+
+  font-size:10px;
+
+  letter-spacing:2px;
+
+}
+
+
+
+.ticketFooter .boton{
+
+  margin-top:15px;
+
+}
+  
+
 </style>
 
 </head>
@@ -1939,8 +2170,160 @@ function mostrarConfirmacion(
 
 
 // =====================================================
-// ERROR
+// PANTALLA FINAL - AN PASS TICKET
 // =====================================================
+
+function mostrarConfirmacion(datos){
+
+  let lista = '';
+
+  (datos.nombres || [])
+    .forEach(function(nombre){
+
+      lista += `
+        <div>
+          ${escapar(nombre)}
+        </div>
+      `;
+
+    });
+
+
+  const qrURL =
+    'https://quickchart.io/qr?size=500&text='
+    +
+    encodeURIComponent(
+      datos.codigo
+    );
+
+
+  document
+    .getElementById('contenido')
+    .innerHTML = `
+
+
+<div class="ticket">
+
+
+  <div class="ticketHeader">
+
+    <div class="marca">
+      AN
+      <span>PASS</span>
+    </div>
+
+
+    <div class="eventoTicket">
+      ${escapar(
+        document.getElementById('nombreEvento').textContent
+      )}
+    </div>
+
+
+    <div class="textoPase">
+      PASE DE ACCESO
+    </div>
+
+
+  </div>
+
+
+
+  <div class="ticketBody">
+
+
+    <div class="confirmado">
+
+      ✅
+
+      <h2>
+      ¡Asistencia confirmada!
+      </h2>
+
+    </div>
+
+
+
+    <div class="datos">
+
+
+      <div class="titulo">
+      INVITADOS
+      </div>
+
+
+      <div class="nombres">
+
+        ${lista}
+
+      </div>
+
+
+    </div>
+
+
+
+
+    <div class="separador"></div>
+
+
+
+
+    <div class="zonaQR">
+
+
+      <img
+        src="${qrURL}"
+        class="qrTicket"
+      >
+
+
+      <div class="codigo">
+
+        CÓDIGO
+
+        <strong>
+        ${escapar(datos.codigo)}
+        </strong>
+
+      </div>
+
+
+    </div>
+
+
+
+  </div>
+
+
+
+  <div class="ticketFooter">
+
+    <div>
+      GUARDA ESTE PASE
+    </div>
+
+
+    <button
+      class="boton"
+      onclick="window.print()"
+    >
+
+      DESCARGAR MI PASE
+
+    </button>
+
+
+  </div>
+
+
+
+</div>
+
+
+`;
+
+}
 
 function mostrarError(
 
