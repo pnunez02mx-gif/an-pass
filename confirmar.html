@@ -1054,24 +1054,176 @@ class="ticket"
 
 
 
-<div class="ticketHeader">
+< class="ticketHeader">
 
 
 
-<div class="marcaTicket">
+// =====================================================
+// DESCARGAR TICKET COMO IMAGEN
+// =====================================================
+
+function descargarPaseImagen(){
 
 
-AN
+const ticket =
+document.getElementById(
+'ticketParaDescargar'
+);
 
 
-<span>
 
-PASS
+if(!ticket){
 
-</span>
+alert(
+'No se encontró el pase.'
+);
+
+return;
+
+}
+
+
+
+html2canvas(
+
+ticket,
+
+{
+
+scale:3,
+
+useCORS:true,
+
+backgroundColor:null
+
+}
+
+)
+
+.then(
+
+function(canvas){
+
+
+
+const enlace =
+document.createElement(
+'a'
+);
+
+
+
+enlace.download =
+'AN-PASS.png';
+
+
+
+enlace.href =
+canvas.toDataURL(
+'image/png'
+);
+
+
+
+document.body.appendChild(
+enlace
+);
+
+
+
+enlace.click();
+
+
+
+document.body.removeChild(
+enlace
+);
+
+
+
+}
+
+)
+
+.catch(
+
+function(error){
+
+console.error(error);
+
+
+alert(
+'No se pudo generar la imagen.'
+);
+
+
+}
+
+);
+
+
+}
+
+
+
+// =====================================================
+// ERROR
+// =====================================================
+
+function mostrarError(mensaje){
+
+
+document
+
+.getElementById(
+'contenido'
+)
+
+.innerHTML = `
+
+
+<div class="tarjeta">
+
+
+<div style="text-align:center;">
+
+
+<h2>
+
+❌ Error
+
+</h2>
+
+
+<p>
+
+${escapar(mensaje)}
+
+</p>
+
 
 
 </div>
+
+
+</div>
+
+
+`;
+
+
+
+}
+
+
+
+</script>
+
+
+</body>
+
+
+</html>
 
 
 
@@ -1219,86 +1371,68 @@ DESCARGAR MI PASE
 
 function descargarPaseImagen(){
 
-
-const ticket =
-document.getElementById(
-'ticketParaDescargar'
-);
-
+  const ticket =
+    document.getElementById(
+      "ticketParaDescargar"
+    );
 
 
-if(!ticket){
+  if(!ticket){
 
-alert(
-'No se encontró el pase.'
-);
+    alert(
+      "No se encontró el pase"
+    );
 
-return;
+    return;
 
-}
-
-
-
-html2canvas(
-
-ticket,
-
-{
-
-scale:3,
-
-useCORS:true,
-
-backgroundColor:null
-
-}
-
-)
-
-.then(
-
-function(canvas){
+  }
 
 
+  html2canvas(
+    ticket,
+    {
+      scale:3,
+      useCORS:true,
+      allowTaint:true,
+      backgroundColor:"#ffffff"
+    }
+  )
 
-const enlace =
-document.createElement(
-'a'
-);
-
-
-
-enlace.download =
-'AN-PASS.png';
-
-
-
-enlace.href =
-canvas.toDataURL(
-'image/png'
-);
+  .then(function(canvas){
 
 
-
-document.body.appendChild(
-enlace
-);
+    const enlace =
+      document.createElement("a");
 
 
+    enlace.download =
+      "AN-PASS.png";
 
-enlace.click();
+
+    enlace.href =
+      canvas.toDataURL(
+        "image/png"
+      );
 
 
+    enlace.click();
 
-document.body.removeChild(
-enlace
-);
 
+  })
+
+
+  .catch(function(error){
+
+    console.log(error);
+
+    alert(
+      "No se pudo generar la imagen"
+    );
+
+  });
 
 
 }
-
-)
 
 .catch(
 
