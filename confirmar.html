@@ -9,11 +9,10 @@
   <style>
     body { background: #fcfbfa; font-family: 'Montserrat', sans-serif; display: flex; justify-content: center; padding: 20px; }
     .card { background: white; width: 100%; max-width: 400px; padding: 30px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 20px; }
-    .input-field { width: 100%; padding: 12px; border: 1px solid #eae6df; border-radius: 10px; margin-bottom: 10px; text-align: center; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 28px; margin-bottom: 20px; color: #2c2825; }
+    .input-field { width: 100%; padding: 12px; border: 1px solid #eae6df; border-radius: 10px; margin-bottom: 10px; text-align: center; font-size: 14px; box-sizing: border-box; }
     .btn { width: 100%; padding: 12px; background: #2c2825; color: white; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
     .hidden { display: none; }
-    #secFormulario, #secPase { margin-top: 20px; }
     .spinner { border: 3px solid #f3f3f3; border-top: 3px solid #2c2825; border-radius: 50%; width: 25px; height: 25px; animation: spin 1s linear infinite; margin: 10px auto; }
     @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
@@ -25,37 +24,38 @@
   
   <!-- BUSCADOR -->
   <div id="secBuscador">
-    <p style="font-size: 13px; margin-bottom: 15px;">Escribe tu nombre tal como aparece en la invitación o tu teléfono para continuar:</p>
-    <input type="text" id="inputBusqueda" class="input-field" placeholder="Nombre o Teléfono">
-    <button class="btn" onclick="buscarInvitado()">Buscar mi invitación</button>
+    <p style="font-size: 13px; margin-bottom: 15px; color: #666;">Escribe tu nombre o teléfono:</p>
+    <input type="text" id="inputBusqueda" class="input-field" placeholder="Ej. López o 6181234567">
+    <button class="btn" onclick="buscarInvitado()">Buscar invitación</button>
   </div>
 
-  <div id="loader" class="spinner" style="display:none;"></div>
+  <div id="loader" class="spinner hidden"></div>
 
-  <!-- FORMULARIO -->
+  <!-- FORMULARIO DE CONFIRMACIÓN -->
   <div id="secFormulario" class="hidden">
-    <p>¡Hola <span id="lblInvitado" style="font-weight:600;"></span>! Tienes <span id="lblPases"></span> pases.</p>
+    <p style="font-size: 14px; margin-bottom: 15px;">Hola <span id="lblInvitado" style="font-weight:600;"></span>. Tienes <span id="lblPases"></span> pases.</p>
     <div id="listaInputs" style="margin: 15px 0; text-align: left;"></div>
-    <button class="btn" id="btnConfirmar" onclick="guardarConfirmacion()">Confirmar</button>
+    <button class="btn" id="btnConfirmar" onclick="guardarConfirmacion()">Confirmar Asistencia</button>
   </div>
 
-  <!-- RESULTADO -->
+  <!-- RESULTADO QR -->
   <div id="secPase" class="hidden">
-    <p style="color:green; font-weight:600;">✅ ¡Confirmado!</p>
+    <p style="color:#2e6027; font-weight:600; margin-bottom: 10px;">✅ ¡Confirmado!</p>
     <canvas id="qrCanvas"></canvas>
-    <p style="font-size:12px; margin-top:10px;">Muestra este código en la entrada.</p>
+    <p style="font-size:12px; margin-top:10px; color:#666;">Muestra este código en la entrada.</p>
   </div>
 </div>
 
 <script>
   const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+  
   let paseEncontrado = null;
 
   function buscarInvitado() {
     const query = document.getElementById('inputBusqueda').value.toLowerCase().trim();
-    if (!query) return alert("Escribe algo.");
+    if (!query) return alert("Escribe un nombre o teléfono.");
     
-    document.getElementById('loader').style.display = 'block';
+    document.getElementById('loader').classList.remove('hidden');
     
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
@@ -63,7 +63,16 @@
     })
     .then(r => r.json())
     .then(res => {
-      document.getElementById('loader').style.display = 'none';
+      document.getElementById('loader').classList.add('hidden');
+      
+      console.log("Respuesta del servidor:", res);
+      
+      if (!res.ok) {
+        alert("Error: " + (res.mensaje || "No se pudieron obtener los datos."));
+        return;
+      }
+
+      // Buscar por nombre o por teléfono en la lista recibida
       const inv = res.invitados.find(i => 
         (i.invitado && i.invitado.toLowerCase().includes(query)) || 
         (i.telefono && i.telefono.toString().includes(query))
@@ -71,26 +80,37 @@
       
       if (inv) {
         paseEncontrado = inv;
-        document.getElementById('secBuscador').style.display = 'none';
-        document.getElementById('secFormulario').style.display = 'block';
+        document.getElementById('secBuscador').classList.add('hidden');
+        document.getElementById('secFormulario').classList.remove('hidden');
         document.getElementById('lblInvitado').textContent = inv.invitado;
         document.getElementById('lblPases').textContent = inv.autorizadas;
         
         let html = '';
-        for(let i=1; i<=inv.autorizadas; i++) {
+        const cantidadPases = Number(inv.autorizadas) || 1;
+        for(let i = 1; i <= cantidadPases; i++) {
           html += `<input type="text" class="input-field input-nombre" placeholder="Nombre Asistente ${i}">`;
         }
         document.getElementById('listaInputs').innerHTML = html;
       } else {
-        alert("No encontrado. Intenta con tu nombre o teléfono.");
+        alert("No encontramos ese nombre o teléfono. Intenta de nuevo.");
       }
+    })
+    .catch(err => {
+      document.getElementById('loader').classList.add('hidden');
+      console.error(err);
+      alert("Error de conexión con el servidor. Revisa tu conexión.");
     });
   }
 
   function guardarConfirmacion() {
     const inputs = document.querySelectorAll('.input-nombre');
-    const nombres = Array.from(inputs).map(i => i.value).filter(v => v !== "");
+    const nombres = Array.from(inputs).map(i => i.value).filter(v => v.trim() !== "");
     
+    if(nombres.length === 0) return alert("Por favor escribe al menos un nombre.");
+
+    document.getElementById('btnConfirmar').disabled = true;
+    document.getElementById('btnConfirmar').textContent = "Guardando...";
+
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
       body: JSON.stringify({ 
@@ -101,9 +121,25 @@
     })
     .then(r => r.json())
     .then(res => {
-      document.getElementById('secFormulario').style.display = 'none';
-      document.getElementById('secPase').style.display = 'block';
-      new QRious({ element: document.getElementById('qrCanvas'), value: "https://pnunez02mx-gif.github.io/an-pass/?evento=EV001&codigo=" + paseEncontrado.codigo, size: 150 });
+      if(res.ok) {
+        document.getElementById('secFormulario').classList.add('hidden');
+        document.getElementById('secPase').classList.remove('hidden');
+        new QRious({ 
+          element: document.getElementById('qrCanvas'), 
+          value: "https://pnunez02mx-gif.github.io/an-pass/?evento=EV001&codigo=" + paseEncontrado.codigo, 
+          size: 180 
+        });
+      } else {
+        alert("Error al guardar: " + (res.mensaje || "Inténtalo de nuevo."));
+        document.getElementById('btnConfirmar').disabled = false;
+        document.getElementById('btnConfirmar').textContent = "Confirmar Asistencia";
+      }
+    })
+    .catch(err => {
+      console.error(err);
+      alert("Error al guardar. Revisa tu conexión.");
+      document.getElementById('btnConfirmar').disabled = false;
+      document.getElementById('btnConfirmar').textContent = "Confirmar Asistencia";
     });
   }
 </script>
