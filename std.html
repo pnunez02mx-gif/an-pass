@@ -2,136 +2,301 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Save the Date - Preconfirmación</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Save the Date - AN PASS</title>
+
+  <!-- Fuentes Elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
     :root {
-      --color-principal: #292522;
-      --color-fondo: #f7f3ed;
-      --color-borde: #e5ddd2;
+      --bg-color: #fcfbfa;
+      --card-bg: #ffffff;
+      --text-main: #2c2825;
+      --text-muted: #78716c;
+      --accent-color: #2c2825;
+      --border-color: #eae6df;
+      --radius-main: 16px;
+      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
-    * { box-sizing: border-box; }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
-      background: var(--color-fondo);
-      color: var(--color-principal);
-      font-family: Arial, Helvetica, sans-serif;
-      margin: 0;
-      padding: 30px 18px;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease;
     }
-    .contenedor {
-      max-width: 440px;
-      margin: 0 auto;
-      background: #ffffff;
-      border: 1px solid var(--color-borde);
-      border-radius: 22px;
-      padding: 28px 20px;
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-main);
+      box-shadow: var(--shadow-subtle);
+      width: 100%;
+      max-width: 460px;
+      padding: 32px 24px;
       text-align: center;
-      box-shadow: 0 5px 18px rgba(0,0,0,.06);
     }
-    h2 { font-family: Georgia, serif; margin-top: 0; font-size: 26px; }
-    p { font-size: 13px; color: #706860; line-height: 1.4; }
-    .campo { text-align: left; margin-bottom: 16px; }
-    .campo label { font-size: 10px; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 6px; }
-    .campo input, .campo select {
-      width: 100%; height: 46px; border: 1px solid var(--color-borde);
-      border-radius: 12px; padding: 10px 12px; font-size: 14px; outline: none; background: #fff;
+
+    .brand-tag {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 8px;
+      display: block;
+      opacity: 0.85;
     }
-    button {
-      width: 100%; min-height: 50px; background: var(--color-principal);
-      color: #fff; border: 0; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px;
+
+    .event-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.1;
+      margin-bottom: 8px;
     }
-    button:disabled { opacity: 0.6; }
-    .exito { color: #52654b; font-weight: bold; padding: 20px; font-size: 16px; }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      font-weight: 300;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+
+    .form-group {
+      text-align: left;
+      margin-bottom: 18px;
+    }
+
+    label {
+      display: block;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 6px;
+    }
+
+    input, select {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 14px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-main);
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    input:focus, select:focus {
+      border-color: var(--accent-color);
+    }
+
+    .btn-submit {
+      width: 100%;
+      height: 48px;
+      background: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: opacity 0.2s ease, transform 0.1s ease;
+    }
+
+    .btn-submit:active { transform: scale(0.98); }
+    .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .msg-box {
+      margin-top: 16px;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 13px;
+      display: none;
+    }
+
+    .msg-box.success { background: #eef7ed; color: #2e6027; }
+    .msg-box.error { background: #fde8e8; color: #9b1c1c; }
+
+    .spinner {
+      width: 28px;
+      height: 28px;
+      border: 3px solid rgba(0,0,0,0.1);
+      border-top-color: var(--accent-color);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 20px auto;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
 
-<div class="contenedor">
-  <h2>SAVE THE DATE</h2>
-  <p>Nos encantará contar contigo en este día especial. Por favor confirma si te gustaría asistir para contemplarte en la lista de pases.</p>
-  
-  <form id="formSTD">
-    <div class="campo">
-      <label>TU NOMBRE COMPLETO</label>
-      <input type="text" id="nombre" required placeholder="Ej. Paola Núñez">
-    </div>
-    
-    <div class="campo">
-      <label>TELÉFONO / WHATSAPP</label>
-      <input type="tel" id="telefono" required placeholder="10 dígitos">
-    </div>
+<div class="card">
+  <div id="loader" class="spinner"></div>
 
-    <div class="campo">
-      <label>¿ASISTIRÁS AL EVENTO?</label>
-      <select id="interes">
-        <option value="SÍ">¡Sí, me encantaría asistir!</option>
-        <option value="TAL VEZ">Tal vez (Aún por confirmar)</option>
-        <option value="NO">No me será posible asistir</option>
-      </select>
-    </div>
+  <div id="contenido" style="display: none;">
+    <span class="brand-tag">SAVE THE DATE</span>
+    <h1 class="event-title" id="nombreEvento">Cargando...</h1>
+    <p class="subtitle">Por favor confirma tu interés de asistencia para contemplarte en nuestros pases oficiales.</p>
 
-    <div class="campo">
-      <label>¿CUÁNTAS PERSONAS TE ACOMPAÑAN? (INCLUYÉNDOTE)</label>
-      <input type="number" id="acompanantes" min="1" max="10" value="1" required>
-    </div>
+    <form id="stdForm" onsubmit="enviarRespuesta(event)">
+      <div class="form-group">
+        <label for="nombre">Nombre Completo</label>
+        <input type="text" id="nombre" placeholder="Ej. Familia López Pérez" required>
+      </div>
 
-    <button type="submit" id="btnEnviar">ENVIAR RESPUESTA</button>
-  </form>
-  
-  <div id="mensajeFinal" style="display:none;" class="exito"></div>
+      <div class="form-group">
+        <label for="telefono">WhatsApp / Teléfono</label>
+        <input type="tel" id="telefono" placeholder="Ej. 6181234567" required>
+      </div>
+
+      <div class="form-group">
+        <label for="interes">¿Nos acompañarás?</label>
+        <select id="interes" onchange="cambiarInteres()" required>
+          <option value="SÍ">¡Sí, con mucho gusto!</option>
+          <option value="TAL VEZ">Tal vez (Por confirmar)</option>
+          <option value="NO">No podré asistir</option>
+        </select>
+      </div>
+
+      <div class="form-group" id="grupoPases">
+        <label for="pases">Pases solicitados (Titular + Acompañantes)</label>
+        <input type="number" id="pases" min="1" max="10" value="2" required>
+      </div>
+
+      <button type="submit" id="btnEnviar" class="btn-submit">Enviar Respuesta</button>
+    </form>
+
+    <div id="msgBox" class="msg-box"></div>
+  </div>
 </div>
 
 <script>
   const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
   const urlParams = new URLSearchParams(window.location.search);
   
-  // Limpieza del parámetro del evento
   let ID_EVENTO = urlParams.get('evento') || 'EV001';
   if (ID_EVENTO.includes('](')) {
     ID_EVENTO = ID_EVENTO.split('](')[0].replace('[', '');
   }
   ID_EVENTO = ID_EVENTO.trim();
 
-  document.getElementById('formSTD').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const btn = document.getElementById('btnEnviar');
-    btn.disabled = true;
-    btn.textContent = 'GUARDANDO...';
+  function aplicarColores(color, colorFondo, colorBoton) {
+    const root = document.documentElement;
+    if (colorFondo) root.style.setProperty('--bg-color', colorFondo);
+    if (color) root.style.setProperty('--text-main', color);
+    if (colorBoton) root.style.setProperty('--accent-color', colorBoton);
+    else if (color) root.style.setProperty('--accent-color', color);
+  }
 
-    const payload = {
-      accion: 'guardarPreConfirmacion',
-      id_evento: ID_EVENTO,
-      nombre: document.getElementById('nombre').value,
-      telefono: document.getElementById('telefono').value,
-      interes: document.getElementById('interes').value,
-      acompanantes: document.getElementById('acompanantes').value
-    };
-
+  function cargarEvento() {
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
-      mode: 'cors',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify(payload)
+      body: JSON.stringify({ accion: 'obtenerDatosPanel', id_evento: ID_EVENTO })
     })
     .then(res => res.json())
     .then(res => {
-      if(res.ok) {
-        document.getElementById('formSTD').style.display = 'none';
-        const msg = document.getElementById('mensajeFinal');
-        msg.style.display = 'block';
-        msg.textContent = res.mensaje;
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('contenido').style.display = 'block';
+
+      if (res.ok && res.evento) {
+        document.getElementById('nombreEvento').textContent = res.evento.nombre;
+        aplicarColores(res.evento.color, res.evento.color_fondo, res.evento.color_boton);
       } else {
-        alert(res.mensaje || 'Ocurrió un problema.');
-        btn.disabled = false;
-        btn.textContent = 'ENVIAR RESPUESTA';
+        document.getElementById('nombreEvento').textContent = 'NUESTRO EVENTO';
       }
     })
     .catch(() => {
-      alert('Error de conexión.');
-      btn.disabled = false;
-      btn.textContent = 'ENVIAR RESPUESTA';
+      document.getElementById('loader').style.display = 'none';
+      document.getElementById('contenido').style.display = 'block';
+      document.getElementById('nombreEvento').textContent = 'NUESTRO EVENTO';
     });
-  });
+  }
+
+  function cambiarInteres() {
+    const val = document.getElementById('interes').value;
+    const grupoPases = document.getElementById('grupoPases');
+    if (val === 'NO') {
+      grupoPases.style.display = 'none';
+    } else {
+      grupoPases.style.display = 'block';
+    }
+  }
+
+  function enviarRespuesta(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnEnviar');
+    const msg = document.getElementById('msgBox');
+
+    btn.disabled = true;
+    btn.textContent = 'Guardando...';
+    msg.style.display = 'none';
+
+    const interes = document.getElementById('interes').value;
+    let acompanantes = parseInt(document.getElementById('pases').value) || 1;
+
+    if (interes === 'NO') acompanantes = 0;
+    else if (acompanantes < 1) acompanantes = 1;
+
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        accion: 'guardarPreConfirmacion',
+        id_evento: ID_EVENTO,
+        nombre: document.getElementById('nombre').value,
+        telefono: document.getElementById('telefono').value,
+        interes: interes,
+        acompanantes: acompanantes
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        msg.className = 'msg-box success';
+        msg.textContent = res.mensaje || '¡Muchas gracias por tu respuesta!';
+        msg.style.display = 'block';
+        document.getElementById('stdForm').reset();
+        cambiarInteres();
+      } else {
+        throw new Error(res.mensaje);
+      }
+    })
+    .catch(err => {
+      msg.className = 'msg-box error';
+      msg.textContent = err.message || 'Ocurrió un error al guardar. Intenta de nuevo.';
+      msg.style.display = 'block';
+    })
+    .finally(() => {
+      btn.disabled = false;
+      btn.textContent = 'Enviar Respuesta';
+    });
+  }
+
+  cargarEvento();
 </script>
 
 </body>
