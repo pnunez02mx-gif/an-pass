@@ -20,87 +20,78 @@
 <body>
 
 <div class="card">
-  <h1>Confirmar Asistencia</h1>
+  <h1 id="tituloEvento">Confirmar Asistencia</h1>
   
-  <!-- BUSCADOR -->
-  <div id="secBuscador">
-    <p style="font-size: 13px; margin-bottom: 15px; color: #666;">Escribe tu nombre o teléfono:</p>
-    <input type="text" id="inputBusqueda" class="input-field" placeholder="Ej. López o 6181234567">
-    <button class="btn" onclick="buscarInvitado()">Buscar invitación</button>
-  </div>
+  <div id="loader" class="spinner"></div>
 
-  <div id="loader" class="spinner hidden"></div>
-
-  <!-- FORMULARIO DE CONFIRMACIÓN -->
+  <!-- FORMULARIO DIRECTO -->
   <div id="secFormulario" class="hidden">
-    <p style="font-size: 14px; margin-bottom: 15px;">Hola <span id="lblInvitado" style="font-weight:600;"></span>. Tienes <span id="lblPases"></span> pases.</p>
+    <p style="font-size: 14px; margin-bottom: 15px;">Hola <span id="lblInvitado" style="font-weight:600;"></span>. Tienes <span id="lblPases"></span> pases autorizados.</p>
     <div id="listaInputs" style="margin: 15px 0; text-align: left;"></div>
     <button class="btn" id="btnConfirmar" onclick="guardarConfirmacion()">Confirmar Asistencia</button>
   </div>
 
   <!-- RESULTADO QR -->
   <div id="secPase" class="hidden">
-    <p style="color:#2e6027; font-weight:600; margin-bottom: 10px;">✅ ¡Confirmado!</p>
+    <p style="color:#2e6027; font-weight:600; margin-bottom: 10px;">✅ ¡Asistencia Confirmada!</p>
     <canvas id="qrCanvas"></canvas>
-    <p style="font-size:12px; margin-top:10px; color:#666;">Muestra este código en la entrada.</p>
+    <p style="font-size:12px; margin-top:10px; color:#666;">Muestra este código en la entrada del evento.</p>
+  </div>
+  
+  <div id="secError" class="hidden">
+    <p id="lblError" style="color:red; font-size: 13px;"></p>
   </div>
 </div>
 
 <script>
   const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
   
-  let paseEncontrado = null;
+  const urlParams = new URLSearchParams(window.location.search);
+  const EVENTO = urlParams.get('evento') || 'EV001';
+  const CODIGO = urlParams.get('codigo') || '';
 
-  function buscarInvitado() {
-    const query = document.getElementById('inputBusqueda').value.toLowerCase().trim();
-    if (!query) return alert("Escribe un nombre o teléfono.");
-    
-    document.getElementById('loader').classList.remove('hidden');
-    
+  window.onload = function() {
+    if (!CODIGO) {
+      document.getElementById('loader').classList.add('hidden');
+      document.getElementById('secError').classList.remove('hidden');
+      document.getElementById('lblError').textContent = 'No se encontró el código de invitación en el enlace.';
+      return;
+    }
+
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
-      body: JSON.stringify({ accion: 'obtenerDatosPanel', id_evento: 'EV001' })
+      body: JSON.stringify({ accion: 'obtenerDatosConfirmacion', id_evento: EVENTO, codigo: CODIGO })
     })
     .then(r => r.json())
     .then(res => {
       document.getElementById('loader').classList.add('hidden');
-      
-      console.log("Respuesta del servidor:", res);
-      
-      if (!res.ok) {
-        alert("Error: " + (res.mensaje || "No se pudieron obtener los datos."));
-        return;
-      }
-
-      // Buscar por nombre o por teléfono en la lista recibida
-      const inv = res.invitados.find(i => 
-        (i.invitado && i.invitado.toLowerCase().includes(query)) || 
-        (i.telefono && i.telefono.toString().includes(query))
-      );
-      
-      if (inv) {
-        paseEncontrado = inv;
-        document.getElementById('secBuscador').classList.add('hidden');
+      if (res.ok) {
         document.getElementById('secFormulario').classList.remove('hidden');
-        document.getElementById('lblInvitado').textContent = inv.invitado;
-        document.getElementById('lblPases').textContent = inv.autorizadas;
+        document.getElementById('lblInvitado').textContent = res.invitado;
+        document.getElementById('lblPases').textContent = res.personas;
         
         let html = '';
-        const cantidadPases = Number(inv.autorizadas) || 1;
+        const cantidadPases = Number(res.personas) || 1;
         for(let i = 1; i <= cantidadPases; i++) {
-          html += `<input type="text" class="input-field input-nombre" placeholder="Nombre Asistente ${i}">`;
+          const valPrevio = (res.nombres && res.nombres[i-1]) ? res.nombres[i-1] : '';
+          html += `<input type="text" class="input-field input-nombre" value="${valPrevio}" placeholder="Nombre Asistente ${i}">`;
         }
         document.getElementById('listaInputs').innerHTML = html;
+
+        if (res.confirmacion === 'CONFIRMADO') {
+          mostrarQR();
+        }
       } else {
-        alert("No encontramos ese nombre o teléfono. Intenta de nuevo.");
+        document.getElementById('secError').classList.remove('hidden');
+        document.getElementById('lblError').textContent = res.mensaje || 'Error al cargar invitación.';
       }
     })
     .catch(err => {
       document.getElementById('loader').classList.add('hidden');
-      console.error(err);
-      alert("Error de conexión con el servidor. Revisa tu conexión.");
+      document.getElementById('secError').classList.remove('hidden');
+      document.getElementById('lblError').textContent = 'Error de conexión.';
     });
-  }
+  };
 
   function guardarConfirmacion() {
     const inputs = document.querySelectorAll('.input-nombre');
@@ -115,31 +106,30 @@
       method: 'POST',
       body: JSON.stringify({ 
         accion: 'confirmarAsistencia', 
-        codigo: paseEncontrado.codigo, 
+        id_evento: EVENTO,
+        codigo: CODIGO, 
         nombres: nombres 
       })
     })
     .then(r => r.json())
     .then(res => {
       if(res.ok) {
-        document.getElementById('secFormulario').classList.add('hidden');
-        document.getElementById('secPase').classList.remove('hidden');
-        new QRious({ 
-          element: document.getElementById('qrCanvas'), 
-          value: "https://pnunez02mx-gif.github.io/an-pass/?evento=EV001&codigo=" + paseEncontrado.codigo, 
-          size: 180 
-        });
+        mostrarQR();
       } else {
-        alert("Error al guardar: " + (res.mensaje || "Inténtalo de nuevo."));
+        alert("Error al guardar la confirmación.");
         document.getElementById('btnConfirmar').disabled = false;
         document.getElementById('btnConfirmar').textContent = "Confirmar Asistencia";
       }
-    })
-    .catch(err => {
-      console.error(err);
-      alert("Error al guardar. Revisa tu conexión.");
-      document.getElementById('btnConfirmar').disabled = false;
-      document.getElementById('btnConfirmar').textContent = "Confirmar Asistencia";
+    });
+  }
+
+  function mostrarQR() {
+    document.getElementById('secFormulario').classList.add('hidden');
+    document.getElementById('secPase').classList.remove('hidden');
+    new QRious({ 
+      element: document.getElementById('qrCanvas'), 
+      value: "https://pnunez02mx-gif.github.io/an-pass/?evento=" + EVENTO + "&codigo=" + CODIGO, 
+      size: 180 
     });
   }
 </script>
