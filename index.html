@@ -1,1356 +1,348 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AN PASS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lector de Pases - AN PASS</title>
 
+  <!-- HTML5 QR Code Reader -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
+  <!-- Fuentes Elegantes -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --bg-color: #fcfbfa;
+      --card-bg: #ffffff;
+      --text-main: #2c2825;
+      --text-muted: #78716c;
+      --accent-color: #2c2825;
+      --border-color: #eae6df;
+      --radius-main: 16px;
+      --shadow-subtle: 0 10px 30px rgba(0,0,0,0.05);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      margin: 0;
-      background: #f7f3ed;
-      color: #292522;
-      font-family: Arial, sans-serif;
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Montserrat', sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px 40px 16px;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.3s ease;
     }
 
-    .app {
-      width: 100%;
-      max-width: 950px;
-      margin: auto;
-      padding: 28px 18px 60px;
+    .container {
+      max-width: 480px;
+      margin: 0 auto;
     }
 
-    header {
+    .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 20px;
     }
 
-    .logo {
-      font-family: Georgia, serif;
-      font-size: 44px;
-      line-height: .8;
-      letter-spacing: 3px;
-    }
-
-    .logo span {
-      font-size: 27px;
-      letter-spacing: 6px;
-    }
-
-    .subtitulo {
-      margin-top: 18px;
+    .brand-tag {
       font-size: 10px;
       letter-spacing: 3px;
-      color: #766b60;
-    }
-
-    .resumen {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 15px;
-      margin-bottom: 22px;
-    }
-
-    .tarjeta {
-      background: white;
-      border: 1px solid #e7ded3;
-      border-radius: 18px;
-      padding: 22px 10px;
-      text-align: center;
-      box-shadow: 0 5px 18px rgba(70, 60, 50, .06);
-    }
-
-    .tarjeta strong {
+      text-transform: uppercase;
+      color: var(--accent-color);
+      font-weight: 600;
+      margin-bottom: 6px;
       display: block;
-      font-family: Georgia, serif;
-      font-size: 42px;
-      margin-bottom: 8px;
+      opacity: 0.85;
     }
 
-    .tarjeta span {
-      font-size: 10px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .verde {
-      background: #f0f4eb;
-    }
-
-    .amarillo {
-      background: #f8f0dc;
-    }
-
-    .botonEscaner {
-      width: 100%;
-      border: 0;
-      border-radius: 20px;
-      padding: 28px;
-      background: #292522;
-      color: white;
-      cursor: pointer;
-      box-shadow: 0 8px 20px rgba(40, 35, 30, .12);
-    }
-
-    .botonEscaner:hover {
-      opacity: .92;
-    }
-
-    .iconoCamara {
-      font-size: 38px;
-      margin-bottom: 8px;
-    }
-
-    .botonEscaner strong {
-      display: block;
-      font-size: 18px;
-      letter-spacing: 1px;
-    }
-
-    .botonEscaner span {
-      display: block;
-      margin-top: 7px;
-      color: #ddd5cd;
-      font-size: 13px;
-    }
-
-    #resultado {
-      margin-top: 22px;
-    }
-
-    .lector {
-      background: white;
-      border: 1px solid #e5ddd2;
-      border-radius: 22px;
-      padding: 22px;
-      text-align: center;
-    }
-
-    #lectorQR {
-      width: 100%;
-      max-width: 450px;
-      margin: 20px auto;
-    }
-
-    .pase {
-      background: white;
-      border: 1px solid #e5ddd2;
-      border-radius: 22px;
-      padding: 28px;
-      text-align: center;
-    }
-
-    .boleto {
-      font-size: 48px;
-    }
-
-    .pase h2 {
-      font-family: Georgia, serif;
+    .event-title {
+      font-family: 'Cormorant Garamond', serif;
       font-size: 30px;
-      margin: 10px 0;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.1;
     }
 
-    .estado {
-      display: inline-block;
-      padding: 9px 18px;
-      border-radius: 20px;
-      font-weight: bold;
-      margin: 10px 0 20px;
-    }
-
-    .valido {
-      background: #dfe9d8;
-      color: #52654b;
-    }
-
-    .utilizado {
-      background: #f4d9d5;
-      color: #8b443b;
-    }
-
-    .datosPase {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .dato {
-      background: #f7f3ed;
-      padding: 15px;
-      border-radius: 14px;
-    }
-
-    .dato strong {
-      display: block;
-      font-size: 28px;
-    }
-
-    .dato small {
-      font-size: 9px;
-      font-weight: bold;
-    }
-
-    /* NOMBRES CONFIRMADOS */
-
-    .nombresConfirmados {
-      margin-top: 18px;
-      background: #f7f3ed;
-      border-radius: 16px;
-      padding: 18px;
-      text-align: left;
-    }
-
-    .nombresConfirmados h3 {
-      margin: 0 0 10px;
-      font-size: 12px;
-      letter-spacing: 2px;
-    }
-
-    .nombreConfirmado {
-      padding: 9px 4px;
-      border-bottom: 1px solid #e5ddd2;
-      font-size: 14px;
-    }
-
-    .nombreConfirmado:last-child {
-      border-bottom: 0;
-    }
-
-    /* CONTROL DE CANTIDAD */
-
-    .entrada {
-      margin-top: 22px;
-      background: #f7f3ed;
-      padding: 20px;
-      border-radius: 16px;
-    }
-
-    .entrada h3 {
-      margin-top: 0;
-      font-size: 16px;
-    }
-
-    .contador {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 18px;
-      margin: 18px 0;
-    }
-
-    .botonCantidad {
-      width: 58px;
-      height: 58px;
-      border: 0;
-      border-radius: 50%;
-      background: #292522;
-      color: white;
-      font-size: 30px;
-      cursor: pointer;
-    }
-
-    .botonCantidad:active {
-      transform: scale(.94);
-    }
-
-    .cantidadActual {
-      min-width: 70px;
-      font-family: Georgia, serif;
-      font-size: 42px;
-      text-align: center;
-    }
-
-    .botonRegistro {
-      width: 100%;
-      margin-top: 5px;
-      padding: 17px;
-      border: 0;
-      border-radius: 13px;
-      background: #292522;
-      color: white;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .botonOtro {
-      width: 100%;
-      margin-top: 12px;
-      padding: 14px;
-      border: 1px solid #d8cec2;
-      border-radius: 13px;
-      background: white;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    h3.tituloLista {
-      margin: 32px 0 12px;
-      font-size: 13px;
-      letter-spacing: 2px;
-    }
-
-    .inputBuscador {
-      width: 100%;
-      padding: 14px 18px;
-      border: 1px solid #e5ddd2;
-      border-radius: 14px;
-      font-size: 15px;
-      background: white;
-      outline: none;
-      margin-bottom: 12px;
-    }
-
-    .lista {
-      background: white;
-      border: 1px solid #e5ddd2;
-      border-radius: 18px;
+    .reader-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-main);
+      box-shadow: var(--shadow-subtle);
+      padding: 16px;
       overflow: hidden;
+      margin-bottom: 20px;
     }
 
-    .invitado {
+    #reader {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      border: none !important;
+    }
+
+    .result-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-main);
+      box-shadow: var(--shadow-subtle);
+      padding: 20px;
+      display: none;
+    }
+
+    .guest-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 24px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .code-tag {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 16px;
+    }
+
+    .info-grid {
       display: grid;
-      grid-template-columns: 1.5fr 1fr 1fr 100px;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+      background: rgba(0,0,0,0.02);
+      padding: 12px;
+      border-radius: 12px;
+      text-align: center;
+    }
+
+    .info-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+    }
+
+    .info-lbl {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+    }
+
+    .action-group {
+      display: flex;
       gap: 10px;
       align-items: center;
-      padding: 17px 20px;
-      border-bottom: 1px solid #eee7df;
+    }
+
+    .input-cant {
+      width: 60px;
+      height: 44px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      outline: none;
+    }
+
+    .btn-action {
+      flex: 1;
+      height: 44px;
+      background: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
       cursor: pointer;
     }
 
-    .invitado b {
-      font-size: 15px;
-    }
-
-    .invitado span {
-      font-size: 12px;
-      color: #706860;
-    }
-
-    .invitado em {
-      font-style: normal;
-      text-align: center;
-      padding: 7px;
-      border-radius: 20px;
-      background: #dfe9d8;
-      color: #52654b;
-      font-size: 10px;
-      font-weight: bold;
-    }
-
-    .invitado em.parcial,
-    .invitado em.pendiente {
-      background: #f6e7c5;
-      color: #8a6828;
-    }
-
-    .invitado em.utilizado {
-      background: #f4d9d5;
-      color: #8b443b;
-    }
-
-    .mensaje {
-      background: white;
-      border-radius: 20px;
-      padding: 30px;
-      text-align: center;
-    }
-
-    .mensaje.exito {
-      background: #dfe9d8;
-      color: #52654b;
-    }
-
-    .mensaje.error {
-      background: #f4d9d5;
-      color: #8b443b;
-    }
-
-    .mensajeIcono {
-      font-size: 50px;
-    }
-
-    .botonMensaje {
-      background: #292522;
-      color: white;
-      border: 0;
-      border-radius: 12px;
-      padding: 14px 24px;
+    .btn-reset {
+      width: 100%;
+      height: 40px;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 11px;
+      margin-top: 10px;
       cursor: pointer;
-      font-size: 15px;
-    }
-
-    @media (max-width: 650px) {
-      .resumen {
-        grid-template-columns: 1fr;
-      }
-
-      .datosPase {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .invitado {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .invitado b,
-      .invitado em {
-        grid-column: 1 / -1;
-      }
     }
   </style>
 </head>
-
 <body>
 
-<div class="app">
-
-  <header>
-    <div class="logo">
-      AN<br>
-      <span>PASS</span>
-    </div>
-    <div class="subtitulo">CONTROL DE ACCESO</div>
+<div class="container">
+  
+  <header class="header">
+    <span class="brand-tag">CONTROL DE ACCESO</span>
+    <h1 class="event-title" id="tituloEvento">Cargando evento...</h1>
   </header>
 
-  <!-- RESUMEN -->
-  <div class="resumen">
-
-    <div class="tarjeta">
-      <strong id="autorizados">0</strong>
-      <span>PERSONAS AUTORIZADAS</span>
-    </div>
-
-    <div class="tarjeta verde">
-      <strong id="ingresaron">0</strong>
-      <span>YA INGRESARON</span>
-    </div>
-
-    <div class="tarjeta amarillo">
-      <strong id="faltan">0</strong>
-      <span>PERSONAS FALTANTES</span>
-    </div>
-
+  <div class="reader-card">
+    <div id="reader"></div>
   </div>
 
-  <!-- ESCÁNER -->
-  <button class="botonEscaner" id="botonEscanear">
-    <div class="iconoCamara">📷</div>
-    <strong>ESCANEAR PASE</strong>
-    <span>Toca para abrir el lector QR</span>
-  </button>
+  <div id="resultCard" class="result-card">
+    <div class="guest-name" id="resNombre">-</div>
+    <div class="code-tag">Código: <span id="resCodigo">-</span></div>
 
-  <!-- RESULTADO -->
-  <div id="resultado">
-
-    <div class="mensaje">
-      <div class="mensajeIcono">🎟️</div>
-      <h2>AN PASS</h2>
-      <p>Listo para escanear un pase.</p>
+    <div class="info-grid">
+      <div>
+        <div class="info-num" id="resAutorizadas">0</div>
+        <div class="info-lbl">Pases</div>
+      </div>
+      <div>
+        <div class="info-num" id="resIngresaron">0</div>
+        <div class="info-lbl">Dentro</div>
+      </div>
+      <div>
+        <div class="info-num" id="resRestantes" style="color: #2e6027;">0</div>
+        <div class="info-lbl">Restantes</div>
+      </div>
     </div>
 
-  </div>
-
-  <!-- LISTA -->
-  <h3 class="tituloLista">INVITADOS</h3>
-
-  <input
-    type="text"
-    id="buscadorInvitados"
-    class="inputBuscador"
-    placeholder="🔍 Buscar invitado por nombre..."
-  >
-
-  <div class="lista" id="listaInvitados">
-    <div style="padding:25px;text-align:center;">
-      Cargando invitados...
+    <div class="action-group" id="secAccion">
+      <input type="number" id="cantIngreso" class="input-cant" value="1" min="1">
+      <button class="btn-action" onclick="marcarEntrada()">Registrar Entrada</button>
     </div>
+
+    <button class="btn-reset" onclick="reiniciarEscaner()">Escanear Otro Pase</button>
   </div>
 
 </div>
 
 <script>
-
-/* =====================================================
-   CONEXIÓN CON APPS SCRIPT
-   ===================================================== */
-
-const URL_APPS_SCRIPT =
-'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
-
-
-let scanner = null;
-let todosLosInvitados = [];
-
-// EVENTO ACTUAL DESDE LA URL
-const parametrosURL = new URLSearchParams(window.location.search);
-const ID_EVENTO = parametrosURL.get('evento') || 'EV001';
-
-
-/* =====================================================
-   INICIO
-   ===================================================== */
-
-window.onload = function() {
-
-  cargarDatos();
-
-  document
-    .getElementById('botonEscanear')
-    .addEventListener('click', iniciarEscaner);
-
-  document
-    .getElementById('buscadorInvitados')
-    .addEventListener('input', filtrarYMostrarInvitados);
-
-};
-
-
-/* =====================================================
-   API
-   ===================================================== */
-
-function solicitarAPI(accion, payload = {}) {
-
-  payload.accion = accion;
-  payload.id_evento = ID_EVENTO;
-
-  return fetch(URL_APPS_SCRIPT, {
-
-    method: 'POST',
-    mode: 'cors',
-
-    headers: {
-      'Content-Type': 'text/plain;charset=utf-8'
-    },
-
-    body: JSON.stringify(payload)
-
-  }).then(res => res.json());
-
-}
-
-
-/* =====================================================
-   CARGAR DATOS
-   ===================================================== */
-
-function cargarDatos() {
-
-  solicitarAPI('obtenerDatosPanel')
-
-    .then(mostrarDatos)
-
-    .catch(err => {
-      console.error(err);
-    });
-
-}
-
-
-/* =====================================================
-   MOSTRAR RESUMEN
-   ===================================================== */
-
-function mostrarDatos(datos) {
-
-  if (!datos || !datos.ok) return;
-
-  const resumen = datos.resumen;
-
-  document.getElementById('autorizados').textContent =
-    resumen.autorizadas;
-
-  document.getElementById('ingresaron').textContent =
-    resumen.ingresaron;
-
-  document.getElementById('faltan').textContent =
-    resumen.restantes;
-
-  todosLosInvitados = datos.invitados || [];
-
-  filtrarYMostrarInvitados();
-
-}
-
-
-/* =====================================================
-   LISTA DE INVITADOS
-   ===================================================== */
-
-function filtrarYMostrarInvitados() {
-
-  const termino =
-    document
-      .getElementById('buscadorInvitados')
-      .value
-      .toLowerCase()
-      .trim();
-
-  const lista =
-    document.getElementById('listaInvitados');
-
-  let html = '';
-
-  const invitadosFiltrados =
-    todosLosInvitados.filter(inv =>
-
-      String(inv.invitado || '')
-        .toLowerCase()
-        .includes(termino)
-
-    );
-
-
-  invitadosFiltrados.forEach(inv => {
-
-    let estado = inv.estado;
-
-    let clase = '';
-
-    if (estado === 'PARCIAL')
-      clase = 'parcial';
-
-    if (estado === 'PENDIENTE')
-      clase = 'pendiente';
-
-    if (
-      estado === 'UTILIZADO' ||
-      estado === 'COMPLETO'
-    )
-      clase = 'utilizado';
-
-
-    html += `
-
-      <div
-        class="invitado"
-        onclick="consultarPase('${escapar(inv.codigo)}')"
-      >
-
-        <b>${escapar(inv.invitado)}</b>
-
-        <span>
-          ${inv.autorizadas} autorizadas
-        </span>
-
-        <span>
-          ${inv.ingresaron} ingresaron
-        </span>
-
-        <em class="${clase}">
-          ${estado}
-        </em>
-
-      </div>
-
-    `;
-
-  });
-
-
-  lista.innerHTML =
-    html ||
-    `<div style="padding:25px;text-align:center;">
-      No se encontraron invitados.
-    </div>`;
-
-}
-
-
-/* =====================================================
-   ESCÁNER
-   ===================================================== */
-
-function iniciarEscaner() {
-
-  const resultado =
-    document.getElementById('resultado');
-
-  resultado.innerHTML = `
-
-    <div class="lector">
-
-      <h2>ESCANEAR PASE</h2>
-
-      <p>
-        Apunta la cámara al código QR.
-      </p>
-
-      <div id="lectorQR"></div>
-
-    </div>
-
-  `;
-
-
-  if (scanner) {
-
-    try {
-      scanner.clear();
-    } catch (e) {}
-
-    scanner = null;
-
+  const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+  const urlParams = new URLSearchParams(window.location.search);
+
+  let ID_EVENTO = urlParams.get('evento') || 'EV001';
+  if (ID_EVENTO.includes('](')) {
+    ID_EVENTO = ID_EVENTO.split('](')[0].replace('[', '');
+  }
+  ID_EVENTO = ID_EVENTO.trim();
+
+  let html5QrcodeScanner = null;
+  let paseActual = null;
+
+  function aplicarColores(color, colorFondo, colorBoton) {
+    const root = document.documentElement;
+    if (colorFondo) root.style.setProperty('--bg-color', colorFondo);
+    if (color) root.style.setProperty('--text-main', color);
+    if (colorBoton) root.style.setProperty('--accent-color', colorBoton);
+    else if (color) root.style.setProperty('--accent-color', color);
   }
 
-
-  scanner = new Html5QrcodeScanner(
-
-    'lectorQR',
-
-    {
-      fps: 10,
-      qrbox: 250,
-      rememberLastUsedCamera: true,
-      showTorchButtonIfSupported: true
-    }
-
-  );
-
-
-  scanner.render(codigoDetectado);
-
-}
-
-
-/* =====================================================
-   QR DETECTADO
-   ===================================================== */
-
-function codigoDetectado(codigo) {
-
-  if (scanner) {
-
-    try {
-      scanner.clear();
-    } catch (e) {}
-
-    scanner = null;
-
-  }
-
-
-  let codigoPase =
-    String(codigo).trim();
-
-
-  try {
-
-    const url =
-      new URL(codigoPase);
-
-    const parametro =
-      url.searchParams.get('codigo');
-
-    if (parametro)
-      codigoPase = parametro.trim();
-
-  } catch (e) {}
-
-
-  consultarPase(codigoPase);
-
-}
-
-
-/* =====================================================
-   CONSULTAR PASE
-   ===================================================== */
-
-function consultarPase(codigo) {
-
-  const resultado =
-    document.getElementById('resultado');
-
-  resultado.innerHTML = `
-
-    <div class="mensaje">
-
-      <div class="mensajeIcono">
-        🔎
-      </div>
-
-      <h2>CONSULTANDO...</h2>
-
-      <p>
-        Código:
-        <b>${escapar(codigo)}</b>
-      </p>
-
-    </div>
-
-  `;
-
-
-  resultado.scrollIntoView({
-    behavior: 'smooth',
-    block: 'center'
-  });
-
-
-  solicitarAPI(
-    'buscarPase',
-    {
-      codigo: codigo,
-      id_evento: ID_EVENTO
-    }
-  )
-
-    .then(res => {
-
-      if (res.ok) {
-
-        mostrarPase(res.pase);
-
-      } else {
-
-        mostrarError(res.mensaje);
-
-      }
-
+  function cargarEvento() {
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ accion: 'obtenerDatosPanel', id_evento: ID_EVENTO })
     })
-
-    .catch(() => {
-
-      mostrarError(
-        'No se pudo consultar el pase.'
-      );
-
-    });
-
-}
-
-
-/* =====================================================
-   MOSTRAR PASE
-   ===================================================== */
-
-function mostrarPase(pase) {
-
-  const resultado =
-    document.getElementById('resultado');
-
-
-  if (!pase) {
-
-    mostrarError(
-      'Pase no encontrado.'
-    );
-
-    return;
-
-  }
-
-
-  const valido =
-    Number(pase.restantes) > 0;
-
-
-  /*
-    Intentamos obtener los nombres
-    que ya vienen guardados.
-  */
-
-  let nombresHTML = '';
-
-  if (
-    pase.nombresAsistentes &&
-    Array.isArray(pase.nombresAsistentes)
-  ) {
-
-    nombresHTML = pase.nombresAsistentes
-      .map(nombre => `
-        <div class="nombreConfirmado">
-          👤 ${escapar(nombre)}
-        </div>
-      `)
-      .join('');
-
-  }
-
-
-  /*
-    Si Apps Script todavía no manda
-    los nombres, simplemente no mostramos
-    esa sección.
-  */
-
-  const nombresSeccion =
-    nombresHTML
-      ? `
-        <div class="nombresConfirmados">
-
-          <h3>
-            INVITADOS CONFIRMADOS
-          </h3>
-
-          ${nombresHTML}
-
-        </div>
-      `
-      : '';
-
-
-  resultado.innerHTML = `
-
-    <div class="pase">
-
-      <div class="boleto">
-        🎟️
-      </div>
-
-      <h2>
-        ${escapar(pase.invitado)}
-      </h2>
-
-      <p>
-        Código:
-        <b>${escapar(pase.codigo)}</b>
-      </p>
-
-
-      <div class="estado ${valido ? 'valido' : 'utilizado'}">
-
-        ${
-          valido
-          ? '🟢 PASE VÁLIDO'
-          : '🔴 PASE UTILIZADO'
-        }
-
-      </div>
-
-
-      <div class="datosPase">
-
-        <div class="dato">
-
-          <strong>
-            ${pase.autorizadas}
-          </strong>
-
-          <small>
-            AUTORIZADAS
-          </small>
-
-        </div>
-
-
-        <div class="dato">
-
-          <strong>
-            ${pase.ingresaron}
-          </strong>
-
-          <small>
-            INGRESARON
-          </small>
-
-        </div>
-
-
-        <div class="dato">
-
-          <strong>
-            ${pase.restantes}
-          </strong>
-
-          <small>
-            RESTANTES
-          </small>
-
-        </div>
-
-      </div>
-
-
-      ${nombresSeccion}
-
-
-      ${
-        valido
-
-        ? `
-
-          <div class="entrada">
-
-            <h3>
-              ¿Cuántas personas están entrando?
-            </h3>
-
-
-            <div class="contador">
-
-              <button
-                class="botonCantidad"
-                onclick="cambiarCantidad(-1, ${pase.restantes})"
-              >
-                −
-              </button>
-
-
-              <div
-                class="cantidadActual"
-                id="cantidadActual"
-              >
-                1
-              </div>
-
-
-              <button
-                class="botonCantidad"
-                onclick="cambiarCantidad(1, ${pase.restantes})"
-              >
-                +
-              </button>
-
-            </div>
-
-
-            <button
-              class="botonRegistro"
-              id="botonRegistrar"
-            >
-              ✅ REGISTRAR 1 PERSONA
-            </button>
-
-          </div>
-
-        `
-
-        : ''
-
+    .then(res => res.json())
+    .then(res => {
+      if (res.ok && res.evento) {
+        document.getElementById('tituloEvento').textContent = res.evento.nombre;
+        aplicarColores(res.evento.color, res.evento.color_fondo, res.evento.color_boton);
       }
-
-
-      <button
-        class="botonOtro"
-        id="botonOtro"
-      >
-        📷 ESCANEAR OTRO PASE
-      </button>
-
-
-    </div>
-
-  `;
-
-
-  document
-    .getElementById('botonOtro')
-    .addEventListener(
-      'click',
-      iniciarEscaner
-    );
-
-
-  if (valido) {
-
-    document
-      .getElementById('botonRegistrar')
-      .addEventListener(
-        'click',
-        function() {
-
-          const cantidad =
-            Number(
-              document
-                .getElementById('cantidadActual')
-                .textContent
-            );
-
-          registrarEntrada(
-            pase.codigo,
-            cantidad
-          );
-
-        }
-      );
-
+    })
+    .catch(() => {});
   }
 
-}
-
-
-/* =====================================================
-   CAMBIAR CANTIDAD
-   ===================================================== */
-
-function cambiarCantidad(cambio, maximo) {
-
-  const elemento =
-    document.getElementById('cantidadActual');
-
-  if (!elemento) return;
-
-
-  let cantidad =
-    Number(elemento.textContent);
-
-
-  cantidad += cambio;
-
-
-  if (cantidad < 1)
-    cantidad = 1;
-
-
-  if (cantidad > maximo)
-    cantidad = maximo;
-
-
-  elemento.textContent =
-    cantidad;
-
-
-  const boton =
-    document.getElementById('botonRegistrar');
-
-
-  if (boton) {
-
-    boton.textContent =
-      cantidad === 1
-
-      ? '✅ REGISTRAR 1 PERSONA'
-
-      : '✅ REGISTRAR ' +
-        cantidad +
-        ' PERSONAS';
-
+  function inicializarEscaner() {
+    html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 220 });
+    html5QrcodeScanner.render(onScanSuccess);
   }
 
-}
-
-
-/* =====================================================
-   REGISTRAR ENTRADA
-   ===================================================== */
-
-function registrarEntrada(
-  codigo,
-  cantidad
-) {
-
-  const resultado =
-    document.getElementById('resultado');
-
-
-  resultado.innerHTML = `
-
-    <div class="mensaje">
-
-      <div class="mensajeIcono">
-        ⏳
-      </div>
-
-      <h2>
-        REGISTRANDO...
-      </h2>
-
-      <p>
-        Espera un momento.
-      </p>
-
-    </div>
-
-  `;
-
-
-  solicitarAPI(
-
-    'registrarEntrada',
-
-    {
-      codigo: codigo,
-      cantidad: cantidad,
-      id_evento: ID_EVENTO
+  function onScanSuccess(decodedText) {
+    let codigo = decodedText;
+    if (decodedText.includes('codigo=')) {
+      codigo = decodedText.split('codigo=')[1].split('&')[0];
     }
 
-  )
+    html5QrcodeScanner.clear();
+    buscarPase(codigo);
+  }
 
-  .then(respuesta => {
+  function buscarPase(codigo) {
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ accion: 'buscarPase', id_evento: ID_EVENTO, codigo: codigo })
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.ok && res.pase) {
+        paseActual = res.pase;
+        mostrarPase(res.pase);
+      } else {
+        alert('❌ Pase no encontrado o no pertenece a este evento.');
+        reiniciarEscaner();
+      }
+    })
+    .catch(() => {
+      alert('Error al verificar el pase.');
+      reiniciarEscaner();
+    });
+  }
 
-    if (
-      !respuesta ||
-      !respuesta.ok
-    ) {
+  function mostrarPase(p) {
+    document.getElementById('resultCard').style.display = 'block';
+    document.getElementById('resNombre').textContent = p.invitado;
+    document.getElementById('resCodigo').textContent = p.codigo;
+    document.getElementById('resAutorizadas').textContent = p.autorizadas;
+    document.getElementById('resIngresaron').textContent = p.ingresaron;
+    document.getElementById('resRestantes').textContent = p.restantes;
 
-      mostrarError(
-        respuesta?.mensaje ||
-        'No se pudo registrar.'
-      );
+    const cant = document.getElementById('cantIngreso');
+    cant.value = p.restantes > 0 ? 1 : 0;
+    cant.max = p.restantes;
 
-      return;
-
+    if (p.restantes <= 0) {
+      document.getElementById('secAccion').style.display = 'none';
+    } else {
+      document.getElementById('secAccion').style.display = 'flex';
     }
+  }
 
+  function marcarEntrada() {
+    if (!paseActual) return;
+    const cant = parseInt(document.getElementById('cantIngreso').value) || 1;
 
-    cargarDatos();
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        accion: 'registrarEntrada',
+        id_evento: ID_EVENTO,
+        codigo: paseActual.codigo,
+        cantidad: cant
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      if (res.ok) {
+        alert('✅ Entrada registrada con éxito');
+        buscarPase(paseActual.codigo);
+      } else {
+        alert('❌ Error: ' + res.mensaje);
+      }
+    })
+    .catch(() => alert('Error de conexión'));
+  }
 
+  function reiniciarEscaner() {
+    document.getElementById('resultCard').style.display = 'none';
+    paseActual = null;
+    inicializarEscaner();
+  }
 
-    resultado.innerHTML = `
-
-      <div class="mensaje exito">
-
-        <div class="mensajeIcono">
-          ✅
-        </div>
-
-        <h2>
-          ENTRADA REGISTRADA
-        </h2>
-
-        <p>
-          ${escapar(respuesta.mensaje)}
-        </p>
-
-        <p>
-          <b>
-            ${respuesta.ingresaron}
-          </b>
-          de
-          <b>
-            ${respuesta.autorizadas}
-          </b>
-          personas han ingresado.
-        </p>
-
-        <p>
-          ${
-            respuesta.restantes > 0
-
-            ? '🟡 Quedan ' +
-              respuesta.restantes +
-              ' persona(s).'
-
-            : '🔴 PASE COMPLETAMENTE UTILIZADO'
-          }
-        </p>
-
-
-        <button
-          class="botonMensaje"
-          id="nuevoPase"
-        >
-          📷 ESCANEAR OTRO PASE
-        </button>
-
-      </div>
-
-    `;
-
-
-    document
-      .getElementById('nuevoPase')
-      .addEventListener(
-        'click',
-        iniciarEscaner
-      );
-
-  })
-
-
-  .catch(() => {
-
-    mostrarError(
-      'Error al registrar.'
-    );
-
-  });
-
-}
-
-
-/* =====================================================
-   ERROR
-   ===================================================== */
-
-function mostrarError(mensaje) {
-
-  document
-    .getElementById('resultado')
-    .innerHTML = `
-
-      <div class="mensaje error">
-
-        <div class="mensajeIcono">
-          ❌
-        </div>
-
-        <h2>
-          Ocurrió un problema
-        </h2>
-
-        <p>
-          ${escapar(mensaje)}
-        </p>
-
-        <button
-          class="botonMensaje"
-          id="nuevoPase"
-        >
-          📷 ESCANEAR OTRO PASE
-        </button>
-
-      </div>
-
-    `;
-
-
-  document
-    .getElementById('nuevoPase')
-    .addEventListener(
-      'click',
-      iniciarEscaner
-    );
-
-}
-
-
-/* =====================================================
-   SEGURIDAD HTML
-   ===================================================== */
-
-function escapar(texto) {
-
-  if (
-    texto === null ||
-    texto === undefined
-  )
-    return '';
-
-
-  return String(texto)
-
-    .replace(/&/g, '&amp;')
-
-    .replace(
-      /</g,
-      '&lt;'
-    )
-
-    .replace(
-      />/g,
-      '&gt;'
-    )
-
-    .replace(
-      /"/g,
-      '&quot;'
-    )
-
-    .replace(
-      /'/g,
-      '&#039;'
-    );
-
-}
-
+  cargarEvento();
+  inicializarEscaner();
 </script>
 
 </body>
