@@ -296,7 +296,8 @@
       invitado: "",
       autorizadas: 0,
       eventoNombre: "MI EVENTO",
-      idEvento: ""
+      idEvento: "",
+      confirmado: ""
     };
 
     document.addEventListener("DOMContentLoaded", function () {
@@ -305,7 +306,6 @@
       const idEventoParam = urlParams.get('evento') || "EV001";
 
       if (codigoParam) {
-        // Petición real al backend mediante doPost
         fetch(APPS_SCRIPT_URL, {
           method: "POST",
           headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -317,7 +317,6 @@
         .then(res => res.json())
         .then(respuesta => {
           if (respuesta.ok && respuesta.invitados) {
-            // Buscar al invitado específico en la lista
             const invitado = respuesta.invitados.find(i => String(i.codigo).trim().toUpperCase() === String(codigoParam).trim().toUpperCase());
             
             if (invitado) {
@@ -325,6 +324,7 @@
               datosInvitadoGlobal.invitado = invitado.invitado;
               datosInvitadoGlobal.autorizadas = invitado.autorizadas;
               datosInvitadoGlobal.idEvento = idEventoParam;
+              datosInvitadoGlobal.confirmado = String(invitado.confirmado || "").trim().toUpperCase();
 
               if (respuesta.evento) {
                 datosInvitadoGlobal.eventoNombre = respuesta.evento.nombre;
@@ -336,7 +336,12 @@
                 });
               }
 
-              cargarDatosEnFormulario(datosInvitadoGlobal);
+              // VERIFICACIÓN: Si ya está confirmado, se muestra directamente el QR
+              if (datosInvitadoGlobal.confirmado.includes("CONFIRM")) {
+                mostrarPaseConfirmado(datosInvitadoGlobal.autorizadas);
+              } else {
+                cargarDatosEnFormulario(datosInvitadoGlobal);
+              }
             } else {
               usarRespaldoURL(urlParams);
             }
@@ -372,9 +377,6 @@
         input.type = "text";
         input.placeholder = `Nombre Asistente ${i}`;
         input.className = "input-asistente";
-        if (i === 1 && datos.invitado && !datos.invitado.toLowerCase().includes("familia")) {
-          input.value = datos.invitado;
-        }
         container.appendChild(input);
       }
     }
@@ -402,7 +404,6 @@
 
       const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.autorizadas;
 
-      // Guardar en la hoja vía Apps Script (Acción RUTA 3: confirmarAsistencia)
       fetch(APPS_SCRIPT_URL, {
         method: "POST",
         headers: { "Content-Type": "text/plain;charset=utf-8" },
