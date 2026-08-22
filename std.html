@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Save the Date - Preconfirmación</title>
+  <style>
+    :root {
+      --color-principal: #292522;
+      --color-fondo: #f7f3ed;
+      --color-borde: #e5ddd2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--color-fondo);
+      color: var(--color-principal);
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 30px 18px;
+    }
+    .contenedor {
+      max-width: 440px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--color-borde);
+      border-radius: 22px;
+      padding: 28px 20px;
+      text-align: center;
+      box-shadow: 0 5px 18px rgba(0,0,0,.06);
+    }
+    h2 { font-family: Georgia, serif; margin-top: 0; font-size: 26px; }
+    p { font-size: 13px; color: #706860; line-height: 1.4; }
+    .campo { text-align: left; margin-bottom: 16px; }
+    .campo label { font-size: 10px; font-weight: bold; letter-spacing: 1px; display: block; margin-bottom: 6px; }
+    .campo input, .campo select {
+      width: 100%; height: 46px; border: 1px solid var(--color-borde);
+      border-radius: 12px; padding: 10px 12px; font-size: 14px; outline: none; background: #fff;
+    }
+    button {
+      width: 100%; min-height: 50px; background: var(--color-principal);
+      color: #fff; border: 0; border-radius: 12px; font-weight: bold; cursor: pointer; margin-top: 10px;
+    }
+    button:disabled { opacity: 0.6; }
+    .exito { color: #52654b; font-weight: bold; padding: 20px; font-size: 16px; }
+  </style>
+</head>
+<body>
+
+<div class="contenedor">
+  <h2>SAVE THE DATE</h2>
+  <p>Nos encantará contar contigo en este día especial. Por favor confirma si te gustaría asistir para contemplarte en la lista de pases.</p>
+  
+  <form id="formSTD">
+    <div class="campo">
+      <label>TU NOMBRE COMPLETO</label>
+      <input type="text" id="nombre" required placeholder="Ej. Paola Núñez">
+    </div>
+    
+    <div class="campo">
+      <label>TELÉFONO / WHATSAPP</label>
+      <input type="tel" id="telefono" required placeholder="10 dígitos">
+    </div>
+
+    <div class="campo">
+      <label>¿ASISTIRÁS AL EVENTO?</label>
+      <select id="interes">
+        <option value="SÍ">¡Sí, me encantaría asistir!</option>
+        <option value="TAL VEZ">Tal vez (Aún por confirmar)</option>
+        <option value="NO">No me será posible asistir</option>
+      </select>
+    </div>
+
+    <button type="submit" id="btnEnviar">ENVIAR RESPUESTA</button>
+  </form>
+  
+  <div id="mensajeFinal" style="display:none;" class="exito"></div>
+</div>
+
+<script>
+  const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+  const urlParams = new URLSearchParams(window.location.search);
+  const ID_EVENTO = urlParams.get('evento') || 'EV001';
+
+  document.getElementById('formSTD').addEventListener('submit', function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btnEnviar');
+    btn.disabled = true;
+    btn.textContent = 'GUARDANDO...';
+
+    const payload = {
+      accion: 'guardarPreConfirmacion',
+      id_evento: ID_EVENTO,
+      nombre: document.getElementById('nombre').value,
+      telefono: document.getElementById('telefono').value,
+      interes: document.getElementById('interes').value
+    };
+
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      mode: 'cors',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify(payload)
+    })
+    .then(res => res.json())
+    .then(res => {
+      if(res.ok) {
+        document.getElementById('formSTD').style.display = 'none';
+        const msg = document.getElementById('mensajeFinal');
+        msg.style.display = 'block';
+        msg.textContent = res.mensaje;
+      } else {
+        alert(res.mensaje || 'Ocurrió un problema.');
+        btn.disabled = false;
+        btn.textContent = 'ENVIAR RESPUESTA';
+      }
+    })
+    .catch(() => {
+      alert('Error de conexión.');
+      btn.disabled = false;
+      btn.textContent = 'ENVIAR RESPUESTA';
+    });
+  });
+</script>
+
+</body>
+</html>
