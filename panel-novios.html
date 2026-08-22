@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel de Novios - Control de Pases</title>
+  <style>
+    :root {
+      --color-principal: #292522;
+      --color-fondo: #f7f3ed;
+      --color-borde: #e5ddd2;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--color-fondo);
+      color: var(--color-principal);
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 0;
+      padding: 20px 12px;
+    }
+    .contenedor {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--color-borde);
+      border-radius: 20px;
+      padding: 20px;
+      box-shadow: 0 4px 15px rgba(0,0,0,.05);
+    }
+    h2 { font-family: Georgia, serif; text-align: center; margin-top: 0; font-size: 22px; }
+    p.subtit { text-align: center; font-size: 13px; color: #706860; margin-bottom: 20px; }
+    
+    .tarjeta {
+      background: #faf8f5;
+      border: 1px solid var(--color-borde);
+      border-radius: 12px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .tarjeta-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .nombre-invitado { font-weight: bold; font-size: 15px; }
+    .interes-tag {
+      font-size: 11px;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-weight: bold;
+      background: #e2f0d9;
+      color: #385723;
+    }
+    .interes-tag.NO { background: #fce4d6; color: #c65911; }
+    .interes-tag.TAL_VEZ { background: #fff2cc; color: #833c0c; }
+    
+    .detalles { font-size: 12px; color: #666; margin-bottom: 10px; }
+    
+    .accion-pases {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-top: 1px dashed var(--color-borde);
+      padding-top: 10px;
+    }
+    .accion-pases label { font-size: 11px; font-weight: bold; }
+    .control-pases { display: flex; gap: 8px; align-items: center; }
+    .control-pases input {
+      width: 55px;
+      height: 36px;
+      text-align: center;
+      border: 1px solid var(--color-borde);
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .btn-guardar {
+      height: 36px;
+      background: var(--color-principal);
+      color: #fff;
+      border: 0;
+      border-radius: 8px;
+      padding: 0 12px;
+      font-size: 11px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-guardar:disabled { opacity: 0.5; }
+    
+    .cargando { text-align: center; padding: 30px; font-size: 14px; color: #888; }
+  </style>
+</head>
+<body>
+
+<div class="contenedor">
+  <h2 id="tituloEvento">GESTIÓN DE PASES</h2>
+  <p class="subtit">Revisa las respuestas del Save the Date y autoriza el número final de pases por familia.</p>
+
+  <div id="lista" class="cargando">Cargando respuestas...</div>
+</div>
+
+<script>
+  const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
+  const urlParams = new URLSearchParams(window.location.search);
+  
+  let ID_EVENTO = urlParams.get('evento') || 'EV001';
+  if (ID_EVENTO.includes('](')) {
+    ID_EVENTO = ID_EVENTO.split('](')[0].replace('[', '');
+  }
+  ID_EVENTO = ID_EVENTO.trim();
+
+  function cargarLista() {
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({ accion: 'obtenerSolicitudesSTD', id_evento: ID_EVENTO })
+    })
+    .then(res => res.json())
+    .then(res => {
+      const cont = document.getElementById('lista');
+      if (!res.ok) {
+        cont.innerHTML = '<p style="text-align:center;color:red;">' + res.mensaje + '</p>';
+        return;
+      }
+
+      if (res.evento) {
+        document.getElementById('tituloEvento').textContent = res.evento.toUpperCase();
+      }
+
+      if (!res.solicitudes || res.solicitudes.length === 0) {
+        cont.innerHTML = '<p style="text-align:center;">Aún no hay respuestas registradas.</p>';
+        return;
+      }
+
+      let html = '';
+      res.solicitudes.forEach(item => {
+        const tagClase = item.interes.replace(' ', '_');
+        html += `
+          <div class="tarjeta">
+            <div class="tarjeta-header">
+              <span class="nombre-invitado">${item.nombre}</span>
+              <span class="interes-tag ${tagClase}">${item.interes}</span>
+            </div>
+            <div class="detalles">
+              📱 Teléfono: ${item.telefono || 'Sin registro'}<br>
+              📩 Pidió: <b>${item.solicitados} pases</b>
+            </div>
+            <div class="accion-pases">
+              <label>PASES AUTORIZADOS:</label>
+              <div class="control-pases">
+                <input type="number" id="pases_${item.fila}" value="${item.autorizados}" min="0" max="20">
+                <button class="btn-guardar" onclick="actualizarPases(${item.fila}, this)">APROBAR</button>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+      cont.innerHTML = html;
+    })
+    .catch(() => {
+      document.getElementById('lista').innerHTML = '<p style="text-align:center;color:red;">Error de conexión.</p>';
+    });
+  }
+
+  function actualizarPases(fila, btn) {
+    const nuevoValor = document.getElementById('pases_' + fila).value;
+    btn.disabled = true;
+    btn.textContent = '...';
+
+    fetch(URL_APPS_SCRIPT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+      body: JSON.stringify({
+        accion: 'guardarPasesAutorizados',
+        id_evento: ID_EVENTO,
+        fila: fila,
+        pases: nuevoValor
+      })
+    })
+    .then(res => res.json())
+    .then(res => {
+      if(res.ok) {
+        btn.textContent = '✓ OK';
+        btn.style.background = '#385723';
+        setTimeout(() => {
+          btn.disabled = false;
+          btn.textContent = 'APROBAR';
+          btn.style.background = 'var(--color-principal)';
+        }, 1500);
+      } else {
+        alert(res.mensaje || 'Error al guardar');
+        btn.disabled = false;
+        btn.textContent = 'APROBAR';
+      }
+    })
+    .catch(() => {
+      alert('Error de conexión');
+      btn.disabled = false;
+      btn.textContent = 'APROBAR';
+    });
+  }
+
+  cargarLista();
+</script>
+
+</body>
+</html>
