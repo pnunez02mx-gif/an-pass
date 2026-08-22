@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lector de Pases - AN PASS</title>
 
-  <!-- HTML5 QR Code Reader -->
+  <!-- Librería del Escáner QR -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
   <!-- Fuentes Elegantes -->
@@ -22,7 +22,7 @@
       --accent-color: #2c2825;
       --border-color: #eae6df;
       --radius-main: 16px;
-      --shadow-subtle: 0 10px 30px rgba(0,0,0,0.05);
+      --shadow-subtle: 0 10px 30px rgba(0, 0, 0, 0.05);
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -32,7 +32,7 @@
       color: var(--text-main);
       font-family: 'Montserrat', sans-serif;
       min-height: 100vh;
-      padding: 24px 16px 40px 16px;
+      padding: 20px 16px 40px 16px;
       -webkit-font-smoothing: antialiased;
       transition: background-color 0.3s ease;
     }
@@ -66,12 +66,35 @@
       line-height: 1.1;
     }
 
+    /* CONTROLES DE CÁMARA Y LINTERNA */
+    .controls-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 14px;
+      justify-content: center;
+    }
+
+    .btn-ctrl {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: var(--shadow-subtle);
+    }
+
     .reader-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-main);
       box-shadow: var(--shadow-subtle);
-      padding: 16px;
+      padding: 12px;
       overflow: hidden;
       margin-bottom: 20px;
     }
@@ -83,18 +106,30 @@
       border: none !important;
     }
 
+    #reader video {
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    /* TARJETA DE RESULTADO */
     .result-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-main);
       box-shadow: var(--shadow-subtle);
-      padding: 20px;
+      padding: 24px 20px;
       display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .guest-name {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
       color: var(--text-main);
       margin-bottom: 4px;
@@ -104,23 +139,26 @@
       font-size: 12px;
       color: var(--text-muted);
       margin-bottom: 16px;
+      font-weight: 500;
     }
 
     .info-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 10px;
-      margin-bottom: 16px;
-      background: rgba(0,0,0,0.02);
-      padding: 12px;
+      margin-bottom: 20px;
+      background: rgba(0, 0, 0, 0.02);
+      padding: 14px 10px;
       border-radius: 12px;
       text-align: center;
+      border: 1px solid var(--border-color);
     }
 
     .info-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 600;
+      color: var(--text-main);
     }
 
     .info-lbl {
@@ -128,28 +166,32 @@
       text-transform: uppercase;
       color: var(--text-muted);
       letter-spacing: 0.5px;
+      margin-top: 2px;
     }
 
     .action-group {
       display: flex;
       gap: 10px;
       align-items: center;
+      margin-bottom: 12px;
     }
 
     .input-cant {
-      width: 60px;
-      height: 44px;
+      width: 65px;
+      height: 46px;
       text-align: center;
       font-size: 16px;
       font-weight: 600;
+      font-family: 'Montserrat', sans-serif;
       border: 1px solid var(--border-color);
       border-radius: 10px;
       outline: none;
+      color: var(--text-main);
     }
 
     .btn-action {
       flex: 1;
-      height: 44px;
+      height: 46px;
       background: var(--accent-color);
       color: #ffffff;
       border: none;
@@ -159,19 +201,34 @@
       letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
+      transition: background-color 0.2s ease;
     }
 
     .btn-reset {
       width: 100%;
-      height: 40px;
+      height: 42px;
       background: transparent;
       color: var(--text-muted);
       border: 1px solid var(--border-color);
       border-radius: 10px;
       font-size: 11px;
-      margin-top: 10px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
       cursor: pointer;
     }
+
+    .status-msg {
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      margin-bottom: 14px;
+      text-align: center;
+      display: none;
+    }
+
+    .status-msg.success { background: #eef7ed; color: #2e6027; }
+    .status-msg.error { background: #fde8e8; color: #9b1c1c; }
   </style>
 </head>
 <body>
@@ -180,21 +237,31 @@
   
   <header class="header">
     <span class="brand-tag">CONTROL DE ACCESO</span>
-    <h1 class="event-title" id="tituloEvento">Cargando evento...</h1>
+    <h1 class="event-title" id="tituloEvento">Escáner de Pases</h1>
   </header>
 
+  <!-- BARRA DE CONTROLES -->
+  <div class="controls-bar">
+    <button class="btn-ctrl" onclick="cambiarCamara()">🔄 Cambiar Cámara</button>
+    <button class="btn-ctrl" id="btnFlash" onclick="alternarFlash()" style="display:none;">⚡ Flash</button>
+  </div>
+
+  <!-- CONTENEDOR DEL ESCÁNER -->
   <div class="reader-card">
     <div id="reader"></div>
   </div>
 
+  <!-- TARJETAS Y DATOS DEL INVITADO -->
   <div id="resultCard" class="result-card">
     <div class="guest-name" id="resNombre">-</div>
-    <div class="code-tag">Código: <span id="resCodigo">-</span></div>
+    <div class="code-tag">Pase: <span id="resCodigo">-</span></div>
+
+    <div id="statusMsg" class="status-msg"></div>
 
     <div class="info-grid">
       <div>
         <div class="info-num" id="resAutorizadas">0</div>
-        <div class="info-lbl">Pases</div>
+        <div class="info-lbl">Autorizados</div>
       </div>
       <div>
         <div class="info-num" id="resIngresaron">0</div>
@@ -226,7 +293,9 @@
   }
   ID_EVENTO = ID_EVENTO.trim();
 
-  let html5QrcodeScanner = null;
+  let html5QrCode = null;
+  let camaraActualFacing = "environment"; // Inicia con cámara trasera
+  let flashEncendido = false;
   let paseActual = null;
 
   function aplicarColores(color, colorFondo, colorBoton) {
@@ -237,7 +306,7 @@
     else if (color) root.style.setProperty('--accent-color', color);
   }
 
-  function cargarEvento() {
+  function cargarDatosEvento() {
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -253,9 +322,47 @@
     .catch(() => {});
   }
 
-  function inicializarEscaner() {
-    html5QrcodeScanner = new Html5QrcodeScanner("reader", { fps: 10, qrbox: 220 });
-    html5QrcodeScanner.render(onScanSuccess);
+  function iniciarCamara() {
+    if (html5QrCode) {
+      html5QrCode.stop().then(iniciarLector).catch(iniciarLector);
+    } else {
+      iniciarLector();
+    }
+  }
+
+  function iniciarLector() {
+    html5QrCode = new Html5Qrcode("reader");
+    const config = { fps: 10, qrbox: { width: 230, height: 230 } };
+
+    html5QrCode.start(
+      { facingMode: camaraActualFacing },
+      config,
+      onScanSuccess
+    ).then(() => {
+      // Verificar si el dispositivo soporta linterna
+      const capabilities = html5QrCode.getRunningTrackCapabilities();
+      if (capabilities && capabilities.torch) {
+        document.getElementById('btnFlash').style.display = 'flex';
+      } else {
+        document.getElementById('btnFlash').style.display = 'none';
+      }
+    }).catch(err => {
+      console.error("Error al iniciar cámara: ", err);
+    });
+  }
+
+  function cambiarCamara() {
+    camaraActualFacing = (camaraActualFacing === "environment") ? "user" : "environment";
+    iniciarCamara();
+  }
+
+  function alternarFlash() {
+    flashEncendido = !flashEncendido;
+    if (html5QrCode) {
+      html5QrCode.applyVideoConstraints({
+        advanced: [{ torch: flashEncendido }]
+      }).catch(() => {});
+    }
   }
 
   function onScanSuccess(decodedText) {
@@ -264,8 +371,15 @@
       codigo = decodedText.split('codigo=')[1].split('&')[0];
     }
 
-    html5QrcodeScanner.clear();
-    buscarPase(codigo);
+    if (html5QrCode) {
+      html5QrCode.stop().then(() => {
+        buscarPase(codigo);
+      }).catch(() => {
+        buscarPase(codigo);
+      });
+    } else {
+      buscarPase(codigo);
+    }
   }
 
   function buscarPase(codigo) {
@@ -285,7 +399,7 @@
       }
     })
     .catch(() => {
-      alert('Error al verificar el pase.');
+      alert('Error de conexión al buscar el pase.');
       reiniciarEscaner();
     });
   }
@@ -299,13 +413,19 @@
     document.getElementById('resRestantes').textContent = p.restantes;
 
     const cant = document.getElementById('cantIngreso');
+    const msg = document.getElementById('statusMsg');
+
     cant.value = p.restantes > 0 ? 1 : 0;
     cant.max = p.restantes;
 
     if (p.restantes <= 0) {
       document.getElementById('secAccion').style.display = 'none';
+      msg.className = 'status-msg error';
+      msg.textContent = '⛔ PASE AGOTADO / TODOS INGRESARON';
+      msg.style.display = 'block';
     } else {
       document.getElementById('secAccion').style.display = 'flex';
+      msg.style.display = 'none';
     }
   }
 
@@ -325,24 +445,43 @@
     })
     .then(res => res.json())
     .then(res => {
+      const msg = document.getElementById('statusMsg');
       if (res.ok) {
-        alert('✅ Entrada registrada con éxito');
-        buscarPase(paseActual.codigo);
+        msg.className = 'status-msg success';
+        msg.textContent = '✅ Entrada registrada con éxito.';
+        msg.style.display = 'block';
+
+        // Actualizar valores en pantalla
+        paseActual.ingresaron = res.ingresaron;
+        paseActual.restantes = res.restantes;
+        
+        document.getElementById('resIngresaron').textContent = res.ingresaron;
+        document.getElementById('resRestantes').textContent = res.restantes;
+
+        if (res.restantes <= 0) {
+          document.getElementById('secAccion').style.display = 'none';
+        } else {
+          document.getElementById('cantIngreso').value = 1;
+          document.getElementById('cantIngreso').max = res.restantes;
+        }
       } else {
-        alert('❌ Error: ' + res.mensaje);
+        msg.className = 'status-msg error';
+        msg.textContent = '❌ ' + (res.mensaje || 'Error al registrar.');
+        msg.style.display = 'block';
       }
     })
-    .catch(() => alert('Error de conexión'));
+    .catch(() => alert('Error de conexión con el servidor.'));
   }
 
   function reiniciarEscaner() {
     document.getElementById('resultCard').style.display = 'none';
+    document.getElementById('statusMsg').style.display = 'none';
     paseActual = null;
-    inicializarEscaner();
+    iniciarCamara();
   }
 
-  cargarEvento();
-  inicializarEscaner();
+  cargarDatosEvento();
+  iniciarCamara();
 </script>
 
 </body>
