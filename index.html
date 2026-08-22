@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lector de Pases - AN PASS</title>
+  <title>Control de Acceso - AN PASS</title>
 
-  <!-- Librería del Escáner QR -->
+  <!-- Librería de QR -->
   <script src="https://unpkg.com/html5-qrcode"></script>
 
   <!-- Fuentes Elegantes -->
@@ -38,7 +38,7 @@
     }
 
     .container {
-      max-width: 480px;
+      max-width: 520px;
       margin: 0 auto;
     }
 
@@ -66,167 +66,260 @@
       line-height: 1.1;
     }
 
-    /* CONTROLES DE CÁMARA Y LINTERNA */
+    /* ESTADÍSTICAS DEL EVENTO */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 4px;
+      text-align: center;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1;
+    }
+
+    .stat-lbl {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* BOTÓN ESCÁNER */
+    .btn-scan-main {
+      width: 100%;
+      height: 48px;
+      background: var(--accent-color);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    /* SECCIÓN DE CÁMARA (OCULTA POR DEFECTO) */
+    .scanner-box {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-main);
+      padding: 14px;
+      margin-bottom: 20px;
+      display: none;
+      box-shadow: var(--shadow-subtle);
+    }
+
     .controls-bar {
       display: flex;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       justify-content: center;
     }
 
     .btn-ctrl {
-      background: var(--card-bg);
+      background: #faf9f7;
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 10px;
+      padding: 6px 12px;
+      border-radius: 8px;
       font-size: 11px;
       font-weight: 600;
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .reader-card {
-      background: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: var(--radius-main);
-      box-shadow: var(--shadow-subtle);
-      padding: 12px;
-      overflow: hidden;
-      margin-bottom: 20px;
     }
 
     #reader {
       width: 100%;
-      border-radius: 12px;
+      border-radius: 10px;
       overflow: hidden;
       border: none !important;
     }
 
-    #reader video {
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    /* TARJETA DE RESULTADO */
+    /* TARJETA DE DETALLE DEL INVITADO (DESPUÉS DE ESCANEAR O SELECCIONAR) */
     .result-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-main);
       box-shadow: var(--shadow-subtle);
-      padding: 24px 20px;
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .guest-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 26px;
-      font-weight: 600;
-      color: var(--text-main);
-      margin-bottom: 4px;
-    }
-
-    .code-tag {
-      font-size: 12px;
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      font-weight: 500;
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
+      padding: 20px;
       margin-bottom: 20px;
-      background: rgba(0, 0, 0, 0.02);
-      padding: 14px 10px;
-      border-radius: 12px;
-      text-align: center;
-      border: 1px solid var(--border-color);
+      display: none;
     }
 
-    .info-num {
+    .guest-name-res {
       font-family: 'Cormorant Garamond', serif;
       font-size: 24px;
       font-weight: 600;
       color: var(--text-main);
     }
 
-    .info-lbl {
-      font-size: 9px;
-      text-transform: uppercase;
+    .code-res {
+      font-size: 12px;
       color: var(--text-muted);
-      letter-spacing: 0.5px;
-      margin-top: 2px;
+      margin-bottom: 14px;
     }
 
-    .action-group {
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: rgba(0,0,0,0.02);
+      padding: 12px;
+      border-radius: 10px;
+      text-align: center;
+      margin-bottom: 14px;
+    }
+
+    .info-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .action-row {
       display: flex;
       gap: 10px;
-      align-items: center;
-      margin-bottom: 12px;
     }
 
     .input-cant {
-      width: 65px;
-      height: 46px;
+      width: 60px;
+      height: 42px;
       text-align: center;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
-      font-family: 'Montserrat', sans-serif;
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      border-radius: 8px;
       outline: none;
-      color: var(--text-main);
     }
 
-    .btn-action {
+    .btn-entry {
       flex: 1;
-      height: 46px;
+      height: 42px;
       background: var(--accent-color);
       color: #ffffff;
       border: none;
-      border-radius: 10px;
+      border-radius: 8px;
       font-size: 11px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
-      transition: background-color 0.2s ease;
     }
 
-    .btn-reset {
+    .btn-close-card {
       width: 100%;
-      height: 42px;
+      height: 36px;
       background: transparent;
-      color: var(--text-muted);
       border: 1px solid var(--border-color);
-      border-radius: 10px;
+      color: var(--text-muted);
+      border-radius: 8px;
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      text-transform: uppercase;
+      margin-top: 10px;
       cursor: pointer;
     }
+
+    /* BUSCADOR Y LISTA DE INVITADOS */
+    .search-box {
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      padding: 12px 16px 12px 38px;
+      border-radius: 12px;
+      font-size: 13px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--text-main);
+      outline: none;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .guest-list-container {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .guest-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-subtle);
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .guest-item:active { background: #faf9f7; }
+
+    .item-name {
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--text-main);
+    }
+
+    .item-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    .item-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 20px;
+      background: #eef7ed;
+      color: #2e6027;
+    }
+
+    .item-badge.UTILIZADO { background: #fde8e8; color: #9b1c1c; }
+    .item-badge.PARCIAL { background: #fff8e6; color: #946800; }
 
     .status-msg {
       padding: 10px;
       border-radius: 8px;
       font-size: 12px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       text-align: center;
       display: none;
     }
-
     .status-msg.success { background: #eef7ed; color: #2e6027; }
     .status-msg.error { background: #fde8e8; color: #9b1c1c; }
   </style>
@@ -236,49 +329,83 @@
 <div class="container">
   
   <header class="header">
-    <span class="brand-tag">CONTROL DE ACCESO</span>
-    <h1 class="event-title" id="tituloEvento">Escáner de Pases</h1>
+    <span class="brand-tag">RECEPCIÓN & CHECK-IN</span>
+    <h1 class="event-title" id="tituloEvento">Control de Acceso</h1>
   </header>
 
-  <!-- BARRA DE CONTROLES -->
-  <div class="controls-bar">
-    <button class="btn-ctrl" onclick="cambiarCamara()">🔄 Cambiar Cámara</button>
-    <button class="btn-ctrl" id="btnFlash" onclick="alternarFlash()" style="display:none;">⚡ Flash</button>
+  <!-- METRICAS EN TIEMPO REAL -->
+  <div class="stats-grid">
+    <div class="stat-card">
+      <div class="stat-num" id="stAutorizadas">0</div>
+      <div class="stat-lbl">Pases</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stConfirmadas">0</div>
+      <div class="stat-lbl">Confirm.</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stIngresaron">0</div>
+      <div class="stat-lbl">Dentro</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num" id="stPorcentaje">0%</div>
+      <div class="stat-lbl">Avance</div>
+    </div>
   </div>
 
-  <!-- CONTENEDOR DEL ESCÁNER -->
-  <div class="reader-card">
+  <!-- BOTÓN PARA ABRIR CÁMARA -->
+  <button class="btn-scan-main" id="btnToggleCam" onclick="toggleCamara()">
+    <span>📷</span> Abrir Escáner QR
+  </button>
+
+  <!-- CÁMARA DE ESCÁNER -->
+  <div class="scanner-box" id="scannerBox">
+    <div class="controls-bar">
+      <button class="btn-ctrl" onclick="cambiarCamara()">🔄 Cambiar Cámara</button>
+      <button class="btn-ctrl" id="btnFlash" onclick="alternarFlash()" style="display:none;">⚡ Flash</button>
+    </div>
     <div id="reader"></div>
   </div>
 
-  <!-- TARJETAS Y DATOS DEL INVITADO -->
-  <div id="resultCard" class="result-card">
-    <div class="guest-name" id="resNombre">-</div>
-    <div class="code-tag">Pase: <span id="resCodigo">-</span></div>
+  <!-- DETALLE DEL PASE SELECCIONADO / ESCANEADO -->
+  <div class="result-card" id="resultCard">
+    <div class="guest-name-res" id="resNombre">-</div>
+    <div class="code-res">Código: <span id="resCodigo">-</span></div>
 
     <div id="statusMsg" class="status-msg"></div>
 
     <div class="info-grid">
       <div>
         <div class="info-num" id="resAutorizadas">0</div>
-        <div class="info-lbl">Autorizados</div>
+        <div style="font-size:9px; color:var(--text-muted);">Pases</div>
       </div>
       <div>
         <div class="info-num" id="resIngresaron">0</div>
-        <div class="info-lbl">Dentro</div>
+        <div style="font-size:9px; color:var(--text-muted);">Dentro</div>
       </div>
       <div>
         <div class="info-num" id="resRestantes" style="color: #2e6027;">0</div>
-        <div class="info-lbl">Restantes</div>
+        <div style="font-size:9px; color:var(--text-muted);">Restantes</div>
       </div>
     </div>
 
-    <div class="action-group" id="secAccion">
+    <div class="action-row" id="secAccion">
       <input type="number" id="cantIngreso" class="input-cant" value="1" min="1">
-      <button class="btn-action" onclick="marcarEntrada()">Registrar Entrada</button>
+      <button class="btn-entry" onclick="marcarEntrada()">Registrar Entrada</button>
     </div>
 
-    <button class="btn-reset" onclick="reiniciarEscaner()">Escanear Otro Pase</button>
+    <button class="btn-close-card" onclick="cerrarDetallePase()">Cerrar / Escanear Otro</button>
+  </div>
+
+  <!-- BUSCADOR -->
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="searchInput" class="search-input" placeholder="Buscar invitado por nombre o código..." onkeyup="filtrarLista()">
+  </div>
+
+  <!-- LISTA DE INVITADOS -->
+  <div class="guest-list-container" id="listaInvitados">
+    <p style="text-align: center; font-size:12px; color:var(--text-muted); padding:20px;">Cargando lista de invitados...</p>
   </div>
 
 </div>
@@ -294,9 +421,12 @@
   ID_EVENTO = ID_EVENTO.trim();
 
   let html5QrCode = null;
-  let camaraActualFacing = "environment"; // Inicia con cámara trasera
+  let camaraActiva = false;
+  let camaraFacing = "environment";
   let flashEncendido = false;
-  let paseActual = null;
+
+  let datosGlobales = { resumen: {}, invitados: [] };
+  let paseSeleccionado = null;
 
   function aplicarColores(color, colorFondo, colorBoton) {
     const root = document.documentElement;
@@ -306,7 +436,7 @@
     else if (color) root.style.setProperty('--accent-color', color);
   }
 
-  function cargarDatosEvento() {
+  function cargarPanel() {
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
       headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -314,54 +444,158 @@
     })
     .then(res => res.json())
     .then(res => {
-      if (res.ok && res.evento) {
+      if (!res.ok) {
+        document.getElementById('listaInvitados').innerHTML = `<p style="text-align:center;color:red;font-size:12px;">${res.mensaje}</p>`;
+        return;
+      }
+
+      if (res.evento) {
         document.getElementById('tituloEvento').textContent = res.evento.nombre;
         aplicarColores(res.evento.color, res.evento.color_fondo, res.evento.color_boton);
       }
+
+      datosGlobales.resumen = res.resumen || {};
+      datosGlobales.invitados = res.invitados || [];
+
+      actualizarResumen();
+      renderizarLista(datosGlobales.invitados);
     })
-    .catch(() => {});
-  }
-
-  function iniciarCamara() {
-    if (html5QrCode) {
-      html5QrCode.stop().then(iniciarLector).catch(iniciarLector);
-    } else {
-      iniciarLector();
-    }
-  }
-
-  function iniciarLector() {
-    html5QrCode = new Html5Qrcode("reader");
-    const config = { fps: 10, qrbox: { width: 230, height: 230 } };
-
-    html5QrCode.start(
-      { facingMode: camaraActualFacing },
-      config,
-      onScanSuccess
-    ).then(() => {
-      // Verificar si el dispositivo soporta linterna
-      const capabilities = html5QrCode.getRunningTrackCapabilities();
-      if (capabilities && capabilities.torch) {
-        document.getElementById('btnFlash').style.display = 'flex';
-      } else {
-        document.getElementById('btnFlash').style.display = 'none';
-      }
-    }).catch(err => {
-      console.error("Error al iniciar cámara: ", err);
+    .catch(() => {
+      document.getElementById('listaInvitados').innerHTML = '<p style="text-align:center;color:red;font-size:12px;">Error al cargar los datos.</p>';
     });
   }
 
+  function actualizarResumen() {
+    const r = datosGlobales.resumen;
+    document.getElementById('stAutorizadas').textContent = r.autorizadas || 0;
+    document.getElementById('stConfirmadas').textContent = r.confirmadas || 0;
+    document.getElementById('stIngresaron').textContent = r.ingresaron || 0;
+    document.getElementById('stPorcentaje').textContent = (r.porcentaje || 0) + '%';
+  }
+
+  function renderizarLista(invitados) {
+    const cont = document.getElementById('listaInvitados');
+
+    if (!invitados || invitados.length === 0) {
+      cont.innerHTML = '<p style="text-align:center; font-size:12px; color:var(--text-muted); padding:20px;">No se encontraron invitados.</p>';
+      return;
+    }
+
+    let html = '';
+    invitados.forEach(inv => {
+      html += `
+        <div class="guest-item" onclick="seleccionarPase('${inv.codigo}')">
+          <div>
+            <div class="item-name">${inv.invitado}</div>
+            <div class="item-sub">Código: ${inv.codigo} | Restantes: ${inv.restantes} de ${inv.autorizadas}</div>
+          </div>
+          <span class="item-badge ${inv.estado}">${inv.estado}</span>
+        </div>
+      `;
+    });
+    cont.innerHTML = html;
+  }
+
+  function filtrarLista() {
+    const q = document.getElementById('searchInput').value.toLowerCase().trim();
+    const filtrados = datosGlobales.invitados.filter(i => 
+      (i.invitado || '').toLowerCase().includes(q) || 
+      (i.codigo || '').toLowerCase().includes(q)
+    );
+    renderizarLista(filtrados);
+  }
+
+  function seleccionarPase(codigo) {
+    const pase = datosGlobales.invitados.find(i => i.codigo === codigo);
+    if (!pase) return;
+
+    paseSeleccionado = pase;
+    document.getElementById('resultCard').style.display = 'block';
+    document.getElementById('resNombre').textContent = pase.invitado;
+    document.getElementById('resCodigo').textContent = pase.codigo;
+    document.getElementById('resAutorizadas').textContent = pase.autorizadas;
+    document.getElementById('resIngresaron').textContent = pase.ingresaron;
+    document.getElementById('resRestantes').textContent = pase.restantes;
+
+    const cant = document.getElementById('cantIngreso');
+    const msg = document.getElementById('statusMsg');
+
+    cant.value = pase.restantes > 0 ? 1 : 0;
+    cant.max = pase.restantes;
+
+    if (pase.restantes <= 0) {
+      document.getElementById('secAccion').style.display = 'none';
+      msg.className = 'status-msg error';
+      msg.textContent = '⛔ PASE COMPLETO / SIN LUGARES RESTANTES';
+      msg.style.display = 'block';
+    } else {
+      document.getElementById('secAccion').style.display = 'flex';
+      msg.style.display = 'none';
+    }
+
+    window.scrollTo({ top: document.getElementById('resultCard').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  function cerrarDetallePase() {
+    document.getElementById('resultCard').style.display = 'none';
+    document.getElementById('statusMsg').style.display = 'none';
+    paseSeleccionado = null;
+  }
+
+  function toggleCamara() {
+    const box = document.getElementById('scannerBox');
+    const btn = document.getElementById('btnToggleCam');
+
+    if (camaraActiva) {
+      detenerCamara();
+      box.style.display = 'none';
+      btn.innerHTML = '<span>📷</span> Abrir Escáner QR';
+    } else {
+      box.style.display = 'block';
+      btn.innerHTML = '<span>❌</span> Cerrar Cámara';
+      iniciarCamara();
+    }
+  }
+
+  function iniciarCamara() {
+    html5QrCode = new Html5Qrcode("reader");
+    const config = { fps: 10, qrbox: { width: 220, height: 220 } };
+
+    html5QrCode.start(
+      { facingMode: camaraFacing },
+      config,
+      onScanSuccess
+    ).then(() => {
+      camaraActiva = true;
+      const caps = html5QrCode.getRunningTrackCapabilities();
+      if (caps && caps.torch) {
+        document.getElementById('btnFlash').style.display = 'inline-block';
+      }
+    }).catch(err => {
+      alert("No se pudo iniciar la cámara.");
+    });
+  }
+
+  function detenerCamara() {
+    if (html5QrCode && camaraActiva) {
+      html5QrCode.stop().then(() => {
+        camaraActiva = false;
+      }).catch(() => {
+        camaraActiva = false;
+      });
+    }
+  }
+
   function cambiarCamara() {
-    camaraActualFacing = (camaraActualFacing === "environment") ? "user" : "environment";
-    iniciarCamara();
+    camaraFacing = (camaraFacing === "environment") ? "user" : "environment";
+    detenerCamara();
+    setTimeout(iniciarCamara, 300);
   }
 
   function alternarFlash() {
     flashEncendido = !flashEncendido;
     if (html5QrCode) {
-      html5QrCode.applyVideoConstraints({
-        advanced: [{ torch: flashEncendido }]
-      }).catch(() => {});
+      html5QrCode.applyVideoConstraints({ advanced: [{ torch: flashEncendido }] });
     }
   }
 
@@ -370,67 +604,11 @@
     if (decodedText.includes('codigo=')) {
       codigo = decodedText.split('codigo=')[1].split('&')[0];
     }
-
-    if (html5QrCode) {
-      html5QrCode.stop().then(() => {
-        buscarPase(codigo);
-      }).catch(() => {
-        buscarPase(codigo);
-      });
-    } else {
-      buscarPase(codigo);
-    }
-  }
-
-  function buscarPase(codigo) {
-    fetch(URL_APPS_SCRIPT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: JSON.stringify({ accion: 'buscarPase', id_evento: ID_EVENTO, codigo: codigo })
-    })
-    .then(res => res.json())
-    .then(res => {
-      if (res.ok && res.pase) {
-        paseActual = res.pase;
-        mostrarPase(res.pase);
-      } else {
-        alert('❌ Pase no encontrado o no pertenece a este evento.');
-        reiniciarEscaner();
-      }
-    })
-    .catch(() => {
-      alert('Error de conexión al buscar el pase.');
-      reiniciarEscaner();
-    });
-  }
-
-  function mostrarPase(p) {
-    document.getElementById('resultCard').style.display = 'block';
-    document.getElementById('resNombre').textContent = p.invitado;
-    document.getElementById('resCodigo').textContent = p.codigo;
-    document.getElementById('resAutorizadas').textContent = p.autorizadas;
-    document.getElementById('resIngresaron').textContent = p.ingresaron;
-    document.getElementById('resRestantes').textContent = p.restantes;
-
-    const cant = document.getElementById('cantIngreso');
-    const msg = document.getElementById('statusMsg');
-
-    cant.value = p.restantes > 0 ? 1 : 0;
-    cant.max = p.restantes;
-
-    if (p.restantes <= 0) {
-      document.getElementById('secAccion').style.display = 'none';
-      msg.className = 'status-msg error';
-      msg.textContent = '⛔ PASE AGOTADO / TODOS INGRESARON';
-      msg.style.display = 'block';
-    } else {
-      document.getElementById('secAccion').style.display = 'flex';
-      msg.style.display = 'none';
-    }
+    seleccionarPase(codigo);
   }
 
   function marcarEntrada() {
-    if (!paseActual) return;
+    if (!paseSeleccionado) return;
     const cant = parseInt(document.getElementById('cantIngreso').value) || 1;
 
     fetch(URL_APPS_SCRIPT, {
@@ -439,7 +617,7 @@
       body: JSON.stringify({
         accion: 'registrarEntrada',
         id_evento: ID_EVENTO,
-        codigo: paseActual.codigo,
+        codigo: paseSeleccionado.codigo,
         cantidad: cant
       })
     })
@@ -451,37 +629,18 @@
         msg.textContent = '✅ Entrada registrada con éxito.';
         msg.style.display = 'block';
 
-        // Actualizar valores en pantalla
-        paseActual.ingresaron = res.ingresaron;
-        paseActual.restantes = res.restantes;
-        
-        document.getElementById('resIngresaron').textContent = res.ingresaron;
-        document.getElementById('resRestantes').textContent = res.restantes;
-
-        if (res.restantes <= 0) {
-          document.getElementById('secAccion').style.display = 'none';
-        } else {
-          document.getElementById('cantIngreso').value = 1;
-          document.getElementById('cantIngreso').max = res.restantes;
-        }
+        cargarPanel(); // Recargar métricas y lista
+        setTimeout(() => seleccionarPase(paseSeleccionado.codigo), 500);
       } else {
         msg.className = 'status-msg error';
         msg.textContent = '❌ ' + (res.mensaje || 'Error al registrar.');
         msg.style.display = 'block';
       }
     })
-    .catch(() => alert('Error de conexión con el servidor.'));
+    .catch(() => alert('Error de conexión'));
   }
 
-  function reiniciarEscaner() {
-    document.getElementById('resultCard').style.display = 'none';
-    document.getElementById('statusMsg').style.display = 'none';
-    paseActual = null;
-    iniciarCamara();
-  }
-
-  cargarDatosEvento();
-  iniciarCamara();
+  cargarPanel();
 </script>
 
 </body>
