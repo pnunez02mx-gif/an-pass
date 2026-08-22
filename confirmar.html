@@ -17,13 +17,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    /* Variables de color dinámicas (Se actualizan automáticamente desde tu pestaña EVENTOS de Sheets) */
     :root {
-      --bg-color: #fcfbfa;      /* COLOR_FONDO */
+      --bg-color: #fcfbfa;
       --card-bg: #ffffff;
-      --primary-color: #c9a227; /* COLOR (Títulos, acentos, QR) */
-      --btn-bg: #2c2825;        /* COLOR_BOTON (Nombre de invitado, botones) */
+      --primary-color: #2c2825;
+      --accent-color: #c9a227;
+      --btn-bg: #2c2825;
       --btn-text: #ffffff;
-      --text-muted: rgba(0,0,0,0.5); /* Gris neutro para subtítulos pequeños */
     }
 
     * {
@@ -35,12 +36,13 @@
     body {
       background-color: var(--bg-color);
       font-family: 'Montserrat', sans-serif;
-      color: var(--btn-bg);
+      color: var(--primary-color);
       display: flex;
       justify-content: center;
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      transition: background-color 0.3s ease;
     }
 
     .container {
@@ -52,14 +54,14 @@
       display: none !important;
     }
 
-    /* ESTILOS FORMULARIO INICIAL */
-    .form-card {
+    /* CARD CONTENEDORA DE PASOS */
+    .card-box {
       background: #ffffff;
       border-radius: 20px;
       padding: 35px 25px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       text-align: center;
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--accent-color);
     }
 
     .form-title {
@@ -73,7 +75,7 @@
     .form-subtitle {
       font-size: 0.95rem;
       margin-bottom: 25px;
-      color: var(--text-muted);
+      color: #4a4a4a;
       line-height: 1.4;
     }
 
@@ -92,15 +94,15 @@
       font-size: 0.9rem;
       text-align: center;
       outline: none;
-      color: var(--btn-bg);
+      color: #333;
       font-family: 'Montserrat', sans-serif;
     }
 
     .inputs-list input:focus {
-      border-color: var(--primary-color);
+      border-color: var(--accent-color);
     }
 
-    .btn-submit {
+    .btn-action {
       width: 100%;
       padding: 15px;
       background-color: var(--btn-bg);
@@ -112,16 +114,17 @@
       letter-spacing: 1.5px;
       cursor: pointer;
       text-transform: uppercase;
+      transition: background-color 0.3s ease;
     }
 
-    /* ESTILOS PASE FINAL - COLORES DIFERENCIADOS */
+    /* PASE DIGITAL */
     .pass-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--accent-color);
       border-radius: 16px;
       padding: 35px 20px 25px 20px;
       text-align: center;
-      color: var(--btn-bg);
+      color: var(--primary-color);
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
@@ -129,7 +132,7 @@
       font-size: 0.75rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--text-muted); /* Gris suave */
+      color: var(--accent-color);
       margin-bottom: 4px;
     }
 
@@ -138,15 +141,14 @@
       font-size: 1.6rem;
       letter-spacing: 2px;
       margin-bottom: 12px;
-      color: var(--primary-color); /* COLOR de la pestaña EVENTOS */
+      color: var(--primary-color);
     }
 
     .divider {
       height: 1px;
       width: 50px;
-      background-color: var(--primary-color);
+      background-color: var(--accent-color);
       margin: 12px auto;
-      opacity: 0.4;
     }
 
     .guest-fullname {
@@ -154,14 +156,14 @@
       font-size: 1.6rem;
       font-weight: 700;
       margin: 18px 0 12px 0;
-      color: var(--btn-bg); /* COLOR_BOTON de la pestaña EVENTOS */
+      color: var(--primary-color);
       text-transform: uppercase;
     }
 
     .passes-title {
       font-size: 0.75rem;
       letter-spacing: 2px;
-      color: var(--text-muted); /* Gris suave */
+      color: var(--accent-color);
     }
 
     .passes-number {
@@ -169,7 +171,7 @@
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 12px;
-      color: var(--btn-bg); /* COLOR_BOTON de la pestaña EVENTOS */
+      color: var(--primary-color);
     }
 
     .qr-container {
@@ -177,7 +179,7 @@
       padding: 15px;
       display: inline-block;
       border-radius: 12px;
-      border: 1px solid var(--primary-color);
+      border: 1px solid var(--accent-color);
       margin: 10px 0 15px 0;
     }
 
@@ -189,7 +191,7 @@
       font-size: 0.7rem;
       letter-spacing: 1px;
       margin-bottom: 12px;
-      color: var(--text-muted); /* Gris suave */
+      color: var(--primary-color);
       text-transform: uppercase;
     }
 
@@ -202,21 +204,21 @@
     .code-title {
       font-size: 0.65rem;
       letter-spacing: 1px;
-      color: var(--text-muted); /* Gris suave */
+      color: var(--accent-color);
     }
 
     .code-number {
       font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 1px;
-      color: var(--primary-color); /* COLOR de la pestaña EVENTOS */
+      color: var(--primary-color);
     }
 
     .pass-footer {
       margin-top: 25px;
       font-size: 0.7rem;
       letter-spacing: 1px;
-      color: var(--text-muted); /* Gris suave */
+      color: var(--primary-color);
       text-transform: uppercase;
     }
 
@@ -234,24 +236,42 @@
       margin-top: 15px;
       text-transform: uppercase;
     }
+
+    .error-msg {
+      color: #d9534f;
+      font-size: 0.8rem;
+      margin-top: 10px;
+    }
   </style>
 </head>
 <body>
 
   <main class="container">
     
-    <!-- PASO 1: Formulario Inicial -->
-    <section id="form-step" class="form-card">
+    <!-- PASO 0: Buscador por Código (Respaldo si no trae parámetro) -->
+    <section id="search-step" class="card-box hidden">
+      <h1 class="form-title">Pase de Acceso</h1>
+      <p class="form-subtitle">Ingresa tu código de invitación para consultar tus pases y confirmar asistencia.</p>
+
+      <div class="inputs-list">
+        <input type="text" id="search-input" placeholder="Ej: IP001, MJ001" style="text-transform: uppercase;">
+      </div>
+      <button type="button" class="btn-action" onclick="buscarInvitadoManual()">CONSULTAR PASE</button>
+      <p id="search-error" class="error-msg hidden">Código no encontrado. Por favor verifica tu clave.</p>
+    </section>
+
+    <!-- PASO 1: Formulario de Confirmación -->
+    <section id="form-step" class="card-box hidden">
       <h1 class="form-title">Confirmar Asistencia</h1>
       <p class="form-subtitle">Hola <strong id="guest-greeting-name">Cargando...</strong>. Tienes <span id="guest-passes-count">0</span> pases autorizados.</p>
 
       <form id="attendance-form">
         <div id="inputs-container" class="inputs-list"></div>
-        <button type="submit" id="btn-submit-form" class="btn-submit">CONFIRMAR ASISTENCIA</button>
+        <button type="submit" id="btn-submit-form" class="btn-action">CONFIRMAR ASISTENCIA</button>
       </form>
     </section>
 
-    <!-- PASO 2: Resultado del Pase -->
+    <!-- PASO 2: Tarjeta del Pase Digital y QR -->
     <section id="ticket-step" class="hidden">
       <div id="digital-pass-card" class="pass-card">
         <div class="pass-content">
@@ -303,57 +323,90 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       const urlParams = new URLSearchParams(window.location.search);
-      const codigoParam = urlParams.get('codigo') || urlParams.get('id');
-      const idEventoParam = urlParams.get('evento') || "EV001";
+      
+      // 1. Obtener código desde la URL actual
+      let codigoParam = urlParams.get('codigo') || urlParams.get('id');
+      
+      // 2. Si no viene en la URL, intentar rescatarlo desde el origen (Canva)
+      if (!codigoParam && document.referrer) {
+        try {
+          const referrerUrl = new URL(document.referrer);
+          codigoParam = referrerUrl.searchParams.get('codigo') || referrerUrl.searchParams.get('id');
+        } catch (e) {}
+      }
+
+      // 3. Guardar o recuperar de sessionStorage
+      if (!codigoParam) {
+        codigoParam = sessionStorage.getItem('an_pass_codigo');
+      } else {
+        sessionStorage.setItem('an_pass_codigo', codigoParam);
+      }
 
       if (codigoParam) {
-        fetch(`${APPS_SCRIPT_URL}?accion=obtenerDatosPanel&id_evento=${idEventoParam}`)
+        cargarDatosInvitadoPorCodigo(codigoParam);
+      } else {
+        document.getElementById("search-step").classList.remove("hidden");
+      }
+    });
+
+    function cargarDatosInvitadoPorCodigo(codigo) {
+      const codUpper = String(codigo).trim().toUpperCase();
+
+      // Detectar ID de evento por prefijo (IP -> EV001, MJ -> EV002, XVP -> EV003)
+      let idEventoDetectado = "EV001";
+      if (codUpper.startsWith("MJ")) idEventoDetectado = "EV002";
+      else if (codUpper.startsWith("XVP")) idEventoDetectado = "EV003";
+
+      // Petición a Apps Script para traer la lista y la personalización de colores del evento
+      fetch(`${APPS_SCRIPT_URL}?accion=obtenerDatosPanel&id_evento=${idEventoDetectado}`)
         .then(res => res.json())
         .then(respuesta => {
           if (respuesta.ok && respuesta.invitados) {
-            const invitado = respuesta.invitados.find(i => String(i.codigo).trim().toUpperCase() === String(codigoParam).trim().toUpperCase());
-            
+            const invitado = respuesta.invitados.find(i => String(i.codigo).trim().toUpperCase() === codUpper);
+
             if (invitado) {
               datosInvitadoGlobal.codigo = invitado.codigo;
               datosInvitadoGlobal.invitado = invitado.invitado;
               datosInvitadoGlobal.autorizadas = invitado.autorizadas;
-              datosInvitadoGlobal.idEvento = idEventoParam;
+              datosInvitadoGlobal.idEvento = idEventoDetectado;
               datosInvitadoGlobal.confirmado = String(invitado.confirmado || "").trim().toUpperCase();
 
+              // Aplicar colores del evento traídos del Excel (Pestaña EVENTOS)
               if (respuesta.evento) {
                 datosInvitadoGlobal.eventoNombre = respuesta.evento.nombre;
                 aplicarColoresExcel({
                   colorFondo: respuesta.evento.color_fondo || "#fcfbfa",
-                  colorTexto: respuesta.evento.color || "#c9a227",
-                  colorBoton: respuesta.evento.color_boton || "#2c2825"
+                  colorTexto: respuesta.evento.color || "#2c2825",
+                  colorBoton: respuesta.evento.color_boton || "#2c2825",
+                  colorAcento: respuesta.evento.color || "#c9a227"
                 });
               }
 
+              // REVISIÓN: Si ya confirmó en el Excel, mostrar directo la tarjeta con QR
               if (datosInvitadoGlobal.confirmado.includes("CONFIRM")) {
                 mostrarPaseConfirmado(datosInvitadoGlobal.autorizadas);
               } else {
+                document.getElementById("search-step").classList.add("hidden");
+                document.getElementById("form-step").classList.remove("hidden");
                 cargarDatosEnFormulario(datosInvitadoGlobal);
               }
             } else {
-              usarRespaldoURL(urlParams);
+              document.getElementById("search-step").classList.remove("hidden");
             }
-          } else {
-            usarRespaldoURL(urlParams);
           }
         })
-        .catch(() => usarRespaldoURL(urlParams));
-      } else {
-        usarRespaldoURL(urlParams);
+        .catch(() => {
+          document.getElementById("search-step").classList.remove("hidden");
+        });
+    }
+
+    function buscarInvitadoManual() {
+      const codigoBusqueda = document.getElementById("search-input").value.trim().toUpperCase();
+      if (codigoBusqueda) {
+        sessionStorage.setItem('an_pass_codigo', codigoBusqueda);
+        document.getElementById("search-error").classList.add("hidden");
+        cargarDatosInvitadoPorCodigo(codigoBusqueda);
       }
-    });
-
-    function usarRespaldoURL(urlParams) {
-      datosInvitadoGlobal.invitado = urlParams.get('invitado') || urlParams.get('nombre') || "Invitado";
-      datosInvitadoGlobal.autorizadas = parseInt(urlParams.get('pases') || urlParams.get('personas')) || 1;
-      datosInvitadoGlobal.codigo = urlParams.get('codigo') || urlParams.get('id') || "AN-0000";
-      datosInvitadoGlobal.eventoNombre = urlParams.get('evento') || "MI EVENTO";
-
-      cargarDatosEnFormulario(datosInvitadoGlobal);
     }
 
     function cargarDatosEnFormulario(datos) {
@@ -364,6 +417,7 @@
       container.innerHTML = "";
       const totalPases = parseInt(datos.autorizadas) || 1;
 
+      // Generar campos completamente vacíos con placeholders
       for (let i = 1; i <= totalPases; i++) {
         const input = document.createElement("input");
         input.type = "text";
@@ -373,11 +427,13 @@
       }
     }
 
+    // Inyecta dinámicamente los estilos CSS de la pestaña EVENTOS
     function aplicarColoresExcel(colores) {
       const root = document.documentElement;
       if (colores.colorFondo) root.style.setProperty('--bg-color', colores.colorFondo);
       if (colores.colorTexto) root.style.setProperty('--primary-color', colores.colorTexto);
       if (colores.colorBoton) root.style.setProperty('--btn-bg', colores.colorBoton);
+      if (colores.colorAcento) root.style.setProperty('--accent-color', colores.colorAcento);
     }
 
     document.getElementById("attendance-form").addEventListener("submit", function (e) {
@@ -396,6 +452,7 @@
       const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.autorizadas;
       const nombresString = encodeURIComponent(asistentesConfirmados.join(","));
 
+      // Petición GET limpia para guardar en el Excel
       fetch(`${APPS_SCRIPT_URL}?accion=confirmarAsistencia&id_evento=${datosInvitadoGlobal.idEvento}&codigo=${datosInvitadoGlobal.codigo}&nombres=${nombresString}`, {
         mode: "no-cors"
       }).finally(() => {
@@ -410,6 +467,7 @@
       document.getElementById("display-confirmed-passes").innerText = pasesConfirmados;
       document.getElementById("display-pass-code").innerText = datosInvitadoGlobal.codigo || "AN-0000";
 
+      document.getElementById("search-step").classList.add("hidden");
       document.getElementById("form-step").classList.add("hidden");
       document.getElementById("ticket-step").classList.remove("hidden");
 
