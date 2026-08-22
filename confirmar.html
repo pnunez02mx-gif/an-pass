@@ -18,11 +18,11 @@
 
   <style>
     :root {
-      --bg-color: #ffffff;
+      --bg-color: #fcfbfa;
       --card-bg: #ffffff;
-      --primary-color: #292522;
+      --primary-color: #2c2825;
       --accent-color: #c9a227;
-      --btn-bg: #292522;
+      --btn-bg: #2c2825;
       --btn-text: #ffffff;
     }
 
@@ -292,82 +292,88 @@
     const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec";
 
     let datosInvitadoGlobal = {
-      nombreInvitado: "Invitado",
-      pasesAutorizados: 1,
-      codigoPase: "AN-0000",
-      nombreEvento: "MI EVENTO",
-      colorFondo: "#FFFFFF",
-      colorTexto: "#292522",
-      colorBoton: "#292522",
-      colorAcento: "#C9A227"
+      codigo: "",
+      invitado: "",
+      autorizadas: 0,
+      eventoNombre: "MI EVENTO",
+      idEvento: ""
     };
 
     document.addEventListener("DOMContentLoaded", function () {
       const urlParams = new URLSearchParams(window.location.search);
       const codigoParam = urlParams.get('codigo') || urlParams.get('id');
-      const eventoParam = urlParams.get('evento');
+      const idEventoParam = urlParams.get('evento') || "EV001";
 
       if (codigoParam) {
-        // Petición HTTP a la Web App de Google Apps Script
-        fetch(`${APPS_SCRIPT_URL}?action=obtenerDatos&codigo=${codigoParam}&evento=${eventoParam || ''}`)
-          .then(res => res.json())
-          .then(datos => {
-            if (datos && datos.nombreInvitado) {
-              cargarDatosEnPantalla(datos);
+        // Petición real al backend mediante doPost
+        fetch(APPS_SCRIPT_URL, {
+          method: "POST",
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({
+            accion: "obtenerDatosPanel",
+            id_evento: idEventoParam
+          })
+        })
+        .then(res => res.json())
+        .then(respuesta => {
+          if (respuesta.ok && respuesta.invitados) {
+            // Buscar al invitado específico en la lista
+            const invitado = respuesta.invitados.find(i => String(i.codigo).trim().toUpperCase() === String(codigoParam).trim().toUpperCase());
+            
+            if (invitado) {
+              datosInvitadoGlobal.codigo = invitado.codigo;
+              datosInvitadoGlobal.invitado = invitado.invitado;
+              datosInvitadoGlobal.autorizadas = invitado.autorizadas;
+              datosInvitadoGlobal.idEvento = idEventoParam;
+
+              if (respuesta.evento) {
+                datosInvitadoGlobal.eventoNombre = respuesta.evento.nombre;
+                aplicarColoresExcel({
+                  colorFondo: respuesta.evento.color_fondo || "#fcfbfa",
+                  colorTexto: respuesta.evento.color || "#2c2825",
+                  colorBoton: respuesta.evento.color_boton || "#2c2825",
+                  colorAcento: respuesta.evento.color || "#c9a227"
+                });
+              }
+
+              cargarDatosEnFormulario(datosInvitadoGlobal);
             } else {
               usarRespaldoURL(urlParams);
             }
-          })
-          .catch(() => {
+          } else {
             usarRespaldoURL(urlParams);
-          });
+          }
+        })
+        .catch(() => usarRespaldoURL(urlParams));
       } else {
         usarRespaldoURL(urlParams);
       }
     });
 
     function usarRespaldoURL(urlParams) {
-      const invitadoParam = urlParams.get('invitado') || urlParams.get('nombre') || "Invitado";
-      const pasesParam = parseInt(urlParams.get('pases') || urlParams.get('personas')) || 1;
-      const codigoParam = urlParams.get('codigo') || urlParams.get('id') || "AN-0000";
-      const eventoParam = urlParams.get('evento') || "MI EVENTO";
+      datosInvitadoGlobal.invitado = urlParams.get('invitado') || urlParams.get('nombre') || "Invitado";
+      datosInvitadoGlobal.autorizadas = parseInt(urlParams.get('pases') || urlParams.get('personas')) || 1;
+      datosInvitadoGlobal.codigo = urlParams.get('codigo') || urlParams.get('id') || "AN-0000";
+      datosInvitadoGlobal.eventoNombre = urlParams.get('evento') || "MI EVENTO";
 
-      cargarDatosEnPantalla({
-        nombreInvitado: invitadoParam,
-        pasesAutorizados: pasesParam,
-        codigoPase: codigoParam,
-        nombreEvento: eventoParam
-      });
+      cargarDatosEnFormulario(datosInvitadoGlobal);
     }
 
-    function cargarDatosEnPantalla(datos) {
-      if (!datos) return;
-      datosInvitadoGlobal = Object.assign(datosInvitadoGlobal, datos);
+    function cargarDatosEnFormulario(datos) {
+      document.getElementById("guest-greeting-name").innerText = datos.invitado;
+      document.getElementById("guest-passes-count").innerText = datos.autorizadas;
 
-      // Aplicar paleta de colores recibida
-      aplicarColoresExcel({
-        colorFondo: datosInvitadoGlobal.colorFondo || "#FFFFFF",
-        colorTexto: datosInvitadoGlobal.colorTexto || datosInvitadoGlobal.color || "#292522",
-        colorBoton: datosInvitadoGlobal.colorBoton || "#292522",
-        colorAcento: datosInvitadoGlobal.colorAcento || datosInvitadoGlobal.color || "#C9A227"
-      });
-
-      // Actualizar encabezados
-      document.getElementById("guest-greeting-name").innerText = datosInvitadoGlobal.nombreInvitado;
-      document.getElementById("guest-passes-count").innerText = datosInvitadoGlobal.pasesAutorizados;
-
-      // Generar dinámicamente el número EXACTO de casillas de pases
       const container = document.getElementById("inputs-container");
       container.innerHTML = "";
-      const totalPases = parseInt(datosInvitadoGlobal.pasesAutorizados) || 1;
+      const totalPases = parseInt(datos.autorizadas) || 1;
 
       for (let i = 1; i <= totalPases; i++) {
         const input = document.createElement("input");
         input.type = "text";
         input.placeholder = `Nombre Asistente ${i}`;
         input.className = "input-asistente";
-        if (i === 1 && !datosInvitadoGlobal.nombreInvitado.toLowerCase().includes("familia")) {
-          input.value = datosInvitadoGlobal.nombreInvitado;
+        if (i === 1 && datos.invitado && !datos.invitado.toLowerCase().includes("familia")) {
+          input.value = datos.invitado;
         }
         container.appendChild(input);
       }
@@ -381,7 +387,6 @@
       if (colores.colorAcento) root.style.setProperty('--accent-color', colores.colorAcento);
     }
 
-    // Al presionar CONFIRMAR ASISTENCIA
     document.getElementById("attendance-form").addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -395,16 +400,17 @@
         if (input.value.trim() !== "") asistentesConfirmados.push(input.value.trim());
       });
 
-      const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.pasesAutorizados;
+      const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.autorizadas;
 
-      // Enviar confirmación a Google Apps Script
+      // Guardar en la hoja vía Apps Script (Acción RUTA 3: confirmarAsistencia)
       fetch(APPS_SCRIPT_URL, {
         method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "text/plain;charset=utf-8" },
         body: JSON.stringify({
-          codigo: datosInvitadoGlobal.codigoPase,
-          asistentes: asistentesConfirmados
+          accion: "confirmarAsistencia",
+          id_evento: datosInvitadoGlobal.idEvento,
+          codigo: datosInvitadoGlobal.codigo,
+          nombres: asistentesConfirmados
         })
       }).finally(() => {
         mostrarPaseConfirmado(totalConfirmados);
@@ -413,15 +419,15 @@
 
     function mostrarPaseConfirmado(pasesConfirmados) {
       document.getElementById("display-event-type").innerText = "PASE DE ACCESO";
-      document.getElementById("display-event-title").innerText = datosInvitadoGlobal.nombreEvento || "MI EVENTO";
-      document.getElementById("display-guest-name").innerText = datosInvitadoGlobal.nombreInvitado;
+      document.getElementById("display-event-title").innerText = datosInvitadoGlobal.eventoNombre || "MI EVENTO";
+      document.getElementById("display-guest-name").innerText = datosInvitadoGlobal.invitado || "INVITADO";
       document.getElementById("display-confirmed-passes").innerText = pasesConfirmados;
-      document.getElementById("display-pass-code").innerText = datosInvitadoGlobal.codigoPase;
+      document.getElementById("display-pass-code").innerText = datosInvitadoGlobal.codigo || "AN-0000";
 
       document.getElementById("form-step").classList.add("hidden");
       document.getElementById("ticket-step").classList.remove("hidden");
 
-      generarQR(datosInvitadoGlobal.codigoPase);
+      generarQR(datosInvitadoGlobal.codigo || "AN-0000");
     }
 
     function generarQR(codigo) {
