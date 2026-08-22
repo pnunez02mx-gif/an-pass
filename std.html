@@ -66,6 +66,7 @@
       color: var(--text-main);
       line-height: 1.1;
       margin-bottom: 8px;
+      text-transform: uppercase;
     }
 
     .subtitle {
@@ -207,14 +208,16 @@
     const root = document.documentElement;
     if (colorFondo) root.style.setProperty('--bg-color', colorFondo);
     if (color) root.style.setProperty('--text-main', color);
-    if (colorBoton) root.style.setProperty('--accent-color', colorBoton);
-    else if (color) root.style.setProperty('--accent-color', color);
+    if (colorBoton) {
+      root.style.setProperty('--accent-color', colorBoton);
+    } else if (color) {
+      root.style.setProperty('--accent-color', color);
+    }
   }
 
   function cargarEvento() {
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({ accion: 'obtenerDatosPanel', id_evento: ID_EVENTO })
     })
     .then(res => res.json())
@@ -223,16 +226,16 @@
       document.getElementById('contenido').style.display = 'block';
 
       if (res.ok && res.evento) {
-        document.getElementById('nombreEvento').textContent = res.evento.nombre;
+        document.getElementById('nombreEvento').textContent = res.evento.nombre || 'BODA JOSE Y PAOLA';
         aplicarColores(res.evento.color, res.evento.color_fondo, res.evento.color_boton);
       } else {
-        document.getElementById('nombreEvento').textContent = 'NUESTRO EVENTO';
+        document.getElementById('nombreEvento').textContent = 'BODA JOSE Y PAOLA';
       }
     })
     .catch(() => {
       document.getElementById('loader').style.display = 'none';
       document.getElementById('contenido').style.display = 'block';
-      document.getElementById('nombreEvento').textContent = 'NUESTRO EVENTO';
+      document.getElementById('nombreEvento').textContent = 'BODA JOSE Y PAOLA';
     });
   }
 
@@ -263,7 +266,6 @@
 
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
       body: JSON.stringify({
         accion: 'guardarPreConfirmacion',
         id_evento: ID_EVENTO,
