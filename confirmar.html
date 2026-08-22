@@ -17,14 +17,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    /* Variables de color predeterminado (se sobreescriben desde Apps Script / Excel) */
     :root {
-      --bg-color: #f7f4ee;
-      --card-bg: #f3ece0;
-      --primary-color: #3e332e;
-      --accent-color: #8c7355;
-      --text-dark: #2b2321;
-      --btn-bg: #332821;
+      --bg-color: #ffffff;
+      --card-bg: #ffffff;
+      --primary-color: #292522;
+      --accent-color: #c9a227;
+      --btn-bg: #292522;
       --btn-text: #ffffff;
     }
 
@@ -54,13 +52,14 @@
       display: none !important;
     }
 
-    /* 1. ESTILOS DEL FORMULARIO */
+    /* ESTILOS FORMULARIO INICIAL */
     .form-card {
       background: #ffffff;
       border-radius: 20px;
       padding: 35px 25px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       text-align: center;
+      border: 1px solid var(--accent-color);
     }
 
     .form-title {
@@ -95,7 +94,6 @@
       outline: none;
       color: #333;
       font-family: 'Montserrat', sans-serif;
-      transition: border-color 0.2s ease;
     }
 
     .inputs-list input:focus {
@@ -116,7 +114,7 @@
       text-transform: uppercase;
     }
 
-    /* 2. ESTILOS DE LA TARJETA DEL PASE */
+    /* ESTILOS PASE FINAL */
     .pass-card {
       background-color: var(--card-bg);
       border: 1px solid var(--accent-color);
@@ -155,7 +153,7 @@
       font-size: 1.6rem;
       font-weight: 700;
       margin: 18px 0 12px 0;
-      color: var(--text-dark);
+      color: var(--primary-color);
       text-transform: uppercase;
     }
 
@@ -170,7 +168,7 @@
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 12px;
-      color: var(--text-dark);
+      color: var(--primary-color);
     }
 
     .qr-container {
@@ -210,7 +208,7 @@
       font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 1px;
-      color: var(--text-dark);
+      color: var(--primary-color);
     }
 
     .pass-footer {
@@ -247,32 +245,25 @@
       <p class="form-subtitle">Hola <strong id="guest-greeting-name">Cargando...</strong>. Tienes <span id="guest-passes-count">0</span> pases autorizados.</p>
 
       <form id="attendance-form">
-        <div id="inputs-container" class="inputs-list">
-          <!-- Inputs generados dinámicamente desde Apps Script -->
-        </div>
-
+        <div id="inputs-container" class="inputs-list"></div>
         <button type="submit" id="btn-submit-form" class="btn-submit">CONFIRMAR ASISTENCIA</button>
       </form>
     </section>
 
-    <!-- PASO 2: Resultado de la Confirmación -->
+    <!-- PASO 2: Resultado del Pase -->
     <section id="ticket-step" class="hidden">
-      
-      <!-- Pase digital personalizado -->
       <div id="digital-pass-card" class="pass-card">
-        
         <div class="pass-content">
-          <p class="event-type" id="display-event-type">EVENTO</p>
-          <h3 class="event-title" id="display-event-title">CARGANDO...</h3>
+          <p class="event-type" id="display-event-type">PASE DE ACCESO</p>
+          <h3 class="event-title" id="display-event-title">NOMBRE DEL EVENTO</h3>
           
           <div class="divider"></div>
 
-          <h1 class="guest-fullname" id="display-guest-name">CARGANDO...</h1>
+          <h1 class="guest-fullname" id="display-guest-name">INVITADO</h1>
           
           <p class="passes-title">PASES</p>
           <div class="passes-number" id="display-confirmed-passes">0</div>
 
-          <!-- Código QR -->
           <div class="qr-container">
             <div id="qrcode"></div>
           </div>
@@ -281,21 +272,18 @@
 
           <div class="code-box">
             <span class="code-title">CÓDIGO DE PASE</span>
-            <span class="code-number" id="display-pass-code">AN-000-0000</span>
+            <span class="code-number" id="display-pass-code">AN-0000</span>
           </div>
         </div>
 
         <footer class="pass-footer">
           <p>GRACIAS POR SER PARTE DE ESTE DÍA TAN ESPECIAL</p>
         </footer>
-
       </div>
 
-      <!-- Botón de Descarga PNG -->
       <button type="button" id="download-btn" class="btn-download" onclick="downloadPassImage()">
         Descargar Pase (Imagen)
       </button>
-
     </section>
 
   </main>
@@ -303,46 +291,33 @@
   <script>
     let datosInvitadoGlobal = {};
 
-    // Al cargar la página: Leer parámetro ID de la URL y pedir datos a Apps Script
     document.addEventListener("DOMContentLoaded", function () {
       const urlParams = new URLSearchParams(window.location.search);
-      const idInvitado = urlParams.get('id') || urlParams.get('codigo');
+      const codigoInvitado = urlParams.get('codigo') || urlParams.get('id');
+      const idEvento = urlParams.get('evento');
 
-      if (typeof google !== 'undefined' && google.script && google.script.run) {
-        // Conexión real con Google Apps Script (código.gs)
+      if (codigoInvitado && typeof google !== 'undefined' && google.script && google.script.run) {
         google.script.run
           .withSuccessHandler(cargarDatosEnPantalla)
-          .obtenerDatosInvitado(idInvitado);
-      } else {
-        // Datos de prueba locales en caso de abrir la plantilla fuera de Apps Script
-        cargarDatosEnPantalla({
-          tipoEvento: "XV AÑOS",
-          nombreEvento: "XV DE PERLA",
-          nombreInvitado: "DENISSE",
-          pasesAutorizados: 3,
-          codigoPase: "AN-XVP-0047",
-          colorFondo: "#F7F4EE",
-          colorTarjeta: "#F3ECE0",
-          colorTexto: "#3E332E",
-          colorAcento: "#8C7355",
-          colorBoton: "#332821"
-        });
+          .obtenerDatosPorCodigo(codigoInvitado, idEvento);
       }
     });
 
-    // Función que recibe los datos desde el Excel (código.gs)
     function cargarDatosEnPantalla(datos) {
       if (!datos) return;
       datosInvitadoGlobal = datos;
 
-      // 1. Aplicar colores personalizados del Excel
-      aplicarColoresExcel(datos);
+      // Asignación de colores exactos desde tu pestaña EVENTOS
+      aplicarColoresExcel({
+        colorFondo: datos.colorFondo || "#FFFFFF",
+        colorTexto: datos.color || "#292522",
+        colorBoton: datos.colorBoton || "#292522",
+        colorAcento: datos.color || "#C9A227"
+      });
 
-      // 2. Llenar los textos del formulario
       document.getElementById("guest-greeting-name").innerText = datos.nombreInvitado;
       document.getElementById("guest-passes-count").innerText = datos.pasesAutorizados;
 
-      // 3. Crear inputs según los pases permitidos
       const container = document.getElementById("inputs-container");
       container.innerHTML = "";
       for (let i = 1; i <= datos.pasesAutorizados; i++) {
@@ -350,25 +325,21 @@
         input.type = "text";
         input.placeholder = `Nombre Asistente ${i}`;
         input.className = "input-asistente";
-        if (i === 1) input.value = datos.nombreInvitado;
+        if (i === 1 && !datos.nombreInvitado.toLowerCase().includes("familia")) {
+          input.value = datos.nombreInvitado;
+        }
         container.appendChild(input);
       }
     }
 
-    // Aplicar estilos dinámicos CSS
-    function aplicarColoresExcel(datosExcel) {
+    function aplicarColoresExcel(colores) {
       const root = document.documentElement;
-      if (datosExcel.colorFondo) root.style.setProperty('--bg-color', datosExcel.colorFondo);
-      if (datosExcel.colorTarjeta) root.style.setProperty('--card-bg', datosExcel.colorTarjeta);
-      if (datosExcel.colorTexto) {
-        root.style.setProperty('--primary-color', datosExcel.colorTexto);
-        root.style.setProperty('--text-dark', datosExcel.colorTexto);
-      }
-      if (datosExcel.colorAcento) root.style.setProperty('--accent-color', datosExcel.colorAcento);
-      if (datosExcel.colorBoton) root.style.setProperty('--btn-bg', datosExcel.colorBoton);
+      if (colores.colorFondo) root.style.setProperty('--bg-color', colores.colorFondo);
+      if (colores.colorTexto) root.style.setProperty('--primary-color', colores.colorTexto);
+      if (colores.colorBoton) root.style.setProperty('--btn-bg', colores.colorBoton);
+      if (colores.colorAcento) root.style.setProperty('--accent-color', colores.colorAcento);
     }
 
-    // Enviar la confirmación
     document.getElementById("attendance-form").addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -376,18 +347,14 @@
       btnSubmit.innerText = "GUARDANDO...";
       btnSubmit.disabled = true;
 
-      // Recopilar nombres ingresados
       const inputs = document.querySelectorAll(".input-asistente");
       const asistentesConfirmados = [];
       inputs.forEach(input => {
-        if (input.value.trim() !== "") {
-          asistentesConfirmados.push(input.value.trim());
-        }
+        if (input.value.trim() !== "") asistentesConfirmados.push(input.value.trim());
       });
 
-      const totalConfirmados = asistentesConfirmados.length || datosInvitadoGlobal.pasesAutorizados;
+      const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.pasesAutorizados;
 
-      // Guardar en Apps Script / Google Sheets
       if (typeof google !== 'undefined' && google.script && google.script.run) {
         google.script.run
           .withSuccessHandler(function() {
@@ -399,21 +366,19 @@
       }
     });
 
-    // Muestra la tarjeta del pase con la información personalizada
     function mostrarPaseConfirmado(pasesConfirmados) {
-      document.getElementById("display-event-type").innerText = datosInvitadoGlobal.tipoEvento || "EVENTO";
-      document.getElementById("display-event-title").innerText = datosInvitadoGlobal.nombreEvento || "NOMBRE DEL EVENTO";
-      document.getElementById("display-guest-name").innerText = datosInvitadoGlobal.nombreInvitado || "INVITADO";
+      document.getElementById("display-event-type").innerText = "PASE DE ACCESO";
+      document.getElementById("display-event-title").innerText = datosInvitadoGlobal.nombreEvento || "MI EVENTO";
+      document.getElementById("display-guest-name").innerText = datosInvitadoGlobal.nombreInvitado;
       document.getElementById("display-confirmed-passes").innerText = pasesConfirmados;
-      document.getElementById("display-pass-code").innerText = datosInvitadoGlobal.codigoPase || "AN-000-0000";
+      document.getElementById("display-pass-code").innerText = datosInvitadoGlobal.codigoPase;
 
       document.getElementById("form-step").classList.add("hidden");
       document.getElementById("ticket-step").classList.remove("hidden");
 
-      generarQR(datosInvitadoGlobal.codigoPase || "AN-000-0000");
+      generarQR(datosInvitadoGlobal.codigoPase);
     }
 
-    // Generar el código QR adaptado
     function generarQR(codigo) {
       const qrContainer = document.getElementById("qrcode");
       qrContainer.innerHTML = "";
@@ -430,7 +395,6 @@
       });
     }
 
-    // Descargar el pase como imagen PNG
     function downloadPassImage() {
       const passElement = document.getElementById("digital-pass-card");
 
