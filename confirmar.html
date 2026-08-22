@@ -18,12 +18,12 @@
 
   <style>
     :root {
-      --bg-color: #fcfbfa;
+      --bg-color: #fcfbfa;      /* COLOR_FONDO */
       --card-bg: #ffffff;
-      --primary-color: #2c2825;
-      --accent-color: #c9a227;
-      --btn-bg: #2c2825;
+      --primary-color: #c9a227; /* COLOR (Títulos, acentos, QR) */
+      --btn-bg: #2c2825;        /* COLOR_BOTON (Nombre de invitado, botones) */
       --btn-text: #ffffff;
+      --text-muted: rgba(0,0,0,0.5); /* Gris neutro para subtítulos pequeños */
     }
 
     * {
@@ -35,7 +35,7 @@
     body {
       background-color: var(--bg-color);
       font-family: 'Montserrat', sans-serif;
-      color: var(--primary-color);
+      color: var(--btn-bg);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -59,7 +59,7 @@
       padding: 35px 25px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.05);
       text-align: center;
-      border: 1px solid var(--accent-color);
+      border: 1px solid var(--primary-color);
     }
 
     .form-title {
@@ -73,7 +73,7 @@
     .form-subtitle {
       font-size: 0.95rem;
       margin-bottom: 25px;
-      color: #4a4a4a;
+      color: var(--text-muted);
       line-height: 1.4;
     }
 
@@ -92,12 +92,12 @@
       font-size: 0.9rem;
       text-align: center;
       outline: none;
-      color: #333;
+      color: var(--btn-bg);
       font-family: 'Montserrat', sans-serif;
     }
 
     .inputs-list input:focus {
-      border-color: var(--accent-color);
+      border-color: var(--primary-color);
     }
 
     .btn-submit {
@@ -114,14 +114,14 @@
       text-transform: uppercase;
     }
 
-    /* ESTILOS PASE FINAL */
+    /* ESTILOS PASE FINAL - COLORES DIFERENCIADOS */
     .pass-card {
       background-color: var(--card-bg);
-      border: 1px solid var(--accent-color);
+      border: 1px solid var(--primary-color);
       border-radius: 16px;
       padding: 35px 20px 25px 20px;
       text-align: center;
-      color: var(--primary-color);
+      color: var(--btn-bg);
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
@@ -129,7 +129,7 @@
       font-size: 0.75rem;
       letter-spacing: 2px;
       text-transform: uppercase;
-      color: var(--accent-color);
+      color: var(--text-muted); /* Gris suave */
       margin-bottom: 4px;
     }
 
@@ -138,14 +138,15 @@
       font-size: 1.6rem;
       letter-spacing: 2px;
       margin-bottom: 12px;
-      color: var(--primary-color);
+      color: var(--primary-color); /* COLOR de la pestaña EVENTOS */
     }
 
     .divider {
       height: 1px;
       width: 50px;
-      background-color: var(--accent-color);
+      background-color: var(--primary-color);
       margin: 12px auto;
+      opacity: 0.4;
     }
 
     .guest-fullname {
@@ -153,14 +154,14 @@
       font-size: 1.6rem;
       font-weight: 700;
       margin: 18px 0 12px 0;
-      color: var(--primary-color);
+      color: var(--btn-bg); /* COLOR_BOTON de la pestaña EVENTOS */
       text-transform: uppercase;
     }
 
     .passes-title {
       font-size: 0.75rem;
       letter-spacing: 2px;
-      color: var(--accent-color);
+      color: var(--text-muted); /* Gris suave */
     }
 
     .passes-number {
@@ -168,7 +169,7 @@
       font-weight: 600;
       line-height: 1.2;
       margin-bottom: 12px;
-      color: var(--primary-color);
+      color: var(--btn-bg); /* COLOR_BOTON de la pestaña EVENTOS */
     }
 
     .qr-container {
@@ -176,7 +177,7 @@
       padding: 15px;
       display: inline-block;
       border-radius: 12px;
-      border: 1px solid var(--accent-color);
+      border: 1px solid var(--primary-color);
       margin: 10px 0 15px 0;
     }
 
@@ -188,7 +189,7 @@
       font-size: 0.7rem;
       letter-spacing: 1px;
       margin-bottom: 12px;
-      color: var(--primary-color);
+      color: var(--text-muted); /* Gris suave */
       text-transform: uppercase;
     }
 
@@ -201,21 +202,21 @@
     .code-title {
       font-size: 0.65rem;
       letter-spacing: 1px;
-      color: var(--accent-color);
+      color: var(--text-muted); /* Gris suave */
     }
 
     .code-number {
       font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 1px;
-      color: var(--primary-color);
+      color: var(--primary-color); /* COLOR de la pestaña EVENTOS */
     }
 
     .pass-footer {
       margin-top: 25px;
       font-size: 0.7rem;
       letter-spacing: 1px;
-      color: var(--primary-color);
+      color: var(--text-muted); /* Gris suave */
       text-transform: uppercase;
     }
 
@@ -323,13 +324,11 @@
                 datosInvitadoGlobal.eventoNombre = respuesta.evento.nombre;
                 aplicarColoresExcel({
                   colorFondo: respuesta.evento.color_fondo || "#fcfbfa",
-                  colorTexto: respuesta.evento.color || "#2c2825",
-                  colorBoton: respuesta.evento.color_boton || "#2c2825",
-                  colorAcento: respuesta.evento.color || "#c9a227"
+                  colorTexto: respuesta.evento.color || "#c9a227",
+                  colorBoton: respuesta.evento.color_boton || "#2c2825"
                 });
               }
 
-              // REVISIÓN: Si ya fue confirmado previamente en la hoja
               if (datosInvitadoGlobal.confirmado.includes("CONFIRM")) {
                 mostrarPaseConfirmado(datosInvitadoGlobal.autorizadas);
               } else {
@@ -379,7 +378,6 @@
       if (colores.colorFondo) root.style.setProperty('--bg-color', colores.colorFondo);
       if (colores.colorTexto) root.style.setProperty('--primary-color', colores.colorTexto);
       if (colores.colorBoton) root.style.setProperty('--btn-bg', colores.colorBoton);
-      if (colores.colorAcento) root.style.setProperty('--accent-color', colores.colorAcento);
     }
 
     document.getElementById("attendance-form").addEventListener("submit", function (e) {
@@ -398,7 +396,6 @@
       const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.autorizadas;
       const nombresString = encodeURIComponent(asistentesConfirmados.join(","));
 
-      // Envío por GET a Apps Script para evitar bloqueos CORS
       fetch(`${APPS_SCRIPT_URL}?accion=confirmarAsistencia&id_evento=${datosInvitadoGlobal.idEvento}&codigo=${datosInvitadoGlobal.codigo}&nombres=${nombresString}`, {
         mode: "no-cors"
       }).finally(() => {
