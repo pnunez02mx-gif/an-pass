@@ -70,6 +70,11 @@
       </select>
     </div>
 
+    <div class="campo">
+      <label>¿CUÁNTAS PERSONAS TE ACOMPAÑAN? (INCLUYÉNDOTE)</label>
+      <input type="number" id="acompanantes" min="1" max="10" value="1" required>
+    </div>
+
     <button type="submit" id="btnEnviar">ENVIAR RESPUESTA</button>
   </form>
   
@@ -79,7 +84,13 @@
 <script>
   const URL_APPS_SCRIPT = 'https://script.google.com/macros/s/AKfycbxd7P-bKlxZAYbd1yHJHxT4sOWRpRuLGIlWNqG4gWt-3dFAmETStniOaZbNlxa2ui2QCA/exec';
   const urlParams = new URLSearchParams(window.location.search);
-  const ID_EVENTO = urlParams.get('evento') || 'EV001';
+  
+  // Limpieza del parámetro del evento
+  let ID_EVENTO = urlParams.get('evento') || 'EV001';
+  if (ID_EVENTO.includes('](')) {
+    ID_EVENTO = ID_EVENTO.split('](')[0].replace('[', '');
+  }
+  ID_EVENTO = ID_EVENTO.trim();
 
   document.getElementById('formSTD').addEventListener('submit', function(e) {
     e.preventDefault();
@@ -92,7 +103,8 @@
       id_evento: ID_EVENTO,
       nombre: document.getElementById('nombre').value,
       telefono: document.getElementById('telefono').value,
-      interes: document.getElementById('interes').value
+      interes: document.getElementById('interes').value,
+      acompanantes: document.getElementById('acompanantes').value
     };
 
     fetch(URL_APPS_SCRIPT, {
