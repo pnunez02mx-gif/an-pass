@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Confirmación de Asistencia - AN en Digital</title>
+  <title>Confirmación de Asistencia</title>
   
   <!-- Tipografías -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,11 +17,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
-    /* Variables de color predeterminadas (se actualizan automáticamente desde el Excel) */
+    /* Variables de color predeterminado (se sobreescriben automáticamente desde tu Excel) */
     :root {
       --bg-color: #f7f4ee;
       --card-bg: #f3ece0;
-      --primary-color: #5c4a3e;
+      --primary-color: #3e332e;
       --accent-color: #8c7355;
       --text-dark: #2b2321;
       --btn-bg: #332821;
@@ -54,104 +54,109 @@
       display: none !important;
     }
 
-    /* Estilos del Formulario Inicial */
+    /* 1. ESTILOS DEL FORMULARIO (Imagen 2) */
     .form-card {
       background: #ffffff;
-      border-radius: 16px;
-      padding: 25px 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+      border-radius: 20px;
+      padding: 35px 25px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.04);
       text-align: center;
     }
 
     .form-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 1.9rem;
+      font-weight: 400;
+      margin-bottom: 12px;
       color: var(--primary-color);
     }
 
     .form-subtitle {
       font-size: 0.95rem;
-      margin-bottom: 20px;
-      color: #555;
+      margin-bottom: 25px;
+      color: #4a4a4a;
+      line-height: 1.4;
     }
 
     .inputs-list {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin-bottom: 20px;
+      gap: 14px;
+      margin-bottom: 25px;
     }
 
     .inputs-list input {
       width: 100%;
-      padding: 12px 15px;
-      border: 1px solid #ddd;
-      border-radius: 8px;
+      padding: 14px 18px;
+      border: 1px solid #e2e2e2;
+      border-radius: 12px;
       font-size: 0.9rem;
       text-align: center;
       outline: none;
+      color: #333;
+      font-family: 'Montserrat', sans-serif;
+      transition: border-color 0.2s ease;
     }
 
-    /* Tarjeta Digital del Pase */
+    .inputs-list input:focus {
+      border-color: var(--accent-color);
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 15px;
+      background-color: var(--btn-bg);
+      color: var(--btn-text);
+      border: none;
+      border-radius: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      cursor: pointer;
+      text-transform: uppercase;
+    }
+
+    /* 2. ESTILOS DE LA TARJETA DEL PASE (Imagen 1 sin "AN EN DIGITAL") */
     .pass-card {
       background-color: var(--card-bg);
       border: 1px solid var(--accent-color);
-      border-radius: 12px;
-      padding: 30px 20px 20px 20px;
+      border-radius: 16px;
+      padding: 35px 20px 25px 20px;
       text-align: center;
       color: var(--primary-color);
       box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     }
 
-    .brand-title {
-      font-family: 'Cinzel', serif;
-      font-size: 1.8rem;
-      letter-spacing: 2px;
-      font-weight: 400;
-      color: var(--primary-color);
-      margin: 0;
-    }
-
-    .brand-subtitle {
-      font-size: 0.75rem;
-      letter-spacing: 3px;
-      margin-top: 2px;
-      color: var(--accent-color);
-      font-weight: 600;
-    }
-
-    .pass-content {
-      margin-top: 20px;
-    }
-
     .event-type {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       letter-spacing: 2px;
+      text-transform: uppercase;
       color: var(--accent-color);
+      margin-bottom: 4px;
     }
 
     .event-title {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       letter-spacing: 2px;
-      margin: 5px 0;
+      margin-bottom: 12px;
       color: var(--primary-color);
     }
 
     .divider {
       height: 1px;
-      width: 60px;
+      width: 50px;
       background-color: var(--accent-color);
       margin: 12px auto;
     }
 
     .guest-fullname {
       font-family: 'Cinzel', serif;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      margin: 15px 0 10px 0;
+      margin: 18px 0 12px 0;
       color: var(--text-dark);
+      text-transform: uppercase;
     }
 
     .passes-title {
@@ -164,7 +169,7 @@
       font-size: 2.2rem;
       font-weight: 600;
       line-height: 1.2;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       color: var(--text-dark);
     }
 
@@ -172,7 +177,7 @@
       background: #ffffff;
       padding: 15px;
       display: inline-block;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 1px solid var(--accent-color);
       margin: 10px 0 15px 0;
     }
@@ -184,8 +189,9 @@
     .instructions {
       font-size: 0.7rem;
       letter-spacing: 1px;
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       color: var(--primary-color);
+      text-transform: uppercase;
     }
 
     .code-box {
@@ -212,26 +218,22 @@
       font-size: 0.7rem;
       letter-spacing: 1px;
       color: var(--primary-color);
+      text-transform: uppercase;
     }
 
-    .heart-symbol {
-      font-size: 1rem;
-      margin-top: 5px;
-      color: var(--accent-color);
-    }
-
-    /* Botones */
-    .btn-submit, .btn-download {
+    .btn-download {
       width: 100%;
-      padding: 14px;
+      padding: 15px;
       background-color: var(--btn-bg);
       color: var(--btn-text);
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       cursor: pointer;
       margin-top: 15px;
+      text-transform: uppercase;
     }
   </style>
 </head>
@@ -239,31 +241,29 @@
 
   <main class="container">
     
-    <!-- PASO 1: Formulario de Confirmación -->
+    <!-- PASO 1: Formulario Inicial (Se muestra de primero) -->
     <section id="form-step" class="form-card">
       <h1 class="form-title">Confirmar Asistencia</h1>
-      <p class="form-subtitle">Hola <strong id="guest-greeting-name">Invitado</strong>. Tienes <span id="guest-passes-count">0</span> pases autorizados.</p>
+      <p class="form-subtitle">Hola <strong id="guest-greeting-name">Denisse</strong>. Tienes <span id="guest-passes-count">3</span> pases autorizados.</p>
 
       <form id="attendance-form">
         <div id="inputs-container" class="inputs-list">
-          <!-- Inputs generados dinámicamente -->
+          <!-- Inputs dinámicos según la cantidad de pases -->
+          <input type="text" placeholder="Nombre Asistente 1" required>
+          <input type="text" placeholder="Nombre Asistente 2">
+          <input type="text" placeholder="Nombre Asistente 3">
         </div>
 
         <button type="submit" class="btn-submit">CONFIRMAR ASISTENCIA</button>
       </form>
     </section>
 
-    <!-- PASO 2: Confirmación y Tarjeta del Pase -->
+    <!-- PASO 2: Resultado de la Confirmación (Oculto hasta enviar el formulario) -->
     <section id="ticket-step" class="hidden">
       
-      <!-- Contenedor que se descargará como IMAGEN -->
+      <!-- Pase digital (Sin "AN EN DIGITAL" arriba) -->
       <div id="digital-pass-card" class="pass-card">
         
-        <header class="pass-header">
-          <h2 class="brand-title">AN en Digital</h2>
-          <p class="brand-subtitle">PASE DE ACCESO</p>
-        </header>
-
         <div class="pass-content">
           <p class="event-type" id="display-event-type">EVENTO</p>
           <h3 class="event-title" id="display-event-title">NOMBRE DEL EVENTO</h3>
@@ -290,12 +290,11 @@
 
         <footer class="pass-footer">
           <p>GRACIAS POR SER PARTE DE ESTE DÍA TAN ESPECIAL</p>
-          <div class="heart-symbol">♡</div>
         </footer>
 
       </div>
 
-      <!-- Botón de Descargar en Imagen -->
+      <!-- Botón para descargar como IMAGEN PNG -->
       <button type="button" id="download-btn" class="btn-download" onclick="downloadPassImage()">
         Descargar Pase (Imagen)
       </button>
@@ -305,7 +304,7 @@
   </main>
 
   <script>
-    // Configura los colores leyendo las variables de tu Excel
+    // Función para asignar dinámicamente los colores de tu Excel
     function aplicarColoresExcel(datosExcel) {
       const root = document.documentElement;
       if (datosExcel.colorFondo) root.style.setProperty('--bg-color', datosExcel.colorFondo);
@@ -318,42 +317,37 @@
       if (datosExcel.colorBoton) root.style.setProperty('--btn-bg', datosExcel.colorBoton);
     }
 
-    // Ejemplo de llamada cuando obtengas los datos del backend (google.script.run):
-    /*
-      google.script.run.withSuccessHandler(function(datos) {
-        aplicarColoresExcel(datos);
-        // ...resto de tu lógica de carga
-      }).getDatosEvento();
-    */
-
-    // Manejador del Formulario
+    // Al enviar el formulario: se oculta la pantalla 1 y se muestra la pantalla 2
     document.getElementById("attendance-form").addEventListener("submit", function (e) {
       e.preventDefault();
 
+      // Cambiar de vista
       document.getElementById("form-step").classList.add("hidden");
       document.getElementById("ticket-step").classList.remove("hidden");
 
-      // Generar el código QR
+      // Generar el código QR con el código del pase
       const codigoPase = document.getElementById("display-pass-code").innerText;
       generarQR(codigoPase);
     });
 
-    // Generar QR
+    // Generador de QR adaptado al color del texto
     function generarQR(codigo) {
       const qrContainer = document.getElementById("qrcode");
       qrContainer.innerHTML = "";
 
+      const colorTexto = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || "#000000";
+
       new QRCode(qrContainer, {
         text: codigo,
-        width: 150,
-        height: 150,
-        colorDark: getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim() || "#000000",
+        width: 160,
+        height: 160,
+        colorDark: colorTexto,
         colorLight: "#ffffff",
         correctLevel: QRCode.CorrectLevel.H
       });
     }
 
-    // Función para descargar la tarjeta del pase completa como PNG
+    // Función para descargar la tarjeta como Imagen PNG
     function downloadPassImage() {
       const passElement = document.getElementById("digital-pass-card");
 
