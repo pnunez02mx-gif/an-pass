@@ -66,7 +66,7 @@
       line-height: 1.1;
     }
 
-    /* ESTADÍSTICAS DEL EVENTO */
+    /* ESTADÍSTICAS DEL EVENTO (TEXTOS CORREGIDOS) */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -78,49 +78,51 @@
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: 12px;
-      padding: 12px 4px;
+      padding: 14px 4px;
       text-align: center;
       box-shadow: var(--shadow-subtle);
     }
 
     .stat-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 22px;
+      font-size: 26px;
       font-weight: 600;
       color: var(--text-main);
       line-height: 1;
     }
 
     .stat-lbl {
-      font-size: 9px;
+      font-size: 8px;
       text-transform: uppercase;
       color: var(--text-muted);
       letter-spacing: 0.5px;
-      margin-top: 4px;
+      margin-top: 6px;
+      font-weight: 600;
+      line-height: 1.2;
     }
 
-    /* BOTÓN ESCÁNER */
+    /* BOTÓN ESCÁNER CON ÍCONO */
     .btn-scan-main {
       width: 100%;
-      height: 48px;
+      height: 52px;
       background: var(--accent-color);
       color: #ffffff;
       border: none;
       border-radius: 12px;
       font-size: 12px;
       font-weight: 600;
-      letter-spacing: 1px;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 10px;
       margin-bottom: 20px;
       box-shadow: var(--shadow-subtle);
     }
 
-    /* SECCIÓN DE CÁMARA (OCULTA POR DEFECTO) */
+    /* SECCIÓN DE CÁMARA */
     .scanner-box {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
@@ -156,20 +158,32 @@
       border: none !important;
     }
 
-    /* TARJETA DE DETALLE DEL INVITADO (DESPUÉS DE ESCANEAR O SELECCIONAR) */
+    /* TARJETA DETALLE DEL INVITADO */
     .result-card {
       background: var(--card-bg);
       border: 1px solid var(--border-color);
       border-radius: var(--radius-main);
       box-shadow: var(--shadow-subtle);
-      padding: 20px;
+      padding: 24px 20px;
       margin-bottom: 20px;
       display: none;
+      text-align: center;
+    }
+
+    .badge-estado {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 12px;
+      border-radius: 20px;
+      background: #eef7ed;
+      color: #2e6027;
+      margin-bottom: 10px;
     }
 
     .guest-name-res {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 24px;
+      font-size: 26px;
       font-weight: 600;
       color: var(--text-main);
     }
@@ -177,63 +191,106 @@
     .code-res {
       font-size: 12px;
       color: var(--text-muted);
-      margin-bottom: 14px;
+      margin-bottom: 18px;
     }
 
     .info-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
       background: rgba(0,0,0,0.02);
-      padding: 12px;
-      border-radius: 10px;
+      padding: 16px;
+      border-radius: 12px;
       text-align: center;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
+      border: 1px solid var(--border-color);
     }
 
     .info-num {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 20px;
+      font-size: 28px;
       font-weight: 600;
     }
 
-    .action-row {
+    .info-lbl {
+      font-size: 9px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.5px;
+      margin-top: 2px;
+    }
+
+    /* CONTADOR CON BOTONES CIRCULARES (+ Y -) */
+    .counter-section {
+      margin: 20px 0;
+    }
+
+    .counter-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .counter-controls {
       display: flex;
-      gap: 10px;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
     }
 
-    .input-cant {
-      width: 60px;
-      height: 42px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 600;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      outline: none;
-    }
-
-    .btn-entry {
-      flex: 1;
-      height: 42px;
-      background: var(--accent-color);
+    .btn-circle {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: var(--text-main);
       color: #ffffff;
       border: none;
-      border-radius: 8px;
-      font-size: 11px;
+      font-size: 24px;
+      font-weight: 400;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.1s ease, opacity 0.2s ease;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+
+    .btn-circle:active { transform: scale(0.92); }
+    .btn-circle:disabled { opacity: 0.2; cursor: not-allowed; }
+
+    .counter-value {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 42px;
+      font-weight: 600;
+      color: var(--text-main);
+      min-width: 40px;
+    }
+
+    .btn-entry-main {
+      width: 100%;
+      height: 50px;
+      background: var(--text-main);
+      color: #ffffff;
+      border: none;
+      border-radius: 12px;
+      font-size: 12px;
       font-weight: 600;
       letter-spacing: 1px;
       text-transform: uppercase;
       cursor: pointer;
+      margin-top: 10px;
+      box-shadow: var(--shadow-subtle);
+      transition: background-color 0.2s ease;
     }
 
     .btn-close-card {
       width: 100%;
-      height: 36px;
+      height: 38px;
       background: transparent;
       border: 1px solid var(--border-color);
       color: var(--text-muted);
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 11px;
       margin-top: 10px;
       cursor: pointer;
@@ -283,10 +340,7 @@
       align-items: center;
       box-shadow: var(--shadow-subtle);
       cursor: pointer;
-      transition: background 0.2s ease;
     }
-
-    .guest-item:active { background: #faf9f7; }
 
     .item-name {
       font-weight: 600;
@@ -316,7 +370,7 @@
       padding: 10px;
       border-radius: 8px;
       font-size: 12px;
-      margin-bottom: 12px;
+      margin-bottom: 14px;
       text-align: center;
       display: none;
     }
@@ -329,36 +383,36 @@
 <div class="container">
   
   <header class="header">
-    <span class="brand-tag">RECEPCIÓN & CHECK-IN</span>
+    <span class="brand-tag">CONTROL DE ACCESO</span>
     <h1 class="event-title" id="tituloEvento">Control de Acceso</h1>
   </header>
 
-  <!-- METRICAS EN TIEMPO REAL -->
+  <!-- MÉTRICAS EN TIEMPO REAL -->
   <div class="stats-grid">
     <div class="stat-card">
       <div class="stat-num" id="stAutorizadas">0</div>
-      <div class="stat-lbl">Pases</div>
+      <div class="stat-lbl">PERSONAS AUTORIZADAS</div>
     </div>
     <div class="stat-card">
       <div class="stat-num" id="stConfirmadas">0</div>
-      <div class="stat-lbl">Confirm.</div>
+      <div class="stat-lbl">CONFIRMADAS</div>
     </div>
     <div class="stat-card">
       <div class="stat-num" id="stIngresaron">0</div>
-      <div class="stat-lbl">Dentro</div>
+      <div class="stat-lbl">YA INGRESARON</div>
     </div>
     <div class="stat-card">
       <div class="stat-num" id="stPorcentaje">0%</div>
-      <div class="stat-lbl">Avance</div>
+      <div class="stat-lbl">AVANCE</div>
     </div>
   </div>
 
   <!-- BOTÓN PARA ABRIR CÁMARA -->
   <button class="btn-scan-main" id="btnToggleCam" onclick="toggleCamara()">
-    <span>📷</span> Abrir Escáner QR
+    <span>📷</span> ESCANEAR PASE
   </button>
 
-  <!-- CÁMARA DE ESCÁNER -->
+  <!-- CÁMARA ESCÁNER -->
   <div class="scanner-box" id="scannerBox">
     <div class="controls-bar">
       <button class="btn-ctrl" onclick="cambiarCamara()">🔄 Cambiar Cámara</button>
@@ -367,8 +421,9 @@
     <div id="reader"></div>
   </div>
 
-  <!-- DETALLE DEL PASE SELECCIONADO / ESCANEADO -->
+  <!-- TARJETA CON CONTADOR + / - DE PERSONAS -->
   <div class="result-card" id="resultCard">
+    <div class="badge-estado" id="resEstado">🟢 PASE VÁLIDO</div>
     <div class="guest-name-res" id="resNombre">-</div>
     <div class="code-res">Código: <span id="resCodigo">-</span></div>
 
@@ -377,21 +432,25 @@
     <div class="info-grid">
       <div>
         <div class="info-num" id="resAutorizadas">0</div>
-        <div style="font-size:9px; color:var(--text-muted);">Pases</div>
+        <div class="info-lbl">AUTORIZADAS</div>
       </div>
       <div>
         <div class="info-num" id="resIngresaron">0</div>
-        <div style="font-size:9px; color:var(--text-muted);">Dentro</div>
-      </div>
-      <div>
-        <div class="info-num" id="resRestantes" style="color: #2e6027;">0</div>
-        <div style="font-size:9px; color:var(--text-muted);">Restantes</div>
+        <div class="info-lbl">YA INGRESARON</div>
       </div>
     </div>
 
-    <div class="action-row" id="secAccion">
-      <input type="number" id="cantIngreso" class="input-cant" value="1" min="1">
-      <button class="btn-entry" onclick="marcarEntrada()">Registrar Entrada</button>
+    <!-- CONTADOR CON BOTONES DE MÁS Y MENOS -->
+    <div id="secContador" class="counter-section">
+      <div class="counter-title">¿Cuántas personas están entrando?</div>
+      <div class="counter-controls">
+        <button class="btn-circle" id="btnMenos" onclick="modificarCantidad(-1)">−</button>
+        <div class="counter-value" id="valCantidad">1</div>
+        <button class="btn-circle" id="btnMas" onclick="modificarCantidad(1)">+</button>
+      </div>
+      <button class="btn-entry-main" id="btnRegistrar" onclick="marcarEntrada()">
+        ✅ REGISTRAR 1 PERSONA
+      </button>
     </div>
 
     <button class="btn-close-card" onclick="cerrarDetallePase()">Cerrar / Escanear Otro</button>
@@ -427,6 +486,7 @@
 
   let datosGlobales = { resumen: {}, invitados: [] };
   let paseSeleccionado = null;
+  let cantidadIngreso = 1;
 
   function aplicarColores(color, colorFondo, colorBoton) {
     const root = document.documentElement;
@@ -510,30 +570,61 @@
     if (!pase) return;
 
     paseSeleccionado = pase;
+    cantidadIngreso = pase.restantes > 0 ? 1 : 0;
+
     document.getElementById('resultCard').style.display = 'block';
     document.getElementById('resNombre').textContent = pase.invitado;
     document.getElementById('resCodigo').textContent = pase.codigo;
     document.getElementById('resAutorizadas').textContent = pase.autorizadas;
     document.getElementById('resIngresaron').textContent = pase.ingresaron;
-    document.getElementById('resRestantes').textContent = pase.restantes;
 
-    const cant = document.getElementById('cantIngreso');
     const msg = document.getElementById('statusMsg');
-
-    cant.value = pase.restantes > 0 ? 1 : 0;
-    cant.max = pase.restantes;
+    const badge = document.getElementById('resEstado');
 
     if (pase.restantes <= 0) {
-      document.getElementById('secAccion').style.display = 'none';
+      badge.textContent = '🔴 PASE AGOTADO';
+      badge.style.background = '#fde8e8';
+      badge.style.color = '#9b1c1c';
+
+      document.getElementById('secContador').style.display = 'none';
       msg.className = 'status-msg error';
-      msg.textContent = '⛔ PASE COMPLETO / SIN LUGARES RESTANTES';
+      msg.textContent = '⛔ ESTE PASE YA NO TIENE LUGARES DISPONIBLES';
       msg.style.display = 'block';
     } else {
-      document.getElementById('secAccion').style.display = 'flex';
+      badge.textContent = '🟢 PASE VÁLIDO';
+      badge.style.background = '#eef7ed';
+      badge.style.color = '#2e6027';
+
+      document.getElementById('secContador').style.display = 'block';
       msg.style.display = 'none';
+      actualizarContadorUI();
     }
 
     window.scrollTo({ top: document.getElementById('resultCard').offsetTop - 20, behavior: 'smooth' });
+  }
+
+  function modificarCantidad(delta) {
+    if (!paseSeleccionado) return;
+    const nuevaCant = cantidadIngreso + delta;
+
+    if (nuevaCant >= 1 && nuevaCant <= paseSeleccionado.restantes) {
+      cantidadIngreso = nuevaCant;
+      actualizarContadorUI();
+    }
+  }
+
+  function actualizarContadorUI() {
+    document.getElementById('valCantidad').textContent = cantidadIngreso;
+
+    const btnMenos = document.getElementById('btnMenos');
+    const btnMas = document.getElementById('btnMas');
+    const btnReg = document.getElementById('btnRegistrar');
+
+    btnMenos.disabled = (cantidadIngreso <= 1);
+    btnMas.disabled = (cantidadIngreso >= paseSeleccionado.restantes);
+
+    const txtPersona = cantidadIngreso === 1 ? 'PERSONA' : 'PERSONAS';
+    btnReg.textContent = `✅ REGISTRAR ${cantidadIngreso} ${txtPersona}`;
   }
 
   function cerrarDetallePase() {
@@ -549,10 +640,10 @@
     if (camaraActiva) {
       detenerCamara();
       box.style.display = 'none';
-      btn.innerHTML = '<span>📷</span> Abrir Escáner QR';
+      btn.innerHTML = '<span>📷</span> ESCANEAR PASE';
     } else {
       box.style.display = 'block';
-      btn.innerHTML = '<span>❌</span> Cerrar Cámara';
+      btn.innerHTML = '<span>❌</span> CERRAR CÁMARA';
       iniciarCamara();
     }
   }
@@ -571,18 +662,12 @@
       if (caps && caps.torch) {
         document.getElementById('btnFlash').style.display = 'inline-block';
       }
-    }).catch(err => {
-      alert("No se pudo iniciar la cámara.");
-    });
+    }).catch(() => alert("No se pudo iniciar la cámara."));
   }
 
   function detenerCamara() {
     if (html5QrCode && camaraActiva) {
-      html5QrCode.stop().then(() => {
-        camaraActiva = false;
-      }).catch(() => {
-        camaraActiva = false;
-      });
+      html5QrCode.stop().then(() => { camaraActiva = false; }).catch(() => { camaraActiva = false; });
     }
   }
 
@@ -609,7 +694,6 @@
 
   function marcarEntrada() {
     if (!paseSeleccionado) return;
-    const cant = parseInt(document.getElementById('cantIngreso').value) || 1;
 
     fetch(URL_APPS_SCRIPT, {
       method: 'POST',
@@ -618,7 +702,7 @@
         accion: 'registrarEntrada',
         id_evento: ID_EVENTO,
         codigo: paseSeleccionado.codigo,
-        cantidad: cant
+        cantidad: cantidadIngreso
       })
     })
     .then(res => res.json())
@@ -629,7 +713,7 @@
         msg.textContent = '✅ Entrada registrada con éxito.';
         msg.style.display = 'block';
 
-        cargarPanel(); // Recargar métricas y lista
+        cargarPanel(); // Actualizar datos globales
         setTimeout(() => seleccionarPase(paseSeleccionado.codigo), 500);
       } else {
         msg.className = 'status-msg error';
