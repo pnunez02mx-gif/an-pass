@@ -306,14 +306,7 @@
       const idEventoParam = urlParams.get('evento') || "EV001";
 
       if (codigoParam) {
-        fetch(APPS_SCRIPT_URL, {
-          method: "POST",
-          headers: { "Content-Type": "text/plain;charset=utf-8" },
-          body: JSON.stringify({
-            accion: "obtenerDatosPanel",
-            id_evento: idEventoParam
-          })
-        })
+        fetch(`${APPS_SCRIPT_URL}?accion=obtenerDatosPanel&id_evento=${idEventoParam}`)
         .then(res => res.json())
         .then(respuesta => {
           if (respuesta.ok && respuesta.invitados) {
@@ -336,7 +329,7 @@
                 });
               }
 
-              // VERIFICACIÓN: Si ya está confirmado, se muestra directamente el QR
+              // REVISIÓN: Si ya fue confirmado previamente en la hoja
               if (datosInvitadoGlobal.confirmado.includes("CONFIRM")) {
                 mostrarPaseConfirmado(datosInvitadoGlobal.autorizadas);
               } else {
@@ -403,16 +396,11 @@
       });
 
       const totalConfirmados = asistentesConfirmados.length > 0 ? asistentesConfirmados.length : datosInvitadoGlobal.autorizadas;
+      const nombresString = encodeURIComponent(asistentesConfirmados.join(","));
 
-      fetch(APPS_SCRIPT_URL, {
-        method: "POST",
-        headers: { "Content-Type": "text/plain;charset=utf-8" },
-        body: JSON.stringify({
-          accion: "confirmarAsistencia",
-          id_evento: datosInvitadoGlobal.idEvento,
-          codigo: datosInvitadoGlobal.codigo,
-          nombres: asistentesConfirmados
-        })
+      // Envío por GET a Apps Script para evitar bloqueos CORS
+      fetch(`${APPS_SCRIPT_URL}?accion=confirmarAsistencia&id_evento=${datosInvitadoGlobal.idEvento}&codigo=${datosInvitadoGlobal.codigo}&nombres=${nombresString}`, {
+        mode: "no-cors"
       }).finally(() => {
         mostrarPaseConfirmado(totalConfirmados);
       });
